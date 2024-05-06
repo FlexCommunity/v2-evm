@@ -10,7 +10,7 @@ async function main(chainId: number) {
 
   const tokenAddress = config.tokens.usdc;
   const amount = ethers.utils.parseUnits("1000000", 6);
-  const mintTo = "0x6629eC35c8Aa279BA45Dbfb575c728d3812aE31a";
+  const mintTo = "0xf0d00E8435E71df33bdA19951B433B509A315aee";
 
   console.log("[MockErc20] mint...");
   const token = MockErc20__factory.connect(tokenAddress, signer);

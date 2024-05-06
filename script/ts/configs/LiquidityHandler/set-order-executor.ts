@@ -4,7 +4,7 @@ import { getConfig } from "../../utils/config";
 
 const config = getConfig();
 
-const orderExecutor = "0x6629eC35c8Aa279BA45Dbfb575c728d3812aE31a";
+const orderExecutor = "0xf0d00e8435e71df33bda19951b433b509a315aee";
 
 async function main() {
   const deployer = (await ethers.getSigners())[0];

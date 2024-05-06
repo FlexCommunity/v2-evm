@@ -36,7 +36,10 @@ async function main(chainId: number) {
     priceUpdateData,
     publishTimeDiffUpdateData,
     minPublishedTime,
-    hashedVaas
+    hashedVaas,
+    {
+      gasLimit: 10_000_000,
+    }
   );
   console.log(`[LiquidityHandler] Tx: ${tx.hash}`);
   await tx.wait(1);

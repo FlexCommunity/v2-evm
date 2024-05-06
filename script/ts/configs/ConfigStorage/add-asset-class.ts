@@ -6,9 +6,10 @@ import { getConfig } from "../../utils/config";
 
 const config = getConfig();
 
-const assetClassName = "COMMODITY";
+const assetClassName = "CRYPTO";
 const assetConfig = {
-  baseBorrowingRate: ethers.utils.parseEther("0.000000000002536783"), // 0.008% per hour
+  // baseBorrowingRate: ethers.utils.parseEther("0.000000000002536783"), // 0.008% per hour
+  baseBorrowingRate: 27777777777, // 0.01% per hour
 };
 
 async function main() {

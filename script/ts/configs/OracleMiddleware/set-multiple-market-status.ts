@@ -23,7 +23,10 @@ async function main() {
   await (
     await oracle.setMultipleMarketStatus(
       inputs.map((each) => each.assetId),
-      inputs.map((each) => each.status)
+      inputs.map((each) => each.status),
+      {
+        gasLimit: 10_000_000,
+      }
     )
   ).wait();
   console.log("> OracleMiddleware setMultipleMarketStatus success!");

@@ -8,7 +8,7 @@ async function main(chainId: number) {
   const config = loadConfig(chainId);
   const ownerWrapper = new OwnerWrapper(chainId, signers.deployer(chainId));
 
-  const inputs = [{ updater: "0x6629eC35c8Aa279BA45Dbfb575c728d3812aE31a", isUpdater: true }];
+  const inputs = [{ updater: "0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0", isUpdater: true }];
 
   const deployer = signers.deployer(chainId);
   const orderbookOracle = OrderbookOracle__factory.connect(config.oracles.orderbook, deployer);

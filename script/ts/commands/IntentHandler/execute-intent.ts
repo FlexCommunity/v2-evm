@@ -15,7 +15,7 @@ async function main(chainId: number) {
   const intentBuilder = IntentBuilder__factory.connect(config.helpers.intentBuilder, signer);
   const intentHandler = IntentHandler__factory.connect(config.handlers.intent, signer);
 
-  const account = "0x6629eC35c8Aa279BA45Dbfb575c728d3812aE31a";
+  const account = "0xf0d00E8435E71df33bdA19951B433B509A315aee";
   const subAccountId = 0;
   const marketIndex = 0;
   const sizeDelta = ethers.utils.parseUnits("900", 30);
@@ -43,7 +43,7 @@ async function main(chainId: number) {
   const compressedTradeOrder = await intentBuilder.buildTradeOrder(tradeOrder);
   const digest = await intentHandler.getDigest(tradeOrder);
   const privateKey = process.env.MAINNET_PRIVATE_KEY!;
-  const rawSignature = new ethers.utils.SigningKey("0x" + privateKey).signDigest(digest);
+  const rawSignature = new ethers.utils.SigningKey(privateKey).signDigest(digest);
   const signature = ethers.utils.solidityPack(
     ["bytes32", "bytes32", "uint8"],
     [rawSignature.r, rawSignature.s, rawSignature.v]

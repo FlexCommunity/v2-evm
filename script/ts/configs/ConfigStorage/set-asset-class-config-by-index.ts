@@ -37,16 +37,17 @@ async function main(chainId: number) {
   const config = loadConfig(chainId);
   const deployer = signers.deployer(chainId);
   const configStorage = ConfigStorage__factory.connect(config.storages.config, deployer);
-  const safeWrapper = new SafeWrapper(chainId, config.safe, deployer);
+  // const safeWrapper = new SafeWrapper(chainId, config.safe, deployer);
 
   for (const input of INPUTS) {
     console.log(`[Configs/ConfigStorage] Set Asset Class Config: ${input.assetClass}`);
     console.log(`[Configs/ConfigStorage] Asset Config: ${JSON.stringify(input.assetConfig)}`);
-    const tx = await safeWrapper.proposeTransaction(
-      configStorage.address,
-      0,
-      configStorage.interface.encodeFunctionData("setAssetClassConfigByIndex", [input.assetClass, input.assetConfig])
-    );
+    // const tx = await safeWrapper.proposeTransaction(
+    //   configStorage.address,
+    //   0,
+    //   configStorage.interface.encodeFunctionData("setAssetClassConfigByIndex", [input.assetClass, input.assetConfig])
+    // );
+    const tx = await configStorage.setAssetClassConfigByIndex(input.assetClass, input.assetConfig)
     console.log(`[Configs/ConfigStorage] Proposed Hash: ${tx}`);
   }
   console.log("[Configs/ConfigStorage] Done");

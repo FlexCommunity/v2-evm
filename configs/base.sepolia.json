@@ -4,54 +4,55 @@
   "timelock": "",
   "safe": "",
   "storages": {
-    "config": "",
-    "perp": "",
-    "vault": ""
+    "config": "0x4D4f976b16cb16bad32Fa5dcF74Db1c2261d6993",
+    "perp": "0x2cEDAD0049b1aab530e38f7C2704620e75735df4",
+    "vault": "0x3B333c7BD112D4fb977c796d7a9452e752c55983"
   },
   "handlers": {
-    "bot": "",
-    "crossMargin": "",
+    "bot": "0x405Ecc80cca526d87Ad0Fac8321dE5e548E7F5f4",
+    "crossMargin": "0xb78564BF30197De115d2A8489EC75018624d997d",
     "limitTrade": "",
-    "liquidity": "",
+    "liquidity": "0x77F8BEb1E33C2b24B3fba9B02301439f77aAc826",
     "rebalanceHLP": "",
-    "ext01": "",
+    "ext01": "0x726cEdaEC66A703bC090BB4FaE37c865507B075c",
     "rebalanceHLPv2": "",
-    "intent": ""
+    "intent": "0xF1AD210F078491d42D5545B0Db37f6D58B7eF015"
   },
   "helpers": {
-    "trade": "",
+    "trade": "0xF5C7E6f783801FbFbc12A5B2FD70644aaaa48683",
     "limitTrade": "",
-    "tradeOrder": ""
+    "tradeOrder": "0xb29650ADa5fd0A0f5A22A1c86B100eB7d96302DB",
+    "intentBuilder": "0x606a3aC95101eAF265FAb2Afa0D6f8C7D0Beb3FA"
   },
   "services": {
-    "crossMargin": "",
-    "liquidity": "",
-    "liquidation": "",
-    "trade": "",
+    "crossMargin": "0x94Ec5bf82017F069123aEd10A15701ffE4406c0C",
+    "liquidity": "0x839172a5e817890fD10023b14b443935Ac435CA7",
+    "liquidation": "0x41F0404BD540816E5B0577e0722CF7388d25BD9b",
+    "trade": "0x1B583E767915d2026F8eeFecE0DF71b23087fFa4",
     "rebalanceHLP": "",
     "rebalanceHLPv2": "",
-    "gas": ""
+    "gas": "0xc300B7Ab461252de70d9BE26bDE2B8346f4bd77A"
   },
   "oracles": {
-    "ecoPyth2": "0xEB27B05178515c7E6E51dEE159c8487A011ac030",
-    "pythAdapter": "",
-    "middleware": "",
-    "ecoPythCalldataBuilder3": "",
-    "unsafeEcoPythCalldataBuilder3": "",
-    "onChainPriceLens": "",
-    "calcPriceLens": "",
+    "ecoPyth2": "0x26D8791bFC0Ae21031005e36604a96D164380213",
+    "pythAdapter": "0x45A76757dBA9a501EE3fC1cD83fe60410897dC58",
+    "middleware": "0xDA0EEd302b86c3a3DaF6661C8A0F27317Bb8CD7C",
+    "ecoPythCalldataBuilder3": "0xe1533a43EAA83B9c5B85Fe832CbC45906371e818",
+    "unsafeEcoPythCalldataBuilder3": "0x2De74f0f8946e0dE97B6C553A3D9225127024c05",
+    "onChainPriceLens": "0xB0FD436eD1B83DcDCfBa3f008EC7Bf714E3f2473",
+    "calcPriceLens": "0x1935ab1816997d9E33d5Fe46caE84A9d7DF0D75e",
     "priceAdapters": {
       "wstEth": "",
       "hlp": "",
-      "dix": ""
+      "dix": "0x082B04Bb828e82cD005da3A1f084Be2c500A14C9"
     },
-    "orderbook": ""
+    "orderbook": "0xf41cF38686c43A27A99828c3f4ec4eDA62d5Ebc1"
   },
   "tokens": {
-    "hlp": "",
-    "weth": "",
-    "usdc": "",
-    "dai": "",
+    "hlp": "0xaE1e6B69A256faF269BEE2262ccb77136EeC91Af",
+    "weth": "0xdA5E521161CfD7c2c3381529511C91710DFc7242",
+    "usdc": "0xeed135DFd92845f718AB1341fA6c8a9d3372bd21",
+    "dai": "0x4b9B83aE09086b38DF23F09B7652aD01aD4d672F",
     "traderLoyaltyCredit": "",
     "wstEth": ""
   },
@@ -63,8 +64,8 @@
     "tradingStaking": "",
     "tlc": ""
   },
-  "calculator": "",
-  "adaptiveFeeCalculator": "",
+  "calculator": "0x19b6ED29d45492786DC540D6C4F848a955015862",
+  "adaptiveFeeCalculator": "0xba403E94A617E6eD1Cbe9a10001c847Ae6852a55",
   "accountAbstraction": {
     "entryPoint": "",
     "factory": ""
@@ -77,8 +78,8 @@
   "rewardDistributor": "",
   "reader": {
     "order": "",
-    "position": "",
-    "liquidation": "",
+    "position": "0x3F6067166C52d0e43e702E8B2860118Fc6D4D75c",
+    "liquidation": "0x49e0588196D567FfE774f1aEbA469a9a816945F8",
     "collateral": ""
   },
   "extension": {

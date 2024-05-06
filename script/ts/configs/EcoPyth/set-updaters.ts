@@ -8,7 +8,15 @@ import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
 async function main(chainId: number) {
   const config = loadConfig(chainId);
 
-  const inputs = [{ updater: "0x6629eC35c8Aa279BA45Dbfb575c728d3812aE31a", isUpdater: true }];
+  // const inputs = [{ updater: "0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0", isUpdater: true }];
+  const inputs = [
+    { updater: config.handlers.bot, isUpdater: true },
+    { updater: config.handlers.crossMargin, isUpdater: true },
+    { updater: config.handlers.liquidity, isUpdater: true },
+    { updater: config.handlers.intent, isUpdater: true },
+    { updater: "0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0", isUpdater: true }, // Testnet onl
+    { updater: "0xf0d00E8435E71df33bdA19951B433B509A315aee", isUpdater: true }, // Testnet onl
+  ];
 
   const deployer = signers.deployer(chainId);
   const ownerWrapper = new OwnerWrapper(chainId, deployer);

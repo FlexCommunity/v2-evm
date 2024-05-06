@@ -4,7 +4,7 @@ import { getConfig } from "../../utils/config";
 
 const config = getConfig();
 
-const updater = "0x6629eC35c8Aa279BA45Dbfb575c728d3812aE31a";
+const updater = "0xf0d00E8435E71df33bdA19951B433B509A315aee";
 
 async function main() {
   const deployer = (await ethers.getSigners())[0];
