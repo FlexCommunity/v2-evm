@@ -11,7 +11,7 @@
   "handlers": {
     "bot": "0x405Ecc80cca526d87Ad0Fac8321dE5e548E7F5f4",
     "crossMargin": "0xb78564BF30197De115d2A8489EC75018624d997d",
-    "limitTrade": "",
+    "limitTrade": "0x94c653eCf5D6E0Dbbaf360E896C1F9dCB8976f1d",
     "liquidity": "0x77F8BEb1E33C2b24B3fba9B02301439f77aAc826",
     "rebalanceHLP": "",
     "ext01": "0x726cEdaEC66A703bC090BB4FaE37c865507B075c",
