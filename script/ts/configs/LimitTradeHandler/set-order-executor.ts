@@ -14,12 +14,12 @@ const config = getConfig();
 const BigNumber = ethers.BigNumber;
 const parseUnits = ethers.utils.parseUnits;
 
-const orderExecutor = "0x7FDD623c90a0097465170EdD352Be27A9f3ad817";
+const orderExecutor = "0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0";
 
 async function main() {
   const deployer = (await ethers.getSigners())[0];
 
-  console.log("> LimitTradeHandler: Set Order Executor...");
+  console.log(`> LimitTradeHandler: Set Order Executor ${orderExecutor}...`);
   const limitTradeHandler = LimitTradeHandler__factory.connect(config.handlers.limitTrade, deployer);
   await (await limitTradeHandler.setOrderExecutor(orderExecutor, true)).wait();
   console.log("> LimitTradeHandler: Set Order Executor success!");
