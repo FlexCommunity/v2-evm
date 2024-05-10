@@ -20,7 +20,7 @@
   },
   "helpers": {
     "trade": "0xF5C7E6f783801FbFbc12A5B2FD70644aaaa48683",
-    "limitTrade": "",
+    "limitTrade": "0xE69d59b3fC13210D0923d829f77C5e9C49AFB1D3",
     "tradeOrder": "0xb29650ADa5fd0A0f5A22A1c86B100eB7d96302DB",
     "intentBuilder": "0x606a3aC95101eAF265FAb2Afa0D6f8C7D0Beb3FA"
   },
