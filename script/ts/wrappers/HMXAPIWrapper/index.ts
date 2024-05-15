@@ -8,7 +8,7 @@ export default class {
 
   constructor(chainId: number) {
     this.chainId = chainId;
-    if (this.chainId === 42161 || this.chainId === 81457) {
+    if (this.chainId === 42161 || this.chainId === 81457 || this.chainId === 8453) {
       this.baseUrl = `${process.env.HMX_API_PROD_ENDPOINT}`;
     } else {
       this.baseUrl = `${process.env.HMX_API_DEV_ENDPOINT}`;
