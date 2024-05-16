@@ -1,5 +1,5 @@
 {
-  "proxyAdmin": "",
+  "proxyAdmin": "0x415DC1E7B6DF1fB63fb1fFabf21AFB1776898E0C",
   "multicall": "",
   "timelock": "",
   "safe": "",
@@ -34,11 +34,11 @@
     "gas": "0xc300B7Ab461252de70d9BE26bDE2B8346f4bd77A"
   },
   "oracles": {
-    "ecoPyth2": "0x26D8791bFC0Ae21031005e36604a96D164380213",
+    "ecoPyth2": "0xd8E77D0efCb72a8C464954f67B072181039CbC6E",
     "pythAdapter": "0x45A76757dBA9a501EE3fC1cD83fe60410897dC58",
     "middleware": "0xDA0EEd302b86c3a3DaF6661C8A0F27317Bb8CD7C",
-    "ecoPythCalldataBuilder3": "0xe1533a43EAA83B9c5B85Fe832CbC45906371e818",
-    "unsafeEcoPythCalldataBuilder3": "0x2De74f0f8946e0dE97B6C553A3D9225127024c05",
+    "ecoPythCalldataBuilder3": "0xaF0498Bea088b672694E731AF069CbD8DD38b1cA",
+    "unsafeEcoPythCalldataBuilder3": "0x615295D3A2461F1586388bb1411bcDd6e520f0bf",
     "onChainPriceLens": "0xB0FD436eD1B83DcDCfBa3f008EC7Bf714E3f2473",
     "calcPriceLens": "0x1935ab1816997d9E33d5Fe46caE84A9d7DF0D75e",
     "priceAdapters": {
@@ -52,6 +52,8 @@
     "hlp": "0xaE1e6B69A256faF269BEE2262ccb77136EeC91Af",
     "weth": "0xdA5E521161CfD7c2c3381529511C91710DFc7242",
     "usdc": "0xeed135DFd92845f718AB1341fA6c8a9d3372bd21",
+    "usdt": "",
+    "wbtc": "0x97Ebb91EE72A99312dE16dD4De2C8eaeBFd14F57",
     "dai": "0x4b9B83aE09086b38DF23F09B7652aD01aD4d672F",
     "traderLoyaltyCredit": "",
     "wstEth": ""

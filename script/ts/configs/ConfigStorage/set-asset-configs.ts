@@ -22,20 +22,20 @@ async function main(chainId: number) {
       },
     },
     {
-      assetId: ethers.utils.formatBytes32String("DAI"),
-      config: {
-        assetId: ethers.utils.formatBytes32String("DAI"),
-        tokenAddress: config.tokens.dai,
-        decimals: 18,
-        isStableCoin: true,
-      },
-    },
-    {
       assetId: ethers.utils.formatBytes32String("ETH"),
       config: {
         assetId: ethers.utils.formatBytes32String("ETH"),
         tokenAddress: config.tokens.weth,
         decimals: 18,
+        isStableCoin: false,
+      },
+    },
+    {
+      assetId: ethers.utils.formatBytes32String("BTC"),
+      config: {
+        assetId: ethers.utils.formatBytes32String("BTC"),
+        tokenAddress: config.tokens.wbtc,
+        decimals: 8,
         isStableCoin: false,
       },
     },

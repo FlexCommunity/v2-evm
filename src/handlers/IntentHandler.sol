@@ -263,6 +263,14 @@ contract IntentHandler is OwnableUpgradeable, ReentrancyGuardUpgradeable, EIP712
     tradeOrderHelper = TradeOrderHelper(_newTradeOrderHelper);
   }
 
+  function setPyth(address _pyth) external nonReentrant onlyOwner {
+    if (_pyth == address(0)) revert IntentHandler_InvalidAddress();
+    // Sanity check
+    IEcoPyth(_pyth).getAssetIds();
+
+    pyth = IEcoPyth(_pyth);
+  }
+
   /// @custom:oz-upgrades-unsafe-allow constructor
   constructor() {
     _disableInitializers();
