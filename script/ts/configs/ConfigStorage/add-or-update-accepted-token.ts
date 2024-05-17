@@ -22,15 +22,6 @@ async function main(chainId: number) {
       },
     },
     {
-      tokenAddress: config.tokens.dai,
-      config: {
-        targetWeight: ethers.utils.parseEther("0.25"), // 25%%
-        bufferLiquidity: 0,
-        maxWeightDiff: ethers.utils.parseEther("1000"), // 100000 % (Don't check max weight diff at launch)
-        accepted: true,
-      },
-    },
-    {
       tokenAddress: config.tokens.weth,
       config: {
         targetWeight: ethers.utils.parseEther("0.50"), // 50%
