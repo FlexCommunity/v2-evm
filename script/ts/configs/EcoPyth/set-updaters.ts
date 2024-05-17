@@ -14,6 +14,7 @@ async function main(chainId: number) {
     { updater: config.handlers.crossMargin, isUpdater: true },
     { updater: config.handlers.liquidity, isUpdater: true },
     { updater: config.handlers.intent, isUpdater: true },
+    { updater: config.handlers.limitTrade, isUpdater: true },
     { updater: "0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0", isUpdater: true }, // Testnet onl
     { updater: "0xf0d00E8435E71df33bdA19951B433B509A315aee", isUpdater: true }, // Testnet onl
   ];
