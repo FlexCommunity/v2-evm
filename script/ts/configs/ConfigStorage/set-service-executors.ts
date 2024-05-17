@@ -48,6 +48,16 @@ async function main(chainId: number) {
       executorAddress: config.helpers.tradeOrder,
       isServiceExecutor: true,
     },
+    {
+      contractAddress: config.services.trade,
+      executorAddress: config.helpers.tradeOrder,
+      isServiceExecutor: true,
+    },
+    {
+      contractAddress: config.services.trade,
+      executorAddress: config.handlers.limitTrade,
+      isServiceExecutor: true,
+    },
   ];
 
   const deployer = signers.deployer(chainId);
