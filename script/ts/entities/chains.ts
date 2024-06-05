@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 dotenv.config();
 
 export type ChainEntity = {
+  id: number;
   name: string;
   rpc: string;
   jsonRpcProvider: ethers.providers.JsonRpcProvider;
@@ -14,8 +15,9 @@ export type ChainEntity = {
 // if (!process.env.ARBITRUM_MAINNET_RPC) throw new Error("Missing ARBITRUM_MAINNET_RPC env var");
 // if (!process.env.ARBI_STAT_SUBGRAPH_URL) throw new Error("Missing ARBI_STAT_SUBGRAPH_URL env var");
 
-export default {
+const CHAIN_BY_ID  = {
   8453: {
+    id: 8453,
     name: "base",
     rpc: process.env.BASE_MAINNET_RPC,
     jsonRpcProvider: new ethers.providers.JsonRpcProvider(process.env.BASE_MAINNET_RPC),
@@ -23,6 +25,7 @@ export default {
     statSubgraphUrl: process.env.ARBI_STAT_SUBGRAPH_URL,
   },
   84532: {
+    id: 84532,
     name: "base_sepolia",
     rpc: process.env.BASE_SEPOLIA_RPC,
     jsonRpcProvider: new ethers.providers.JsonRpcProvider(process.env.BASE_SEPOLIA_RPC),
@@ -30,3 +33,11 @@ export default {
     statSubgraphUrl: "",
   },
 } as { [chainId: number]: ChainEntity };
+
+export default CHAIN_BY_ID;
+
+export function findChainByName(name: string): ChainEntity {
+  const chain = Object.values(CHAIN_BY_ID).find((chain) => chain.name === name);
+  if (!chain) throw new Error(`Chain not found: ${name}`);
+  return chain;
+}
