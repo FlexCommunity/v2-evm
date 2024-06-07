@@ -1,6 +1,7 @@
-import { ethers, tenderly, upgrades } from "hardhat";
+import { ethers, network, run, tenderly, upgrades } from "hardhat";
 import { getConfig } from "../../utils/config";
 import ProxyAdminWrapper from "../../wrappers/ProxyAdminWrapper";
+import { getImplementationAddress } from "@openzeppelin/upgrades-core";
 
 async function main() {
   const config = getConfig();
@@ -24,6 +25,13 @@ async function main() {
     address: newImplementation.toString(),
     name: "ConfigStorage",
   });
+
+  await run("verify:verify", {
+    address: await getImplementationAddress(network.provider, config.storages.config),
+    constructorArguments: [],
+  });
+
+
 }
 
 main().catch((error) => {

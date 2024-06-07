@@ -46,6 +46,7 @@ contract ConfigStorage is IConfigStorage, OwnableUpgradeable {
   event LogAddMarketConfig(uint256 index, MarketConfig newConfig);
   event LogRemoveUnderlying(address token);
   event LogDelistMarket(uint256 marketIndex);
+  event LogDeleteMarket(uint256 marketIndex);
   event LogAddOrUpdateHLPTokenConfigs(address _token, HLPTokenConfig _config, HLPTokenConfig _newConfig);
   event LogSetTradeServiceHooks(address[] oldHooks, address[] newHooks);
   event LogSetSwitchCollateralRouter(address prevRouter, address newRouter);
@@ -594,6 +595,11 @@ contract ConfigStorage is IConfigStorage, OwnableUpgradeable {
   function delistMarket(uint256 _marketIndex) external onlyOwner {
     emit LogDelistMarket(_marketIndex);
     delete marketConfigs[_marketIndex].active;
+  }
+
+  function deleteLastMarket() external onlyOwner {
+    emit LogDeleteMarket(marketConfigs.length - 1);
+    marketConfigs.pop();
   }
 
   /// @notice Remove underlying token.
