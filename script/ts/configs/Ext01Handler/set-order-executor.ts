@@ -5,6 +5,7 @@ import { Command } from "commander";
 import signers from "../../entities/signers";
 import { compareAddress } from "../../utils/address";
 import { ethers } from "ethers";
+import { findChainByName } from "../../entities/chains";
 
 // OrderType 1 = Create switch collateral order
 const SWITCH_COLLATERAL_ORDER_TYPE = 1;
@@ -15,7 +16,7 @@ async function main(chainId: number) {
   const safeWrapper = new SafeWrapper(chainId, config.safe, deployer);
   const ext01Handler = Ext01Handler__factory.connect(config.handlers.ext01, deployer);
 
-  const orderExecutor = "0xF1235511e36f2F4D578555218c41fe1B1B5dcc1E";
+  const orderExecutor = "0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0";
   const isAllow = true;
 
   console.log("[config/Ext01Handler] Ext01Handler setOrderExecutor...");
@@ -36,11 +37,12 @@ async function main(chainId: number) {
 
 const program = new Command();
 
-program.requiredOption("--chain-id <number>", "chain id", parseInt);
+program.requiredOption("--chain <chain>", "chain alias");
 
 const opts = program.parse(process.argv).opts();
 
-main(opts.chainId).catch((error) => {
+const chain = findChainByName(opts.chain);
+main(chain.id!).catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
