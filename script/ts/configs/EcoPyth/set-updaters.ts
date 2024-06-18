@@ -4,17 +4,19 @@ import signers from "../../entities/signers";
 import { Command } from "commander";
 import { compareAddress } from "../../utils/address";
 import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
+import { findChainByName } from "../../entities/chains";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
 
   // const inputs = [{ updater: "0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0", isUpdater: true }];
   const inputs = [
-    { updater: config.handlers.bot, isUpdater: true },
-    { updater: config.handlers.crossMargin, isUpdater: true },
-    { updater: config.handlers.liquidity, isUpdater: true },
-    { updater: config.handlers.intent, isUpdater: true },
-    { updater: config.handlers.limitTrade, isUpdater: true },
+    { updater: config.handlers.bot!, isUpdater: true },
+    { updater: config.handlers.crossMargin!, isUpdater: true },
+    { updater: config.handlers.liquidity!, isUpdater: true },
+    { updater: config.handlers.intent!, isUpdater: true },
+    { updater: config.handlers.limitTrade!, isUpdater: true },
+    { updater: config.handlers.ext01!, isUpdater: true },
     { updater: "0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0", isUpdater: true }, // Testnet onl
     { updater: "0xf0d00E8435E71df33bdA19951B433B509A315aee", isUpdater: true }, // Testnet onl
   ];
@@ -35,11 +37,12 @@ async function main(chainId: number) {
 
 const program = new Command();
 
-program.requiredOption("--chain-id <chainId>", "chain id", parseInt);
+program.requiredOption("--chain <chain>", "chain alias");
 
 const opts = program.parse(process.argv).opts();
 
-main(opts.chainId).catch((error) => {
+const chain = findChainByName(opts.chain);
+main(chain.id!).catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
