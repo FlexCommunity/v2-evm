@@ -86,7 +86,7 @@
     "collateral": ""
   },
   "extension": {
-    "switchCollateralRouter": "",
+    "switchCollateralRouter": "0x3323479cF58B4018917BD57F1E2ce15c143e9DD2",
     "dexter": {
       "curve": ""
     }

@@ -1,4 +1,4 @@
-import { ethers, tenderly } from "hardhat";
+import { ethers, run, tenderly } from "hardhat";
 import { getConfig, writeConfigFile } from "../../utils/config";
 
 const config = getConfig();
@@ -18,6 +18,12 @@ async function main() {
     address: contract.address,
     name: "SwitchCollateralRouter",
   });
+
+  await run("verify:verify", {
+    address: config.extension.switchCollateralRouter,
+    constructorArguments: [],
+  });
+
 }
 
 main().catch((error) => {
