@@ -1,4 +1,4 @@
-import { ethers, tenderly } from "hardhat";
+import { ethers, run, tenderly } from "hardhat";
 import { getConfig, writeConfigFile } from "../../utils/config";
 
 const config = getConfig();
@@ -7,7 +7,7 @@ async function main() {
   const deployer = (await ethers.getSigners())[0];
   const contract = await ethers.deployContract(
     "UniswapDexter",
-    [config.vendors.uniswap.permit2, config.vendors.uniswap.universalRouter],
+    [config.vendors.uniswap.permit2!, config.vendors.uniswap.universalRouter!],
     deployer
   );
 
@@ -22,6 +22,12 @@ async function main() {
     address: contract.address,
     name: "UniswapDexter",
   });
+
+  await run("verify:verify", {
+    address: config.extension.dexter.uniswapV3,
+    constructorArguments: [config.vendors.uniswap.permit2!, config.vendors.uniswap.universalRouter!],
+  });
+
 }
 
 main().catch((error) => {
