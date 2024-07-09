@@ -15,6 +15,8 @@ export type ChainEntity = {
 // if (!process.env.ARBITRUM_MAINNET_RPC) throw new Error("Missing ARBITRUM_MAINNET_RPC env var");
 // if (!process.env.ARBI_STAT_SUBGRAPH_URL) throw new Error("Missing ARBI_STAT_SUBGRAPH_URL env var");
 
+export const BASE_SEPOLIA_CHAIN_ID = 84532;
+
 const CHAIN_BY_ID  = {
   8453: {
     id: 8453,
