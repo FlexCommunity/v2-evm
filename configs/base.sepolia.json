@@ -56,7 +56,8 @@
     "usdt": "",
     "wbtc": "0x97Ebb91EE72A99312dE16dD4De2C8eaeBFd14F57",
     "dai": "0x4b9B83aE09086b38DF23F09B7652aD01aD4d672F",
-    "traderLoyaltyCredit": "",
+    "traderLoyaltyCredit": "0x94014E3EC0Ab12f0712E5190Dd0482868FE7b177",
+    "flexTradeCredits": "0x94014E3EC0Ab12f0712E5190Dd0482868FE7b177",
     "wstEth": ""
   },
   "vendors": {
