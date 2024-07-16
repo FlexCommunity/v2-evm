@@ -2,7 +2,7 @@ import { loadConfig } from "../../utils/config";
 import signers from "../../entities/signers";
 import { SwitchCollateralRouter__factory } from "../../../../typechain";
 import { findChainByName } from "../../entities/chains";
-import { passChainArg } from "../../utils/parse-chain";
+import { passChainArg } from "../../utils/pass-chain-arg";
 import { getDexterConfig } from "./inspect-dexters-configs";
 import { ethers } from "ethers";
 
