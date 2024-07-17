@@ -28,6 +28,10 @@ const config: HardhatUserConfig = {
       url: process.env.TENDERLY_RPC || "",
       accounts: process.env.MAINNET_PRIVATE_KEY !== undefined ? [process.env.MAINNET_PRIVATE_KEY] : [],
     },
+    arbitrum: {
+      url: process.env.ARBITRUM_MAINNET_RPC || "",
+      accounts: [process.env.MAINNET_PRIVATE_KEY || ""],
+    },
     base: {
       url: process.env.BASE_MAINNET_RPC || "",
       chainId: 8453,
