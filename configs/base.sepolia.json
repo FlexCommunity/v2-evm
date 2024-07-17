@@ -80,9 +80,9 @@
     "factory": ""
   },
   "staking": {
-    "trading": "",
-    "tlc": "",
-    "hlp": ""
+    "trading": "0x3eaFaEEB0a612a2a1C4799A6Bd1cc73CB5d3eA93",
+    "tlc": "0xb05aB8A7818BfbD1E51e9cB1F5c4422dfbDE3dE5",
+    "hlp": "0x0e910fDf646f7869821460BD83eC712626bB8ADB"
   },
   "rewardDistributor": "",
   "reader": {
