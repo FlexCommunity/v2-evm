@@ -70,7 +70,7 @@
     "erc20Approve": ""
   },
   "hooks": {
-    "tradingStaking": "",
+    "tradingStaking": "0x06B9cD98D43B2776952248A92a90D51B4253c593",
     "tlc": "0xBb690E572330404f1a2eE7fcC0EA92477982020A"
   },
   "calculator": "0x19b6ED29d45492786DC540D6C4F848a955015862",

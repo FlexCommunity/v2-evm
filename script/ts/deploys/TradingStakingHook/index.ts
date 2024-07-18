@@ -1,20 +1,20 @@
-import { ethers, tenderly, upgrades, network } from "hardhat";
+import { ethers, tenderly, upgrades, network, run } from "hardhat";
 import { getConfig, writeConfigFile } from "../../utils/config";
 import { getImplementationAddress } from "@openzeppelin/upgrades-core";
+import { runMainAsAsync } from "../../utils/main-fn-wrappers";
 
-const BigNumber = ethers.BigNumber;
 const config = getConfig();
-
-const tradingStaking = config.staking.trading;
 
 async function main() {
   const deployer = (await ethers.getSigners())[0];
 
   const Contract = await ethers.getContractFactory("TradingStakingHook", deployer);
 
-  const contract = await upgrades.deployProxy(Contract, [tradingStaking, config.services.trade]);
+  const contract = await upgrades.deployProxy(Contract, [
+    config.staking.trading, config.services.trade
+  ]);
+  console.log(`Deploying TradingStakingHook Contract...`);
   await contract.deployed();
-  console.log(`Deploying TradingStakingHook Contract`);
   console.log(`Deployed at: ${contract.address}`);
 
   config.hooks.tradingStaking = contract.address;
@@ -24,9 +24,12 @@ async function main() {
     address: await getImplementationAddress(network.provider, contract.address),
     name: "TradingStakingHook",
   });
+
+  await run("verify:verify", {
+    address: await getImplementationAddress(network.provider, contract.address),
+    constructorArguments: [],
+  });
+
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+runMainAsAsync(main)
