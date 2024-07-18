@@ -71,7 +71,7 @@
   },
   "hooks": {
     "tradingStaking": "",
-    "tlc": ""
+    "tlc": "0xBb690E572330404f1a2eE7fcC0EA92477982020A"
   },
   "calculator": "0x19b6ED29d45492786DC540D6C4F848a955015862",
   "adaptiveFeeCalculator": "0xba403E94A617E6eD1Cbe9a10001c847Ae6852a55",
