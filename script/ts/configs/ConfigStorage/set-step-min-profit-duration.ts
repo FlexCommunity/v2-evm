@@ -1,9 +1,9 @@
 import { ConfigStorage__factory } from "../../../../typechain";
 import { loadConfig } from "../../utils/config";
-import { Command } from "commander";
 import signers from "../../entities/signers";
 import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
 import { ethers } from "ethers";
+import { passChainArg } from "../../utils/main-fn-wrappers";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
@@ -56,13 +56,4 @@ async function main(chainId: number) {
   console.log("[config/ConfigStorage] Done");
 }
 
-const prog = new Command();
-
-prog.requiredOption("--chain-id <chainId>", "chain id", parseInt);
-
-const opts = prog.parse(process.argv).opts();
-
-main(opts.chainId).catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+passChainArg(main)

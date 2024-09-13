@@ -4,14 +4,15 @@ import { Command } from "commander";
 import signers from "../../entities/signers";
 import SafeWrapper from "../../wrappers/SafeWrapper";
 import { compareAddress } from "../../utils/address";
+import { passChainArg, runMainAsAsync } from "../../utils/main-fn-wrappers";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
   const deployer = signers.deployer(chainId);
 
   const inputs = [
-    { marketIndex: 52, minProfitDuration: 60 },
-    { marketIndex: 53, minProfitDuration: 60 },
+    { marketIndex: 0, minProfitDuration: 180 },
+    { marketIndex: 1, minProfitDuration: 180 },
   ];
 
   const safeWrapper = new SafeWrapper(chainId, config.safe, deployer);
@@ -39,19 +40,4 @@ async function main(chainId: number) {
   }
 }
 
-const prog = new Command();
-
-prog.requiredOption("--chain-id <number>", "chain id", parseInt);
-
-prog.parse(process.argv);
-
-const opts = prog.opts();
-
-main(opts.chainId)
-  .then(() => {
-    process.exit(0);
-  })
-  .catch((error) => {
-    console.error(error);
-    process.exitCode = 1;
-  });
+passChainArg(main)
