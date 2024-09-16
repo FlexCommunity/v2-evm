@@ -3,6 +3,7 @@ import { loadConfig } from "../../utils/config";
 import { Command } from "commander";
 import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
 import signers from "../../entities/signers";
+import { passChainArg } from "../../utils/main-fn-wrappers";
 
 const liquidityConfig = {
   depositFeeRateBPS: 0, // 0%
@@ -29,13 +30,4 @@ async function main(chainId: number) {
   );
 }
 
-const program = new Command();
-
-program.requiredOption("--chain-id <chainId>", "chain id", parseInt);
-
-const opts = program.parse(process.argv).opts();
-
-main(opts.chainId).catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+passChainArg(main)
