@@ -8,7 +8,7 @@ async function main() {
   const deployer = (await ethers.getSigners())[0];
   const configStorage = ConfigStorage__factory.connect(config.storages.config, deployer);
 
-  console.log("> ConfigStorage: Set HLP...");
+  console.log(`> ConfigStorage: Set HLP... ${config.tokens.hlp}`);
   await (await configStorage.setHLP(config.tokens.hlp)).wait();
   console.log("> ConfigStorage: Set HLP success!");
 }
