@@ -27,6 +27,7 @@ export class OwnerWrapper {
       console.log(`[wrapper/Owner] Signer is the owner of ${to}`);
       console.log(`[wrapper/Owner] Executing tx right away...`);
       const tx = await this.signer.sendTransaction({ to, data });
+      await tx.wait(1);
       console.log(`[wrapper/Owner] Tx: ${tx.hash}`);
     } else if (owner === timelockAddress) {
       throw new Error("Not implemented when owner is Timelock yet");

@@ -5,6 +5,8 @@ import { Command } from "commander";
 import signers from "../../entities/signers";
 import assetClasses from "../../entities/asset-classes";
 import SafeWrapper from "../../wrappers/SafeWrapper";
+import { passChainArg } from "../../utils/main-fn-wrappers";
+import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
 
 type AddMarketConfig = {
   marketIndex: number;
@@ -32,29 +34,49 @@ async function main(chainId: number) {
 
   const marketConfigs: Array<AddMarketConfig> = [
     {
-      marketIndex: 50,
-      assetId: ethers.utils.formatBytes32String("PYTH"),
-      maxLongPositionSize: ethers.utils.parseUnits("1000000", 30),
-      maxShortPositionSize: ethers.utils.parseUnits("1000000", 30),
-      increasePositionFeeRateBPS: 5, // 0.05%
-      decreasePositionFeeRateBPS: 5, // 0.05%
+      marketIndex: 0,
+      assetId: ethers.utils.formatBytes32String("ETH"),
+      maxLongPositionSize: ethers.utils.parseUnits("5000000", 30),
+      maxShortPositionSize: ethers.utils.parseUnits("5000000", 30),
+      increasePositionFeeRateBPS: 4, // 0.04%
+      decreasePositionFeeRateBPS: 4, // 0.04%
       initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
       maintenanceMarginFractionBPS: 50, // MMF = 0.5%
-      maxProfitRateBPS: 400000, // 4000%
+      maxProfitRateBPS: 350000, // 3500%
       assetClass: assetClasses.crypto,
       allowIncreasePosition: true,
       active: true,
       fundingRate: {
-        maxSkewScaleUSD: ethers.utils.parseUnits("50000000", 30), // 50 M
+        maxSkewScaleUSD: ethers.utils.parseUnits("2000000000", 30), // 2000 M
         maxFundingRate: ethers.utils.parseUnits("8", 18), // 900% per day
       },
-      isAdaptiveFeeEnabled: true,
+      isAdaptiveFeeEnabled: false,
+    },
+    {
+      marketIndex: 1,
+      assetId: ethers.utils.formatBytes32String("BTC"),
+      maxLongPositionSize: ethers.utils.parseUnits("5000000", 30),
+      maxShortPositionSize: ethers.utils.parseUnits("5000000", 30),
+      increasePositionFeeRateBPS: 4, // 0.04%
+      decreasePositionFeeRateBPS: 4, // 0.04%
+      initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
+      maintenanceMarginFractionBPS: 50, // MMF = 0.5%
+      maxProfitRateBPS: 350000, // 3500%
+      assetClass: assetClasses.crypto,
+      allowIncreasePosition: true,
+      active: true,
+      fundingRate: {
+        maxSkewScaleUSD: ethers.utils.parseUnits("3000000000", 30), // 3000 M
+        maxFundingRate: ethers.utils.parseUnits("8", 18), // 900% per day
+      },
+      isAdaptiveFeeEnabled: false,
     },
   ];
 
   const configStorage = ConfigStorage__factory.connect(config.storages.config, deployer);
   const tradeHelper = TradeHelper__factory.connect(config.helpers.trade, deployer);
-  const safeWrapper = new SafeWrapper(chainId, config.safe, deployer);
+  // const safeWrapper = new SafeWrapper(chainId, config.safe, deployer);
+  const ownerWrapper = new OwnerWrapper(chainId, deployer);
 
   console.log("[ConfigStorage] Setting market config...");
   for (let i = 0; i < marketConfigs.length; i++) {
@@ -66,19 +88,9 @@ async function main(chainId: number) {
       console.log(`marketIndex ${marketConfigs[i].marketIndex} wrong asset id`);
       throw "bad asset id";
     }
-    await safeWrapper.proposeTransaction(
-      tradeHelper.address,
-      0,
-      tradeHelper.interface.encodeFunctionData("updateBorrowingRate", [marketConfigs[i].assetClass])
-    );
-    await safeWrapper.proposeTransaction(
-      tradeHelper.address,
-      0,
-      tradeHelper.interface.encodeFunctionData("updateFundingRate", [marketConfigs[i].marketIndex])
-    );
-    const tx = await safeWrapper.proposeTransaction(
+
+    const tx = await ownerWrapper.authExec(
       configStorage.address,
-      0,
       configStorage.interface.encodeFunctionData("setMarketConfig", [
         marketConfigs[i].marketIndex,
         marketConfigs[i],
@@ -86,23 +98,19 @@ async function main(chainId: number) {
       ])
     );
     console.log(`[ConfigStorage] Tx: ${tx}`);
+
+    // console.log(`Update Borrowing/Funding fees: ${tx}`);
+    // await ownerWrapper.authExec(
+    //   tradeHelper.address,
+    //   tradeHelper.interface.encodeFunctionData("updateBorrowingRate", [marketConfigs[i].assetClass])
+    // );
+    // await ownerWrapper.authExec(
+    //   tradeHelper.address,
+    //   tradeHelper.interface.encodeFunctionData("updateFundingRate", [marketConfigs[i].marketIndex])
+    // );
+
   }
   console.log("[ConfigStorage] Finished");
 }
 
-const prog = new Command();
-
-prog.requiredOption("--chain-id <number>", "chain id", parseInt);
-
-prog.parse(process.argv);
-
-const opts = prog.opts();
-
-main(opts.chainId)
-  .then(() => {
-    process.exit(0);
-  })
-  .catch((error) => {
-    console.error(error);
-    process.exitCode = 1;
-  });
+passChainArg(main);
