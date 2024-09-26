@@ -19,7 +19,7 @@ export function loadConfig(chainId: number) {
   if (chainId === 8453) {
     return BaseMainnetConfig;
   }
-  if (chainId === 84532) {
+  if (chainId === 84532 || chainId === 184532) {
     return BaseSepoliaConfig;
   }
   throw new Error("not found config");
@@ -60,7 +60,7 @@ export function getConfig() {
   if (network.name === "base") {
     return BaseMainnetConfig;
   }
-  if (network.name === "base_sepolia") {
+  if (network.name === "base_sepolia" || network.name === "tenderly_base_sepolia") {
     return BaseSepoliaConfig;
   }
 
@@ -89,6 +89,7 @@ export function writeConfigFile(config: any) {
       filePath = "./configs/base.mainnet.json";
       break;
     case "base_sepolia":
+    case "tenderly_base_sepolia":
       filePath = "./configs/base.sepolia.json";
       break;
     default:

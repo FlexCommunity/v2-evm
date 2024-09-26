@@ -4,6 +4,7 @@ import { loadConfig } from "../../utils/config";
 import { Command } from "commander";
 import signers from "../../entities/signers";
 import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
+import { passChainArg } from "../../utils/main-fn-wrappers";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
@@ -15,7 +16,7 @@ async function main(chainId: number) {
     {
       tokenAddress: config.tokens.usdc,
       config: {
-        targetWeight: ethers.utils.parseEther("0.25"), // 25%
+        targetWeight: ethers.utils.parseEther("0.55"), // 25%
         bufferLiquidity: 0,
         maxWeightDiff: ethers.utils.parseEther("1000"), // 100000 % (Don't check max weight diff at launch)
         accepted: true,
@@ -24,7 +25,16 @@ async function main(chainId: number) {
     {
       tokenAddress: config.tokens.weth,
       config: {
-        targetWeight: ethers.utils.parseEther("0.50"), // 50%
+        targetWeight: ethers.utils.parseEther("0.20"), // 50%
+        bufferLiquidity: 0,
+        maxWeightDiff: ethers.utils.parseEther("1000"), // 100000 % (Don't check max weight diff at launch)
+        accepted: true,
+      },
+    },
+    {
+      tokenAddress: config.tokens.wbtc,
+      config: {
+        targetWeight: ethers.utils.parseEther("0.25"), // 50%
         bufferLiquidity: 0,
         maxWeightDiff: ethers.utils.parseEther("1000"), // 100000 % (Don't check max weight diff at launch)
         accepted: true,
@@ -42,19 +52,4 @@ async function main(chainId: number) {
   );
 }
 
-const prog = new Command();
-
-prog.requiredOption("--chain-id <number>", "chain id", parseInt);
-
-prog.parse(process.argv);
-
-const opts = prog.opts();
-
-main(opts.chainId)
-  .then(() => {
-    process.exit(0);
-  })
-  .catch((error) => {
-    console.error(error);
-    process.exitCode = 1;
-  });
+passChainArg(main)

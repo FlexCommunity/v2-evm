@@ -34,12 +34,20 @@ const CHAIN_BY_ID  = {
     safeTxServiceUrl: "https://safe-transaction-base-sepolia.safe.global/",
     statSubgraphUrl: "",
   },
+  184532: {
+    id: 184532,
+    name: "tenderly_base_sepolia",
+    rpc: process.env.TENDERLY_RPC,
+    jsonRpcProvider: new ethers.providers.JsonRpcProvider(process.env.TENDERLY_BASE_SEPOLIA_RPC),
+    safeTxServiceUrl: "",
+    statSubgraphUrl: "",
+  },
 } as { [chainId: number]: ChainEntity };
 
 export default CHAIN_BY_ID;
 
 export function findChainByName(name: string): ChainEntity {
   const chain = Object.values(CHAIN_BY_ID).find((chain) => chain.name === name);
-  if (!chain) throw new Error(`Chain not found: ${name}`);
+  if (!chain) throw new Error(`Chain not found for chain: ${name}`);
   return chain;
 }

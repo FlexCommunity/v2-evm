@@ -42,6 +42,11 @@ const config: HardhatUserConfig = {
       chainId: 84532,
       accounts: process.env.MAINNET_PRIVATE_KEY !== undefined ? [process.env.MAINNET_PRIVATE_KEY] : [],
     },
+    tenderly_base_sepolia: {
+      url: process.env.TENDERLY_BASE_SEPOLIA_RPC || "",
+      chainId: 184532,
+      accounts: process.env.MAINNET_PRIVATE_KEY !== undefined ? [process.env.MAINNET_PRIVATE_KEY] : [],
+    },
   },
   solidity: {
     version: "0.8.18",
