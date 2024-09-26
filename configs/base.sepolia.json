@@ -64,6 +64,10 @@
     "uniswap": {
       "permit2": "0x000000000022D473030F116dDEE9F6B43aC78BA3",
       "universalRouter": "0x050E797f3625EC8785265e1d9BDd4799b97528A1"
+    },
+    "aerodrome": {
+      "router": "0x02080Ac9C224246b07D0210900eCCCC8ABDc827C",
+      "factory": "0x5729ffC96302B38062b0d3Bb61a359913f2853e2"
     }
   },
   "strategies": {
@@ -94,7 +98,8 @@
   "extension": {
     "switchCollateralRouter": "0x3323479cF58B4018917BD57F1E2ce15c143e9DD2",
     "dexter": {
-      "uniswapV3": "0xf2Ce3ed5bB7de07c8cC07926A042bA0653C4Ef4f"
+      "uniswapV3": "0xf2Ce3ed5bB7de07c8cC07926A042bA0653C4Ef4f",
+      "aerodrome": "0x4302a6160FAe1F9CaFd6Ce9C86CFC6BeBBA1c3bE"
     }
   }
 }
