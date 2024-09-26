@@ -57,7 +57,12 @@
     "traderLoyaltyCredit": "",
     "wstEth": "0xc1cba3fcea344f92d9239c08c0568f6f2f0ee452"
   },
-  "vendors": {},
+  "vendors": {
+    "aerodrome": {
+      "router": "0xcF77a3Ba9A5CA399B7c97c74d54e5b1Beb874E43",
+      "factory": "0x420DD381b31aEf6683db6B902084cB0FFECe40Da"
+    }    
+  },
   "strategies": {
     "erc20Approve": ""
   },

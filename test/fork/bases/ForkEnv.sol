@@ -186,6 +186,9 @@ abstract contract ForkEnv is Test {
   IStableSwap internal curveWstEthPool = IStableSwap(getAddress(".vendors.curve.wstEthEthPool"));
   /// OneInch
   address internal oneInchRouter = getAddress(".vendors.oneInch.router");
+  /// Aerodrome
+  address internal aerodromeRouter = getAddress(".vendors.aerodrome.router");
+  address internal aerodromePoolFactory = getAddress(".vendors.aerodrome.factory");
 
   ITradeHelper internal tradeHelper = ITradeHelper(getAddress(".helpers.trade"));
 
