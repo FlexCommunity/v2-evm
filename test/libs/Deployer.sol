@@ -714,6 +714,10 @@ library Deployer {
       );
   }
 
+  function deployAerodromeDexter(address _router) internal returns (IDexter) {
+    return IDexter(deployContractWithArguments("AerodromeDexter", abi.encode(_router)));
+  }
+
   function deployOrderReader(
     address _configStorage,
     address _perpStorage,
