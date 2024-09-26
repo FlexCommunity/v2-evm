@@ -2,7 +2,7 @@ import { Command } from "commander";
 import { loadConfig } from "../../utils/config";
 import signers from "../../entities/signers";
 import { AerodromeDexter__factory } from "../../../../typechain";
-import { ethers } from "ethers";
+import { passChainArg } from "../../utils/main-fn-wrappers";
 
 type Route = {
   from: string;
@@ -56,18 +56,4 @@ async function main(chainId: number) {
   console.log("[cmds/AerodromeDexter] Finished");
 }
 
-const prog = new Command();
-prog.requiredOption("--chain-id <chainId>", "chain id", parseInt);
-
-prog.parse(process.argv);
-
-const opts = prog.opts();
-
-main(opts.chainId)
-  .then(() => {
-    process.exit(0);
-  })
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  });
+passChainArg(main)
