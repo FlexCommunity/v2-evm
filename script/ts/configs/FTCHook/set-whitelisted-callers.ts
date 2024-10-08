@@ -1,14 +1,15 @@
-import { TLCHook__factory } from "../../../../typechain";
+import { FTCHook__factory } from "../../../../typechain";
 import { loadConfig, loadMarketConfig } from "../../utils/config";
 import { Command } from "commander";
 import signers from "../../entities/signers";
 import SafeWrapper from "../../wrappers/SafeWrapper";
 import { compareAddress } from "../../utils/address";
+import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
+import { passChainArg } from "../../utils/main-fn-wrappers";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
   const deployer = signers.deployer(chainId);
-  const safeWrapper = new SafeWrapper(chainId, deployer);
 
   const whitelistedCallers = [
     {
@@ -21,43 +22,29 @@ async function main(chainId: number) {
     },
   ];
 
-  const tlcHook = TLCHook__factory.connect(config.hooks.tlc, deployer);
-  const owner = await tlcHook.owner();
-  console.log(`[configs/TLCHook] Set Whitelisted Callers`);
+  const ftcHook = FTCHook__factory.connect(config.hooks.tlc, deployer);
+  const owner = await ftcHook.owner();
+  console.log(`[configs/FTCHook] Set Whitelisted Callers`);
   if (compareAddress(owner, config.safe)) {
+    const safeWrapper = new SafeWrapper(chainId, config.safe, deployer);
     const tx = await safeWrapper.proposeTransaction(
-      tlcHook.address,
+      ftcHook.address,
       0,
-      tlcHook.interface.encodeFunctionData("setWhitelistedCallers", [
+      ftcHook.interface.encodeFunctionData("setWhitelistedCallers", [
         whitelistedCallers.map((each) => each.caller),
         whitelistedCallers.map((each) => each.isWhitelisted),
       ])
     );
-    console.log(`[configs/TLCHook] Proposed tx: ${tx}`);
+    console.log(`[configs/FTCHook] Proposed tx: ${tx}`);
   } else {
-    const tx = await tlcHook.setWhitelistedCallers(
+    const tx = await ftcHook.setWhitelistedCallers(
       whitelistedCallers.map((each) => each.caller),
       whitelistedCallers.map((each) => each.isWhitelisted)
     );
-    console.log(`[configs/TLCHook] Tx: ${tx}`);
+    console.log(`[configs/FTCHook] Tx: ${tx}`);
     await tx.wait();
   }
-  console.log("[configs/TLCHook] Finished");
+  console.log("[configs/FTCHook] Finished");
 }
 
-const prog = new Command();
-
-prog.requiredOption("--chain-id <number>", "chain id", parseInt);
-
-prog.parse(process.argv);
-
-const opts = prog.opts();
-
-main(opts.chainId)
-  .then(() => {
-    process.exit(0);
-  })
-  .catch((error) => {
-    console.error(error);
-    process.exitCode = 1;
-  });
+passChainArg(main)

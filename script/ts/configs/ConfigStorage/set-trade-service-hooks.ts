@@ -3,31 +3,26 @@ import { loadConfig } from "../../utils/config";
 import SafeWrapper from "../../wrappers/SafeWrapper";
 import { Command } from "commander";
 import signers from "../../entities/signers";
+import { passChainArg } from "../../utils/main-fn-wrappers";
+import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
 
 async function main(chainId: number) {
+  console.group('[config/ConfigStorage]')
   const config = loadConfig(chainId);
   const deployer = signers.deployer(chainId);
-  const safeWrapper = new SafeWrapper(chainId, deployer);
+  // const safeWrapper = new SafeWrapper(chainId, deployer);
+  const ownerWrapper = new OwnerWrapper(chainId, deployer);
   const configStorage = ConfigStorage__factory.connect(config.storages.config, deployer);
 
-  console.log("[config/ConfigStorage] ConfigStorage setTradeServiceHooks...");
-  const tx = await safeWrapper.proposeTransaction(
+  console.log(" ConfigStorage setTradeServiceHooks...");
+  await ownerWrapper.authExec(
     configStorage.address,
-    0,
     configStorage.interface.encodeFunctionData("setTradeServiceHooks", [
       [config.hooks.tlc, config.hooks.tradingStaking],
     ])
   );
-  console.log(`[config/ConfigStorage] Proposed ${tx} to setTradeServiceHooks`);
+
+  console.groupEnd()
 }
 
-const program = new Command();
-
-program.requiredOption("--chain-id <number>", "chain id", parseInt);
-
-const opts = program.parse(process.argv).opts();
-
-main(opts.chainId).catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+passChainArg(main)
