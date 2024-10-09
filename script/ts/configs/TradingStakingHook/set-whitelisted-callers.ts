@@ -4,11 +4,11 @@ import { Command } from "commander";
 import signers from "../../entities/signers";
 import SafeWrapper from "../../wrappers/SafeWrapper";
 import { compareAddress } from "../../utils/address";
+import { passChainArg } from "../../utils/main-fn-wrappers";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
   const deployer = signers.deployer(chainId);
-  const safeWrapper = new SafeWrapper(chainId, deployer);
 
   const whitelistedCallers = [
     {
@@ -25,6 +25,7 @@ async function main(chainId: number) {
   const owner = await tradingStakingHook.owner();
   console.log(`[configs/TradingStakingHook] Set Whitelisted Callers`);
   if (compareAddress(owner, config.safe)) {
+    const safeWrapper = new SafeWrapper(chainId, config.safe, deployer);
     const tx = await safeWrapper.proposeTransaction(
       tradingStakingHook.address,
       0,
@@ -45,19 +46,4 @@ async function main(chainId: number) {
   console.log("[configs/TradingStakingHook] Finished");
 }
 
-const prog = new Command();
-
-prog.requiredOption("--chain-id <number>", "chain id", parseInt);
-
-prog.parse(process.argv);
-
-const opts = prog.opts();
-
-main(opts.chainId)
-  .then(() => {
-    process.exit(0);
-  })
-  .catch((error) => {
-    console.error(error);
-    process.exitCode = 1;
-  });
+passChainArg(main)
