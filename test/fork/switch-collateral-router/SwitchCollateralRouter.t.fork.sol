@@ -24,6 +24,8 @@ import { SwitchCollateralRouter } from "@hmx/extensions/switch-collateral/Switch
 import { GlpDexter } from "@hmx/extensions/dexters/GlpDexter.sol";
 import { UniswapDexter } from "@hmx/extensions/dexters/UniswapDexter.sol";
 import { CurveDexter } from "@hmx/extensions/dexters/CurveDexter.sol";
+import { AerodromeDexter } from "@hmx/extensions/dexters/AerodromeDexter.sol";
+import { IRouter } from "@hmx/interfaces/aerodrome/IRouter.sol";
 import { ICrossMarginHandler02 } from "@hmx/handlers/interfaces/ICrossMarginHandler02.sol";
 import { MockAccountAbstraction } from "../../mocks/MockAccountAbstraction.sol";
 import { MockEntryPoint } from "../../mocks/MockEntryPoint.sol";
@@ -40,6 +42,7 @@ contract SwitchCollateralRouter_ForkTest is ForkEnv, Cheats {
   GlpDexter internal glpDexter;
   UniswapDexter internal _uniswapDexter;
   CurveDexter internal curveDexter;
+  AerodromeDexter internal aerodromeDexter;
 
   MockEntryPoint internal entryPoint;
 
@@ -125,6 +128,30 @@ contract SwitchCollateralRouter_ForkTest is ForkEnv, Cheats {
         )
       )
     );
+    // Deploy AerodromeDexter
+    aerodromeDexter = AerodromeDexter(
+      address(
+        Deployer.deployAerodromeDexter(ForkEnv.aerodromeRouter)
+      )
+    );
+    IRouter.Route[] memory route = new IRouter.Route[](2);
+    route[0] = IRouter.Route(
+      address(ForkEnv.usdt),
+      address(ForkEnv.usdc),
+      true,
+      ForkEnv.aerodromePoolFactory
+    );
+    route[1] = IRouter.Route(
+      address(ForkEnv.usdc),
+      address(ForkEnv.dai),
+      true,
+      ForkEnv.aerodromePoolFactory
+    );
+    aerodromeDexter.setRouteOf(
+      address(ForkEnv.usdt),
+      address(ForkEnv.dai),
+      route
+    );
     // Deploy SwitchCollateralRouter
     _switchCollateralRouter = SwitchCollateralRouter(address(Deployer.deploySwitchCollateralRouter()));
     // Deploy Ext01Handler
@@ -163,6 +190,7 @@ contract SwitchCollateralRouter_ForkTest is ForkEnv, Cheats {
     _switchCollateralRouter.setDexterOf(address(ForkEnv.weth), address(ForkEnv.arb), address(_uniswapDexter));
     _switchCollateralRouter.setDexterOf(address(ForkEnv.weth), address(ForkEnv.wstEth), address(curveDexter));
     _switchCollateralRouter.setDexterOf(address(ForkEnv.wstEth), address(ForkEnv.weth), address(curveDexter));
+    _switchCollateralRouter.setDexterOf(address(ForkEnv.usdt), address(ForkEnv.dai), address(aerodromeDexter));
     vm.stopPrank();
 
     entryPoint = new MockEntryPoint();
