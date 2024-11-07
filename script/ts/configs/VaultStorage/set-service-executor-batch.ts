@@ -1,8 +1,8 @@
 import { VaultStorage__factory } from "../../../../typechain";
 import { loadConfig } from "../../utils/config";
 import signers from "../../entities/signers";
-import { Command } from "commander";
 import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
+import { passChainArg } from "../../utils/main-fn-wrappers";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
@@ -27,6 +27,18 @@ async function main(chainId: number) {
       executorAddress: config.services.liquidation,
       isServiceExecutor: true,
     },
+    // {
+    //   executorAddress: config.strategies.stakedGlpStrategy,
+    //   isServiceExecutor: true,
+    // },
+    {
+      executorAddress: config.rewardDistributor,
+      isServiceExecutor: true,
+    },
+    {
+      executorAddress: config.handlers.bot,
+      isServiceExecutor: true,
+    },
     {
       executorAddress: config.services.gas,
       isServiceExecutor: true,
@@ -48,13 +60,4 @@ async function main(chainId: number) {
   console.log(`[configs/VaultStorage] Done`);
 }
 
-const program = new Command();
-
-program.requiredOption("--chain-id <chain-id>", "chain id", parseInt);
-
-const opts = program.parse(process.argv).opts();
-
-main(opts.chainId).catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+passChainArg(main)
