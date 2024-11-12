@@ -91,6 +91,7 @@
   "extension": {
     "switchCollateralRouter": "",
     "dexter": {
+      "uniswapV3": "",
       "curve": ""
     }
   }
