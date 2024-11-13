@@ -42,6 +42,22 @@ async function main(chainId: number) {
         [config.tokens.weth, 500, config.tokens.usdc]
       )
     },
+    {
+      tokenIn: config.tokens.wbtc,
+      tokenOut: config.tokens.usdc,
+      path: ethers.utils.solidityPack(
+        ["address", "uint24", "address"],
+        [config.tokens.wbtc, 500, config.tokens.usdc]
+      )
+    },
+    {
+      tokenIn: config.tokens.usdc,
+      tokenOut: config.tokens.wbtc,
+      path: ethers.utils.solidityPack(
+        ["address", "uint24", "address"],
+        [config.tokens.usdc, 500, config.tokens.wbtc]
+      )
+    },
   ];
 
   console.log("Setting path config...");

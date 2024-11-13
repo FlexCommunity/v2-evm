@@ -11,6 +11,11 @@ export function getDexterConfig(chainId: number) {
           tokenOut: config.tokens.usdc,
           dexter: config.extension.dexter.uniswapV3,
         },
+        {
+          tokenIn: config.tokens.wbtc,
+          tokenOut: config.tokens.usdc,
+          dexter: config.extension.dexter.uniswapV3,
+        },
         // {
         //   tokenIn: config.tokens.usdcNative,
         //   tokenOut: config.tokens.sglp,

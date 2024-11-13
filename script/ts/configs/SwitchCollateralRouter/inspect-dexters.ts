@@ -1,10 +1,9 @@
 import { loadConfig } from "../../utils/config";
 import signers from "../../entities/signers";
 import { SwitchCollateralRouter__factory } from "../../../../typechain";
-import { findChainByName } from "../../entities/chains";
-import { passChainArg } from "../../utils/pass-chain-arg";
 import { getDexterConfig } from "./inspect-dexters-configs";
 import { ethers } from "ethers";
+import { passChainArg } from "../../utils/main-fn-wrappers";
 
 export type SetDexter = {
   tokenIn: string;
@@ -33,7 +32,7 @@ async function main(chainId: number) {
     const dexterAddr = await swithCollateralRouter.dexterOf(dexter.tokenIn, dexter.tokenOut);
 
     if (dexterAddr && dexterAddr !== ethers.constants.AddressZero) {
-      console.log(`[cmds/SwitchCollateralRouter] Dexter of (${dexter.tokenIn}, ${dexter.tokenOut}) is set. Skip`);
+      console.log(`[cmds/SwitchCollateralRouter] Dexter of (${dexter.tokenIn}, ${dexter.tokenOut}) is set as ${dexterAddr}. Skip`);
       continue;
     }
 
