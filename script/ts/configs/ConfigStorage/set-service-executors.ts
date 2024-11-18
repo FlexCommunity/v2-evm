@@ -63,7 +63,12 @@ async function main(chainId: number) {
       contractAddress: config.services.crossMargin,
       executorAddress: config.handlers.ext01,
       isServiceExecutor: true,
-    }
+    },
+    {
+      contractAddress: config.services.gas,
+      executorAddress: config.rewardDistributor,
+      isServiceExecutor: true,
+    },
   ];
 
   const deployer = signers.deployer(chainId);
