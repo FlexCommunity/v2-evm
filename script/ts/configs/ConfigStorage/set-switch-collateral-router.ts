@@ -4,6 +4,7 @@ import SafeWrapper from "../../wrappers/SafeWrapper";
 import { Command } from "commander";
 import signers from "../../entities/signers";
 import { compareAddress } from "../../utils/address";
+import { passChainArg } from "../../utils/main-fn-wrappers";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
@@ -27,13 +28,4 @@ async function main(chainId: number) {
   }
 }
 
-const program = new Command();
-
-program.requiredOption("--chain-id <number>", "chain id", parseInt);
-
-const opts = program.parse(process.argv).opts();
-
-main(opts.chainId).catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+passChainArg(main)
