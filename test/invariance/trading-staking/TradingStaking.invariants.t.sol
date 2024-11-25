@@ -6,7 +6,6 @@ pragma solidity 0.8.18;
 
 import { BaseTest, MockErc20 } from "@hmx-test/base/BaseTest.sol";
 import { Test } from "forge-std/Test.sol";
-import { InvariantTest } from "forge-std/InvariantTest.sol";
 import { Deployer } from "@hmx-test/libs/Deployer.sol";
 import { console2 } from "forge-std/console2.sol";
 import { TradeService_Base } from "@hmx-test/services/trade/TradeService_Base.t.sol";
@@ -18,7 +17,7 @@ import { ITLCStaking } from "@hmx/staking/interfaces/ITLCStaking.sol";
 import { IEpochRewarder } from "@hmx/staking/interfaces/IEpochRewarder.sol";
 import { ITradingStaking } from "@hmx/staking/interfaces/ITradingStaking.sol";
 
-contract TradingStakingInvariants is InvariantTest, TradeService_Base {
+contract TradingStakingInvariants is TradeService_Base {
   MockErc20 internal rewardToken;
   ITraderLoyaltyCredit internal tlc;
   ITradingStaking internal tradingStaking;
