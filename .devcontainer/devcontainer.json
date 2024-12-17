@@ -1,0 +1,24 @@
+{
+	"name": "fp-v2-evm",
+	"build": {
+		"context": "..",
+		"dockerfile": "Dockerfile"
+	},
+
+	"customizations": {
+		"vscode": {
+			"settings": {},
+			"extensions": [
+				"ms-azuretools.vscode-docker",
+				"JuanBlanco.solidity"
+			]
+		}
+	},
+
+	"mounts": [
+		"type=volume,target=/workspaces/v2-evm/node_modules",
+		"type=bind,source=${localWorkspaceFolder}/.devcontainer/bashhistory,target=/commandhistory",
+	],
+
+	"workspaceFolder": "/workspaces/v2-evm"
+}
