@@ -2,6 +2,7 @@ import { getChainId } from "hardhat";
 import { LiquidityHandler__factory } from "../../../../typechain";
 import { loadConfig } from "../../utils/config";
 import signers from "../../entities/signers";
+import { runMainAsAsync } from "../../utils/main-fn-wrappers";
 
 async function main() {
   const chainId = Number(await getChainId());
@@ -14,9 +15,4 @@ async function main() {
   console.log("> LiquidityHandler: Set HLP Staking success!");
 }
 
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
-    process.exitCode = 1;
-  });
+runMainAsAsync(main)
