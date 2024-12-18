@@ -58,7 +58,7 @@ const config: HardhatUserConfig = {
     },
   },
   paths: {
-    sources: "./src",
+    sources: process.env.HH_PATH_SOURCES || "./src",
     cache: "./cache_hardhat",
     artifacts: "./artifacts",
   },
