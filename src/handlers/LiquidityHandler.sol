@@ -406,9 +406,14 @@ contract LiquidityHandler is OwnableUpgradeable, ReentrancyGuardUpgradeable, ILi
         (isNotAutoStake || !isHlpStakingDeployed) ? _order.account : address(this)
       );
       if (isHlpStakingDeployed && !isNotAutoStake) {
-        // If HLPStaking is live and user want to auto-stake
-        // Auto stake into HLPStaking
-        ISurgeStaking(hlpStaking).deposit(_order.account, _amountOut);
+        // If HLPStaking is live and user want to auto-stake or surge
+        if (ISurgeStaking(hlpStaking).isSurgeEventDepositPeriod()) {
+          // Auto stake into HLPStaking Surge
+          ISurgeStaking(hlpStaking).depositSurge(_order.account, _amountOut);
+        } else {
+          // Auto stake into HLPStaking
+          ISurgeStaking(hlpStaking).deposit(_order.account, _amountOut);
+        }
       }
       return _amountOut;
     } else {

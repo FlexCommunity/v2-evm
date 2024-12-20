@@ -45,4 +45,6 @@ interface ISurgeStaking {
   function isRewarder(address rewarder) external view returns (bool);
 
   function setSurgeRewarder(address _hyperRewarder) external;
+
+  function isSurgeEventDepositPeriod() public view returns (bool);
 }
