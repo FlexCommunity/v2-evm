@@ -1,4 +1,4 @@
-import { ethers, tenderly, upgrades, getChainId } from "hardhat";
+import { ethers, tenderly, upgrades, getChainId, run } from "hardhat";
 import { loadConfig } from "../../utils/config";
 import signers from "../../entities/signers";
 import ProxyAdminWrapper from "../../wrappers/ProxyAdminWrapper";
@@ -25,6 +25,12 @@ async function main() {
     address: newImplementation.toString(),
     name: "LiquidityHandler",
   });
+
+  await run("verify:verify", {
+    address: newImplementation.toString(),
+    constructorArguments: [],
+  });
+
 }
 
 main().catch((error) => {
