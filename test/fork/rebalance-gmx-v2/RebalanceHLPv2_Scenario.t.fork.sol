@@ -12,11 +12,14 @@ import { RebalanceHLPv2Service_BaseForkTest } from "@hmx-test/fork/rebalance-gmx
 
 contract RebalanceHLPHandler_ScenarioForkTest is RebalanceHLPv2Service_BaseForkTest {
   function setUp() public override {
+    if (!hasArbRpc()) {
+      return;
+    }
     vm.createSelectFork(vm.envString("ARBITRUM_ONE_FORK"), 143862285);
     super.setUp();
   }
 
-  function testCorrectness_WhenTransitionFromGlpToGM() external {
+  function testCorrectness_WhenTransitionFromGlpToGM()  external onlyWithArbRpc {
     SnapshotUint256 memory tvlSnap;
     SnapshotUint256 memory gmTotalSnap;
     SnapshotUint256 memory gmBalanceSnap;

@@ -44,6 +44,9 @@ abstract contract RebalanceHLPv2Service_BaseForkTest is ForkEnvWithActions, Chea
   }
 
   function setUp() public virtual {
+    if (!hasArbRpc()) {
+      return;
+    }
     // Mock ArbSys
     MockArbSys arbSys = new MockArbSys();
     vm.etch(0x0000000000000000000000000000000000000064, address(arbSys).code);

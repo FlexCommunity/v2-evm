@@ -43,6 +43,9 @@ contract EcoPythCalldataBuilder3_ForkTest is ForkEnv, Cheats {
   GmPriceAdapter internal gmEthUsdPriceAdapter;
 
   function setUp() external {
+    if (!hasArbRpc()) {
+      return;
+    }
     vm.createSelectFork(vm.envString("ARBITRUM_ONE_FORK"), 142248340);
 
     cix1PriceAdapter = new CIXPriceAdapter();
@@ -110,7 +113,7 @@ contract EcoPythCalldataBuilder3_ForkTest is ForkEnv, Cheats {
     vm.stopPrank();
   }
 
-  function testCorrectness_CalcPriceLens_getPrice() external {
+  function testCorrectness_CalcPriceLens_getPrice() external onlyWithArbRpc {
     IEcoPythCalldataBuilder3.BuildData[] memory _buildDatas = new IEcoPythCalldataBuilder3.BuildData[](10);
     _buildDatas[0].assetId = "EUR";
     _buildDatas[0].priceE8 = 1.05048e8;
@@ -179,7 +182,7 @@ contract EcoPythCalldataBuilder3_ForkTest is ForkEnv, Cheats {
     return _data;
   }
 
-  function testCorrectness_EcoPythCalldataBuilder3_build() external {
+  function testCorrectness_EcoPythCalldataBuilder3_build() external onlyWithArbRpc {
     // Prepare build data
     IEcoPythCalldataBuilder3.BuildData[] memory _data = _getCurrentBuildData();
     _overwritePriceByAssetId("EUR", _data, 1.05048e8, 15_000);
@@ -245,7 +248,7 @@ contract EcoPythCalldataBuilder3_ForkTest is ForkEnv, Cheats {
     }
   }
 
-  function testCorrectness_UnsafeEcoPythCalldataBuilder3_shouldBuildTheSameResultAsSafeOne() external {
+  function testCorrectness_UnsafeEcoPythCalldataBuilder3_shouldBuildTheSameResultAsSafeOne() external onlyWithArbRpc {
     IEcoPythCalldataBuilder3.BuildData[] memory _data = _getCurrentBuildData();
     _overwritePriceByAssetId("EUR", _data, 1.05048e8, 15_000);
     _overwritePriceByAssetId("CHF", _data, 0.92e8, 15_000);
@@ -323,7 +326,7 @@ contract EcoPythCalldataBuilder3_ForkTest is ForkEnv, Cheats {
     calcPriceLens.setPriceAdapters(priceIds, priceAdapters);
   }
 
-  function testCorrectness_getGmTokenPrice() external {
+  function testCorrectness_getGmTokenPrice() external onlyWithArbRpc {
     IEcoPythCalldataBuilder3.BuildData[] memory buildData = new IEcoPythCalldataBuilder3.BuildData[](38);
     buildData[0] = IEcoPythCalldataBuilder3.BuildData({
       assetId: "ETH",
@@ -364,7 +367,8 @@ contract EcoPythCalldataBuilder3_ForkTest is ForkEnv, Cheats {
     assertApproxEqRel(gmEthPrice, 0.93 * 1e18, MAX_DIFF);
   }
 
-  function testCorrectness_build() external view {
+  function testCorrectness_build() external onlyWithArbRpc {
+
     IEcoPythCalldataBuilder3.BuildData[] memory buildData = new IEcoPythCalldataBuilder3.BuildData[](38);
     buildData[0] = IEcoPythCalldataBuilder3.BuildData({
       assetId: "ETH",
@@ -597,7 +601,7 @@ contract EcoPythCalldataBuilder3_ForkTest is ForkEnv, Cheats {
     ecoPythCalldataBuilder.build(buildData);
   }
 
-  function testRevert_BadOrder() external {
+  function testRevert_BadOrder() external onlyWithArbRpc {
     IEcoPythCalldataBuilder3.BuildData[] memory buildData = new IEcoPythCalldataBuilder3.BuildData[](38);
     buildData[0] = IEcoPythCalldataBuilder3.BuildData({
       assetId: "ETH",
@@ -837,7 +841,7 @@ contract EcoPythCalldataBuilder3_ForkTest is ForkEnv, Cheats {
     ecoPythCalldataBuilder.build(buildData);
   }
 
-  function testRevert_BadLength() external {
+  function testRevert_BadLength() external onlyWithArbRpc {
     IEcoPythCalldataBuilder3.BuildData[] memory buildData = new IEcoPythCalldataBuilder3.BuildData[](40);
     buildData[0] = IEcoPythCalldataBuilder3.BuildData({
       assetId: "ETH",

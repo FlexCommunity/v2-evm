@@ -17,6 +17,9 @@ contract Smoke_Collateral is ForkEnv {
   IERC20[] private collateralToken = new IERC20[](10);
 
   constructor() {
+    if (!hasArbRpc()) {
+      return;
+    }
     collateralToken[0] = IERC20(address(ForkEnv.usdc_e));
     collateralToken[1] = IERC20(address(ForkEnv.weth));
     collateralToken[2] = IERC20(address(ForkEnv.wbtc));
@@ -29,11 +32,11 @@ contract Smoke_Collateral is ForkEnv {
     collateralToken[9] = IERC20(address(ForkEnv.wstEth));
   }
 
-  function depositCollateral() external {
+  function depositCollateral()  external onlyWithArbRpc {
     _depositCollateral();
   }
 
-  function withdrawCollateral() external {
+  function withdrawCollateral()  external onlyWithArbRpc {
     _depositCollateral();
     _withdrawCollateral();
   }

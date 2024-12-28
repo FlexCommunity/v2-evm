@@ -14,7 +14,7 @@ contract Smoke_Liquidate is ForkEnv {
   address[] internal activeSubAccounts;
 
   // for shorter time
-  function liquidate() external {
+  function liquidate()  external onlyWithArbRpc {
     (bytes32[] memory assetIds, uint64[] memory prices, bool[] memory shouldInverts) = _setPriceDataForReader(1);
     (bytes32[] memory priceUpdateData, bytes32[] memory publishTimeUpdateData) = _setTickPriceZero();
     address[] memory liqSubAccounts = new address[](10);
@@ -40,7 +40,7 @@ contract Smoke_Liquidate is ForkEnv {
     vm.stopPrank();
   }
 
-  function liquidateWithAdaptiveFee() external {
+  function liquidateWithAdaptiveFee()  external onlyWithArbRpc {
     _setUpOrderbookOracle();
 
     // Set SOLUSD trade limit

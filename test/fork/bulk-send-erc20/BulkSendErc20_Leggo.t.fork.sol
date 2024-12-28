@@ -18,12 +18,15 @@ contract BulkSendErc20_LeggoForkTest is ForkEnv, Cheats {
   BulkSendErc20 internal bulkSendErc20;
 
   function setUp() external {
+    if (!hasArbRpc()) {
+      return;
+    }
     vm.createSelectFork(vm.rpcUrl("arbitrum_fork"), 145403536);
 
     bulkSendErc20 = new BulkSendErc20();
   }
 
-  function testCorrectness_WhenLeggo() external {
+  function testCorrectness_WhenLeggo() external onlyWithArbRpc {
     motherload(address(ForkEnv.usdc_e), address(this), 10_000_00 * 1e6);
     motherload(address(ForkEnv.weth), address(this), 10_000_00 * 1e18);
 

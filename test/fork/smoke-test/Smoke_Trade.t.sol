@@ -26,7 +26,7 @@ contract Smoke_Trade is ForkEnv {
   // eth | jpy | xag | sol | chf
   uint256[] internal ARRAY_MARKET_INDEX = [0, 3, 9, 21, 26];
 
-  function openClosePosition() external {
+  function openClosePosition()  external onlyWithArbRpc {
     _depositCollateral();
     _createAndExecuteMarketBuyOrder();
     _createAndExecuteMarketSellOrder();

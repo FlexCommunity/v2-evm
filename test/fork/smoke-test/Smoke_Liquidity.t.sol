@@ -14,11 +14,11 @@ import { IEcoPythCalldataBuilder } from "@hmx/oracles/interfaces/IEcoPythCalldat
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract Smoke_Liquidity is ForkEnv {
-  function addLiquidity() external {
+  function addLiquidity()  external onlyWithArbRpc {
     _createAndExecuteAddLiquidityOrder();
   }
 
-  function removeLiquidity() external {
+  function removeLiquidity()  external onlyWithArbRpc {
     _createAndExecuteRemoveLiquidityOrder();
   }
 

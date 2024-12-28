@@ -38,6 +38,9 @@ contract OnChainPriceLens_ForkTest is ForkEnv, Cheats {
   address constant ethUsdPriceFeed = 0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612;
 
   function setUp() external {
+    if (!hasArbRpc()) {
+      return;
+    }
     vm.createSelectFork(vm.rpcUrl("arbitrum_fork"), 128556281);
 
     wstEthUsdPriceAdapter = new WstEthUsdPriceAdapter(
@@ -66,22 +69,22 @@ contract OnChainPriceLens_ForkTest is ForkEnv, Cheats {
     vm.stopPrank();
   }
 
-  function testCorrectness_WstEthUsdPriceAdapter() external {
+  function testCorrectness_WstEthUsdPriceAdapter() external onlyWithArbRpc {
     uint256 wstEthUsdPrice = wstEthUsdPriceAdapter.getPrice();
     assertEq(wstEthUsdPrice, 1857.620239758899083350 ether);
   }
 
-  function testCorrectness_GlpPriceAdapter() external {
+  function testCorrectness_GlpPriceAdapter() external onlyWithArbRpc {
     uint256 glpPrice = glpPriceAdapter.getPrice();
     assertEq(glpPrice, 0.948534563693319704 ether);
   }
 
-  function testCorrectness_HlpPriceAdapter() external {
+  function testCorrectness_HlpPriceAdapter() external onlyWithArbRpc {
     uint256 hlpPrice = hlpPriceAdapter.getPrice();
     assertEq(hlpPrice, 0.934904146758552845 ether);
   }
 
-  function testCorrectness_OnChainPriceLens_getPrice() external {
+  function testCorrectness_OnChainPriceLens_getPrice()  external onlyWithArbRpc {
     uint256 wstEthUsdPrice = _onChainPriceLens.getPrice("wstETH");
     assertEq(wstEthUsdPrice, 1857.620239758899083350 ether);
 
@@ -89,7 +92,7 @@ contract OnChainPriceLens_ForkTest is ForkEnv, Cheats {
     assertEq(glpPrice, 0.948534563693319704 ether);
   }
 
-  function testCorrectness_EcoPythCalldataBuilder_build() external view {
+  function testCorrectness_EcoPythCalldataBuilder_build() external onlyWithArbRpc {
     IEcoPythCalldataBuilder2.BuildData[] memory _data = new IEcoPythCalldataBuilder2.BuildData[](4);
     _data[0] = IEcoPythCalldataBuilder2.BuildData({
       assetId: "ETH",

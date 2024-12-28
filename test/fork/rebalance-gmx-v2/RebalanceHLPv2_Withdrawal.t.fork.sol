@@ -13,6 +13,9 @@ import { MockEcoPyth } from "@hmx-test/mocks/MockEcoPyth.sol";
 
 contract RebalanceHLPv2Service_WithdrawalForkTest is RebalanceHLPv2Service_BaseForkTest {
   function setUp() public override {
+    if (!hasArbRpc()) {
+      return;
+    }
     vm.createSelectFork(vm.envString("ARBITRUM_ONE_FORK"), 143862285);
     super.setUp();
     // Deploy some WETH to GM(ETH-USDC)
@@ -23,7 +26,7 @@ contract RebalanceHLPv2Service_WithdrawalForkTest is RebalanceHLPv2Service_BaseF
     // Received GMs: 8912412145575829437123
   }
 
-  function testRevert_WhenWithdrawMoreThanLiquidity() external {
+  function testRevert_WhenWithdrawMoreThanLiquidity()  external onlyWithArbRpc {
     rebalanceHLPv2_createWithdrawalOrder(
       GM_ETHUSDC_ASSET_ID,
       8912412145575829437124,
@@ -33,7 +36,7 @@ contract RebalanceHLPv2Service_WithdrawalForkTest is RebalanceHLPv2Service_BaseF
     );
   }
 
-  function testCorrectness_WhenNoOneJamInTheMiddle() external {
+  function testCorrectness_WhenNoOneJamInTheMiddle()  external onlyWithArbRpc {
     SnapshotUint256 memory tvlSnap;
     SnapshotUint256 memory aumSnap;
     SnapshotUint256 memory gmEthBalanceSnap;
@@ -125,7 +128,7 @@ contract RebalanceHLPv2Service_WithdrawalForkTest is RebalanceHLPv2Service_BaseF
     assertEq(usdcLiquiditySnap.before + 4226796583, usdcLiquiditySnap.after1, "USDC liquidity should increase");
   }
 
-  function testCorrectness_WhenErr_WhenNoOneJamInTheMiddle() external {
+  function testCorrectness_WhenErr_WhenNoOneJamInTheMiddle()  external onlyWithArbRpc {
     uint256 tvlBefore = calculator.getHLPValueE30(false);
     uint256 aumBefore = calculator.getAUME30(false);
     uint256 gmEthBalanceBefore = gmETHUSD.balanceOf(address(vaultStorage));
@@ -183,7 +186,7 @@ contract RebalanceHLPv2Service_WithdrawalForkTest is RebalanceHLPv2Service_BaseF
     );
   }
 
-  function testCorrectness_WhenSomeoneJamInTheMiddle_AddRemoveLiquidity() external {
+  function testCorrectness_WhenSomeoneJamInTheMiddle_AddRemoveLiquidity()  external onlyWithArbRpc {
     SnapshotUint256 memory tvlSnap;
     SnapshotUint256 memory aumSnap;
 
@@ -272,7 +275,7 @@ contract RebalanceHLPv2Service_WithdrawalForkTest is RebalanceHLPv2Service_BaseF
     assertApproxEqAbs(aumSnap.after1, aumSnap.before, 5_000 * 1e30, "AUM should not change more than 5,000 USD");
   }
 
-  function testCorrectness_WhenSomeoneJamInTheMiddle_DepositWithdrawCollateral() external {
+  function testCorrectness_WhenSomeoneJamInTheMiddle_DepositWithdrawCollateral()  external onlyWithArbRpc {
     SnapshotUint256 memory tvlSnap;
     SnapshotUint256 memory aumSnap;
     SnapshotUint256 memory usdcTotalSnap;
@@ -399,7 +402,7 @@ contract RebalanceHLPv2Service_WithdrawalForkTest is RebalanceHLPv2Service_BaseF
     assertEq(usdcTotalSnap.after1, usdcBalanceSnap.after1, "USDC total should equal to USDC balance");
   }
 
-  function testCorrectness_WhenSomeoneJamInTheMiddle_WhenTraderTakeProfitMoreThanHlpLiquidity() external {
+  function testCorrectness_WhenSomeoneJamInTheMiddle_WhenTraderTakeProfitMoreThanHlpLiquidity()  external onlyWithArbRpc {
     SnapshotUint256 memory tvlSnap;
     SnapshotUint256 memory aumSnap;
     SnapshotUint256 memory wethTotalSnap;

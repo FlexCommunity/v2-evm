@@ -21,15 +21,18 @@ import { IGmxV2Oracle } from "@hmx/interfaces/gmx-v2/IGmxV2Oracle.sol";
 
 contract RebalanceHLPv2Service_DepositForkTest is RebalanceHLPv2Service_BaseForkTest {
   function setUp() public override {
+    if (!hasArbRpc()) {
+      return;
+    }
     vm.createSelectFork(vm.envString("ARBITRUM_ONE_FORK"), 143862285);
     super.setUp();
   }
 
-  function testRevert_WhenDeployMoreThanLiquidity() external {
+  function testRevert_WhenDeployMoreThanLiquidity()  external onlyWithArbRpc {
     rebalanceHLPv2_createDepositOrder(GM_WBTCUSDC_ASSET_ID, 10 * 1e8, 0, 0, "IVaultStorage_HLPBalanceRemaining()");
   }
 
-  function testCorrectness_WhenNoOneJamInTheMiddle() external {
+  function testCorrectness_WhenNoOneJamInTheMiddle()  external onlyWithArbRpc {
     // Override GM(WBTC-USDC) price
     MockEcoPyth(address(ecoPyth2)).overridePrice(GM_WBTCUSDC_ASSET_ID, 1.11967292 * 1e8);
 
@@ -101,7 +104,7 @@ contract RebalanceHLPv2Service_DepositForkTest is RebalanceHLPv2Service_BaseFork
     assertApproxEqRel(beforeAum, afterAum, 0.0001 ether, "aum must remains the same");
   }
 
-  function testCorrectness_WhenErr_WhenNoOneJamInTheMiddle() external {
+  function testCorrectness_WhenErr_WhenNoOneJamInTheMiddle()  external onlyWithArbRpc {
     // Override GM(WBTC-USDC) price
     MockEcoPyth(address(ecoPyth2)).overridePrice(GM_WBTCUSDC_ASSET_ID, 1.11967292 * 1e8);
 
@@ -171,7 +174,7 @@ contract RebalanceHLPv2Service_DepositForkTest is RebalanceHLPv2Service_BaseFork
     assertEq(wbtcInitialHlpLiquidity, vaultStorage.hlpLiquidity(address(wbtc)), "hlpLiquidity must remains the same");
   }
 
-  function testCorrectness_WhenETH_WhenErr_WhenNoOneJamInTheMiddle() external {
+  function testCorrectness_WhenETH_WhenErr_WhenNoOneJamInTheMiddle()  external onlyWithArbRpc {
     uint256 wethInitialHlpLiquidity = vaultStorage.hlpLiquidity(address(weth));
     uint256 beforeTvl = calculator.getHLPValueE30(false);
     uint256 beforeAum = calculator.getAUME30(false);
@@ -237,7 +240,7 @@ contract RebalanceHLPv2Service_DepositForkTest is RebalanceHLPv2Service_BaseFork
     assertEq(wethInitialHlpLiquidity, vaultStorage.hlpLiquidity(address(weth)), "hlpLiquidity must remains the same");
   }
 
-  function testCorrectness_WhenSomeoneJamInTheMiddle_AddRemoveLiquidity() external {
+  function testCorrectness_WhenSomeoneJamInTheMiddle_AddRemoveLiquidity()  external onlyWithArbRpc {
     uint256 beforeTvl = calculator.getHLPValueE30(false);
     uint256 beforeAum = calculator.getAUME30(false);
 
@@ -320,7 +323,7 @@ contract RebalanceHLPv2Service_DepositForkTest is RebalanceHLPv2Service_BaseFork
     assertApproxEqRel(beforeAum, afterAum, 0.0001 ether, "aum should not change more than 0.01%");
   }
 
-  function testCorrectness_WhenSomeoneJamInTheMiddle_DepositWithdrawCollateral() external {
+  function testCorrectness_WhenSomeoneJamInTheMiddle_DepositWithdrawCollateral()  external onlyWithArbRpc {
     // Override GM(WBTC-USDC) price
     MockEcoPyth(address(ecoPyth2)).overridePrice(GM_WBTCUSDC_ASSET_ID, 1.11967292 * 1e8);
 
@@ -384,7 +387,7 @@ contract RebalanceHLPv2Service_DepositForkTest is RebalanceHLPv2Service_BaseFork
     assertApproxEqRel(beforeAum, afterAum, 0.0001 ether, "aum should not change more than 0.01%");
   }
 
-  function testCorrectness_WhenSomeoneJamInTheMiddle_WhenTraderTakeProfitMoreThanHlpLiquidity() external {
+  function testCorrectness_WhenSomeoneJamInTheMiddle_WhenTraderTakeProfitMoreThanHlpLiquidity()  external onlyWithArbRpc {
     // Some liquidity is on-hold, but trader try to take profit more than available liquidity.
     // This should be handled correctly.
     // Override GM(WBTC-USDC) price

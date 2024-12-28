@@ -93,6 +93,15 @@ import { LimitTradeHelper } from "@hmx/helpers/LimitTradeHelper.sol";
 abstract contract ForkEnv is Test {
   using stdJson for string;
 
+  modifier onlyWithArbRpc() {
+    vm.skip( bytes(vm.envOr("ARBI_RPC_URL", string(""))).length == 0, "Only with Arbitrum RPC");
+    _;
+  }
+
+  function hasArbRpc() internal view returns (bool) {
+    return bytes(vm.envOr("ARBI_RPC_URL", string(""))).length > 0;
+  }
+
   string json = vm.readFile("configs/arbitrum.mainnet.json");
 
   function getAddress(string memory key) internal view returns (address _value) {
@@ -345,6 +354,10 @@ abstract contract ForkEnv is Test {
   }
 
   constructor() {
+    if (!hasArbRpc()) {
+      return;
+    }
+
     // Labeling known addresses
     // Storages
     vm.label(address(configStorage), "ConfigStorage");

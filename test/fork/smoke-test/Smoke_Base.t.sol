@@ -56,6 +56,9 @@ contract Smoke_Base is ForkEnv {
   uint256 snapshot;
 
   function setUp() public virtual {
+    if (!hasArbRpc()) {
+      return;
+    }
     vm.createSelectFork(vm.envString("ARBITRUM_ONE_FORK"));
 
     // -- UPGRADE -- //
@@ -571,7 +574,7 @@ contract Smoke_Base is ForkEnv {
     vm.stopPrank();
   }
 
-  function test() external {
+  function test() external onlyWithArbRpc {
     snapshot = vm.snapshot();
     new Smoke_Collateral().depositCollateral();
     vm.revertTo(snapshot);

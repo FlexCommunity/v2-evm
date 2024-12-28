@@ -51,6 +51,9 @@ contract SwitchCollateralRouter_ForkTest is ForkEnv, Cheats {
   uint256 internal constant executionOrderFee = 0.1 * 1e9;
 
   function setUp() external {
+    if (!hasArbRpc()) {
+      return;
+    }
     vm.createSelectFork(vm.envString("ARBITRUM_ONE_FORK"), 113073035);
 
     vm.startPrank(ForkEnv.multiSig);
@@ -202,7 +205,7 @@ contract SwitchCollateralRouter_ForkTest is ForkEnv, Cheats {
     vm.label(address(ForkEnv.crossMarginService), "crossMarginService");
   }
 
-  function testRevert_WhenFromTokenNotCollateral() external {
+  function testRevert_WhenFromTokenNotCollateral()  external onlyWithArbRpc {
     vm.startPrank(USER);
     address[] memory _path = new address[](2);
     _path[0] = address(ForkEnv.pendle);
@@ -220,7 +223,7 @@ contract SwitchCollateralRouter_ForkTest is ForkEnv, Cheats {
     vm.stopPrank();
   }
 
-  function testRevert_WhenToTokenNotCollateral() external {
+  function testRevert_WhenToTokenNotCollateral()  external onlyWithArbRpc {
     vm.startPrank(USER);
     address[] memory _path = new address[](2);
     _path[0] = address(ForkEnv.sglp);
@@ -238,7 +241,7 @@ contract SwitchCollateralRouter_ForkTest is ForkEnv, Cheats {
     vm.stopPrank();
   }
 
-  function testRevert_WhenFromAndToTokenAreSame() external {
+  function testRevert_WhenFromAndToTokenAreSame()  external onlyWithArbRpc {
     vm.startPrank(USER);
     address[] memory _path = new address[](2);
     _path[0] = address(ForkEnv.sglp);
@@ -256,7 +259,7 @@ contract SwitchCollateralRouter_ForkTest is ForkEnv, Cheats {
     vm.stopPrank();
   }
 
-  function testRevert_WhenSlippage() external {
+  function testRevert_WhenSlippage()  external onlyWithArbRpc {
     vm.startPrank(USER);
     address[] memory _path = new address[](2);
     _path[0] = address(ForkEnv.sglp);
@@ -310,7 +313,7 @@ contract SwitchCollateralRouter_ForkTest is ForkEnv, Cheats {
     assertEq(ForkEnv.vaultStorage.traderBalances(USER, address(ForkEnv.sglp)), 5000000000000000000);
   }
 
-  function testRevert_WhenSwitchCollateralMakesEquityBelowIMR() external {
+  function testRevert_WhenSwitchCollateralMakesEquityBelowIMR()  external onlyWithArbRpc {
     vm.startPrank(USER);
     address[] memory _path = new address[](2);
     _path[0] = address(ForkEnv.sglp);
@@ -364,7 +367,7 @@ contract SwitchCollateralRouter_ForkTest is ForkEnv, Cheats {
     assertEq(ForkEnv.vaultStorage.traderBalances(USER, address(ForkEnv.sglp)), 5000000000000000000);
   }
 
-  function testCorrectness_WhenSwitchCollateralFromsglpToTokenInGlpVault() external {
+  function testCorrectness_WhenSwitchCollateralFromsglpToTokenInGlpVault()  external onlyWithArbRpc {
     vm.startPrank(USER);
     address[] memory _path = new address[](2);
     _path[0] = address(ForkEnv.sglp);
@@ -422,7 +425,7 @@ contract SwitchCollateralRouter_ForkTest is ForkEnv, Cheats {
     assertEq(_wethAfter - _wethBefore, 2652487522183760);
   }
 
-  function testCorrectness_WhenSwitchCollateralFromTokenInGlpVaultTosglp() external {
+  function testCorrectness_WhenSwitchCollateralFromTokenInGlpVaultTosglp()  external onlyWithArbRpc {
     vm.startPrank(USER);
     address[] memory _path = new address[](2);
     _path[0] = address(ForkEnv.weth);
@@ -480,7 +483,7 @@ contract SwitchCollateralRouter_ForkTest is ForkEnv, Cheats {
     assertEq(_sglpAfter - _sglpBefore, 74640579149339718);
   }
 
-  function testCorrectness_WhenSwitchCollateralFromsglpToBareErc20() external {
+  function testCorrectness_WhenSwitchCollateralFromsglpToBareErc20()  external onlyWithArbRpc {
     vm.startPrank(USER);
     // Create switch collateral order from sglp -> ARB
     address[] memory _path = new address[](3);
@@ -544,7 +547,7 @@ contract SwitchCollateralRouter_ForkTest is ForkEnv, Cheats {
     assertEq(_arbAfter - _arbBefore, 3970232321595248857);
   }
 
-  function testCorrectness_WhenSwitchCollateralFromBareErc20Tosglp() external {
+  function testCorrectness_WhenSwitchCollateralFromBareErc20Tosglp()  external onlyWithArbRpc {
     // Motherload ARB for USER
     motherload(address(ForkEnv.arb), USER, 1000 * 1e18);
 
@@ -611,7 +614,7 @@ contract SwitchCollateralRouter_ForkTest is ForkEnv, Cheats {
     assertEq(_sglpAfter - _sglpBefore, 1251816487838549309485);
   }
 
-  function testCorrectness_WhenSwitchCollateralFromsglpToWstEth() external {
+  function testCorrectness_WhenSwitchCollateralFromsglpToWstEth()  external onlyWithArbRpc {
     vm.startPrank(USER);
     // Create switch collateral order from sglp -> wstETH
     address[] memory _path = new address[](3);
@@ -671,7 +674,7 @@ contract SwitchCollateralRouter_ForkTest is ForkEnv, Cheats {
     assertEq(_wstEthAfter - _wstEthBefore, 2341647970371989);
   }
 
-  function testCorrectness_WhenSwitchCollateralFromWstEthTosglp() external {
+  function testCorrectness_WhenSwitchCollateralFromWstEthTosglp()  external onlyWithArbRpc {
     // Motherload wstETH for USER
     motherload(address(ForkEnv.wstEth), USER, 10 * 1e18);
 
@@ -736,7 +739,7 @@ contract SwitchCollateralRouter_ForkTest is ForkEnv, Cheats {
     assertEq(_sglpAfter - _sglpBefore, 21225881318183212057834);
   }
 
-  function testCorrectness_ExecuteViaDelegate() external {
+  function testCorrectness_ExecuteViaDelegate()  external onlyWithArbRpc {
     // Motherload wstETH for USER
     motherload(address(ForkEnv.wstEth), USER, 10 * 1e18);
 
@@ -806,7 +809,7 @@ contract SwitchCollateralRouter_ForkTest is ForkEnv, Cheats {
     assertEq(_sglpAfter - _sglpBefore, 21225881318183212057834);
   }
 
-  function testCorrectness_CancelSwitchCollateralOrder() external {
+  function testCorrectness_CancelSwitchCollateralOrder()  external onlyWithArbRpc {
     // Create switch collateral order from sglp -> wstETH
     address[] memory _path = new address[](3);
     _path[0] = address(ForkEnv.sglp);
@@ -836,7 +839,7 @@ contract SwitchCollateralRouter_ForkTest is ForkEnv, Cheats {
     assertEq(ext01Handler.getAllExecutedOrders(3, 0).length, 0);
   }
 
-  function testRevert_ExecuteCanceledOrder() external {
+  function testRevert_ExecuteCanceledOrder()  external onlyWithArbRpc {
     vm.startPrank(USER);
     // Create switch collateral order from sglp -> wstETH
     address[] memory _path = new address[](3);

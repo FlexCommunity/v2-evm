@@ -14,6 +14,9 @@ import { MockEcoPyth } from "@hmx-test/mocks/MockEcoPyth.sol";
 
 contract RebalanceHLPService_OneInchSwapForkTest is ForkEnvWithActions {
   function setUp() external {
+    if (!hasArbRpc()) {
+      return;
+    }
     // Fork Network
     vm.createSelectFork(vm.envString("ARBITRUM_ONE_FORK"), 148273154);
 
@@ -32,7 +35,7 @@ contract RebalanceHLPService_OneInchSwapForkTest is ForkEnvWithActions {
     vm.stopPrank();
   }
 
-  function testRevert_WhenSlippage() external {
+  function testRevert_WhenSlippage() external onlyWithArbRpc {
     // It's ugly but yeah
     // It is oneInchData for swapping 5m USDC.e to USDC
     bytes
@@ -85,7 +88,7 @@ contract RebalanceHLPService_OneInchSwapForkTest is ForkEnvWithActions {
     assertEq(usdc_eLiquidityBefore - usdc_eLiquidityAfter, 0, "USDC.e liquidity should remains the same");
   }
 
-  function testCorrectness_WhenSwapViaOneInch() external {
+  function testCorrectness_WhenSwapViaOneInch()  external onlyWithArbRpc {
     // It's ugly but yeah
     // It is oneInchData for swapping 5m USDC.e to USDC
     bytes

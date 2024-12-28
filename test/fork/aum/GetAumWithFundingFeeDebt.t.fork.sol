@@ -23,10 +23,13 @@ import { IVaultStorage } from "@hmx/storages/interfaces/IVaultStorage.sol";
 
 contract GetAumWithFundingFeeDebt_ForkTest is ForkEnv {
   function setUp() external {
+    if (!hasArbRpc()) {
+      return;
+    }
     vm.createSelectFork(vm.rpcUrl("arbitrum_fork"), 125699672);
   }
 
-  function testCorrectness_aumBeforeAfterUpgrade() external {
+  function testCorrectness_aumBeforeAfterUpgrade() external onlyWithArbRpc {
     uint256 aumBefore = calculator.getAUME30(true);
 
     vm.startPrank(ForkEnv.multiSig);

@@ -37,7 +37,7 @@ contract Smoke_TriggerOrder is ForkEnv {
     );
   }
 
-  function executeTriggerOrder() external {
+  function executeTriggerOrder()  external onlyWithArbRpc {
     (, , bool[] memory shouldInverts) = _setPriceData(1);
 
     ILimitTradeHandler.LimitOrder memory _order;

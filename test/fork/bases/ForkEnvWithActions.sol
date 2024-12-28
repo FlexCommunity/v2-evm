@@ -12,6 +12,7 @@ import { MockEcoPyth } from "@hmx-test/mocks/MockEcoPyth.sol";
 import { HMXLib } from "@hmx/libraries/HMXLib.sol";
 
 abstract contract ForkEnvWithActions is ForkEnv {
+
   function makeEcoPythMockable() public {
     // Make EcoPyth mockable in every fork environment.
     MockEcoPyth mockEcoPyth = new MockEcoPyth();

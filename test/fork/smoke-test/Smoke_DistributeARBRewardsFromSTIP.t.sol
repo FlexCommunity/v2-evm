@@ -14,7 +14,7 @@ import { IDistributeSTIPARBStrategy } from "@hmx/strategies/interfaces/IDistribu
 import { IERC20ApproveStrategy } from "@hmx/strategies/interfaces/IERC20ApproveStrategy.sol";
 
 contract Smoke_DistributeARBRewardsFromSTIP is ForkEnv {
-  function distributeARBRewardsFromSTIP() external {
+  function distributeARBRewardsFromSTIP()  external onlyWithArbRpc {
     IRewarder arbRewarderForHlp = Deployer.deployFeedableRewarder(
       address(ForkEnv.proxyAdmin),
       "HLP Staking ARB Rewards",

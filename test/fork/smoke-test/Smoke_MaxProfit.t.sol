@@ -24,7 +24,7 @@ contract Smoke_MaxProfit is ForkEnv {
     uncheckedBuilder = new UncheckedEcoPythCalldataBuilder(ForkEnv.ecoPyth2, ForkEnv.glpManager, ForkEnv.sglp);
   }
 
-  function forceCloseMaxProfit() external {
+  function forceCloseMaxProfit()  external onlyWithArbRpc {
     IPerpStorage.Position[] memory positions = ForkEnv.perpStorage.getActivePositions(10, 0);
 
     IPerpStorage.Position memory position;

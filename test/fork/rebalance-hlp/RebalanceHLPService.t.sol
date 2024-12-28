@@ -42,7 +42,7 @@ contract RebalanceHLPService_Test is ForkEnv {
     (_minPublishTime, _priceUpdateCalldata, _publishTimeUpdateCalldata) = ForkEnv.ecoPythBuilder.build(data);
   }
 
-  function reinvestSuccess() external {
+  function reinvestSuccess()  external onlyWithArbRpc {
     IRebalanceHLPService.AddGlpParams[] memory params = new IRebalanceHLPService.AddGlpParams[](2);
 
     uint256 usdcBefore = vaultStorage.hlpLiquidity(address(usdc_e));
@@ -75,7 +75,7 @@ contract RebalanceHLPService_Test is ForkEnv {
     assertEq(IERC20Upgradeable(address(weth)).allowance(address(rebalanceHLPService), address(glpManager)), 0);
   }
 
-  function withdrawSuccess() external {
+  function withdrawSuccess()  external onlyWithArbRpc {
     vm.roll(110369564);
 
     IRebalanceHLPService.AddGlpParams[] memory params = new IRebalanceHLPService.AddGlpParams[](2);
@@ -136,7 +136,7 @@ contract RebalanceHLPService_Test is ForkEnv {
     assertEq(block.number, 110369564);
   }
 
-  function emptyParams() external {
+  function emptyParams()  external onlyWithArbRpc {
     IRebalanceHLPService.AddGlpParams[] memory params;
     vm.expectRevert(IRebalanceHLPHandler.RebalanceHLPHandler_ParamsIsEmpty.selector);
     rebalanceHLPHandler.addGlp(
@@ -148,7 +148,7 @@ contract RebalanceHLPService_Test is ForkEnv {
     );
   }
 
-  function overAmount() external {
+  function overAmount()  external onlyWithArbRpc {
     IRebalanceHLPService.AddGlpParams[] memory params = new IRebalanceHLPService.AddGlpParams[](1);
     uint256 usdcAmount = vaultStorage.hlpLiquidity(address(usdc_e)) + 1;
     vm.expectRevert(IRebalanceHLPService.RebalanceHLPService_InvalidTokenAmount.selector);
@@ -162,7 +162,7 @@ contract RebalanceHLPService_Test is ForkEnv {
     );
   }
 
-  function notWhitelisted() external {
+  function notWhitelisted()  external onlyWithArbRpc {
     IRebalanceHLPService.AddGlpParams[] memory params;
     vm.expectRevert(IRebalanceHLPHandler.RebalanceHLPHandler_NotWhiteListed.selector);
     vm.prank(ALICE);
@@ -175,7 +175,7 @@ contract RebalanceHLPService_Test is ForkEnv {
     );
   }
 
-  function withdrawExceedingAmount() external {
+  function withdrawExceedingAmount()  external onlyWithArbRpc {
     IRebalanceHLPService.WithdrawGlpParams[] memory params = new IRebalanceHLPService.WithdrawGlpParams[](1);
     params[0] = IRebalanceHLPService.WithdrawGlpParams(address(usdc_e), 1e30, 0);
 
@@ -189,7 +189,7 @@ contract RebalanceHLPService_Test is ForkEnv {
     );
   }
 
-  // function testRevert_Rebalance_NegativeTotalHLPValue() external {
+  // function testRevert_Rebalance_NegativeTotalHLPValue()  external onlyWithArbRpc {
   //   vm.warp(block.timestamp + 300 minutes);
   //   vm.startPrank(rebalanceHLPService.owner());
   //   rebalanceHLPService.setMinHLPValueLossBPS(1);
@@ -235,7 +235,7 @@ contract RebalanceHLPService_Test is ForkEnv {
   //   );
   // }
 
-  function swapReinvestSuccess() external {
+  function swapReinvestSuccess()  external onlyWithArbRpc {
     IRebalanceHLPService.AddGlpParams[] memory params = new IRebalanceHLPService.AddGlpParams[](1);
 
     uint256 usdcBefore = vaultStorage.hlpLiquidity(address(usdc_e));
