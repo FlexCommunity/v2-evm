@@ -42,4 +42,9 @@ contract MockHLPStaking {
 
     hlp.transfer(msg.sender, amount);
   }
+
+  function isSurgeEventDepositPeriod() public view returns (bool) {
+    return false;
+  }
+
 }

@@ -16,7 +16,7 @@ contract ConfigStorage_Config is DynamicForkBaseTest {
     super.setUp();
   }
 
-  function testCorrectness_configStorage_config() external {
+  function testCorrectness_configStorage_config() external onlyFork {
     assertEq(configStorage.getTradeServiceHooks().length, 1);
   }
 }
