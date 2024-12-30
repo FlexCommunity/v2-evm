@@ -35,7 +35,6 @@ RUN /home/vscode/.foundry/bin/foundryup
 RUN npm install --global yarn
 
 WORKDIR /workspaces/v2-evm
-RUN pwd
 COPY ../package.json ../yarn.lock /workspaces/v2-evm/
 RUN yarn
 
