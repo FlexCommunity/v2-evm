@@ -114,4 +114,11 @@ const config: HardhatUserConfig = {
   },
 };
 
+if (fs.existsSync("./hardhat.config.local.ts")) {
+  const module = require('./hardhat.config.local.ts');
+  if (module.configExtender) {
+    module.configExtender(config);
+  }
+}
+
 export default config;
