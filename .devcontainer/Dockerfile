@@ -1,5 +1,7 @@
 FROM mcr.microsoft.com/vscode/devcontainers/base:debian-11
 
+ARG WORKSPACE_FOLDER_BASENAME
+
 RUN apt-get update \
     && apt-get -y install curl build-essential pkg-config libssl-dev less jq mc iputils-ping \
     && apt-get clean
@@ -34,8 +36,8 @@ RUN /home/vscode/.foundry/bin/foundryup
 
 RUN npm install --global yarn
 
-WORKDIR /workspaces/v2-evm
-COPY ../package.json ../yarn.lock /workspaces/v2-evm/
+WORKDIR /workspaces/${WORKSPACE_FOLDER_BASENAME}
+COPY --chown=vscode ../package.json ../yarn.lock /workspaces/${WORKSPACE_FOLDER_BASENAME}/
 RUN yarn
 
 # copy config file if it exists

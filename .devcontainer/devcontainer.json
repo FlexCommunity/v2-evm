@@ -1,8 +1,11 @@
 {
-	"name": "fp-v2-evm",
+	"name": "${localWorkspaceFolderBasename}",
 	"build": {
 		"context": "..",
-		"dockerfile": "Dockerfile"
+		"dockerfile": "Dockerfile",
+		"args": {
+			"WORKSPACE_FOLDER_BASENAME": "${localWorkspaceFolderBasename}"
+		}
 	},
 
 	"customizations": {
@@ -16,9 +19,9 @@
 	},
 
 	"mounts": [
-		"type=volume,target=/workspaces/v2-evm/node_modules",
+		"type=volume,target=/workspaces/${localWorkspaceFolderBasename}/node_modules",
 		"type=bind,source=${localWorkspaceFolder}/.devcontainer/bashhistory,target=/commandhistory",
 	],
-
-	"workspaceFolder": "/workspaces/v2-evm"
+	"workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
 }

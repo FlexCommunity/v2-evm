@@ -9,6 +9,7 @@ broadcast/
 
 script/ts/inputs/
 
+.devcontainer/bashhistory/.bash_history
 .env
 .DS_Store
 hardhat.config.local.ts
