@@ -1,4 +1,4 @@
-import { ethers, run, upgrades, network } from "hardhat";
+import { ethers, run, upgrades, networ, tenderly } from "hardhat";
 import { getConfig, writeConfigFile } from "../../utils/config";
 import { getImplementationAddress } from "@openzeppelin/upgrades-core";
 
@@ -17,9 +17,15 @@ async function main() {
   writeConfigFile(config);
 
   await run("verify:verify", {
-    address: await getImplementationAddress(network.provider, contract.address),
+    address: await getImplementationAddress(network.provider, config.oracles.pythAdapter),
     constructorArguments: [],
   });
+
+  await tenderly.verify({
+    address: await getImplementationAddress(network.provider, config.oracles.pythAdapter),
+    name: "PythAdapter",
+  });
+
 }
 
 main().catch((error) => {

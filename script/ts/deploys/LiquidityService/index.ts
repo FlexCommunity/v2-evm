@@ -22,9 +22,15 @@ async function main() {
   writeConfigFile(config);
 
   await run("verify:verify", {
-    address: await getImplementationAddress(network.provider, contract.address),
+    address: await getImplementationAddress(network.provider, config.services.liquidity),
     constructorArguments: [],
   });
+
+  await tenderly.verify({
+    address: await getImplementationAddress(network.provider, config.services.liquidity),
+    name: "LiquidityService",
+  });
+
 }
 
 main().catch((error) => {

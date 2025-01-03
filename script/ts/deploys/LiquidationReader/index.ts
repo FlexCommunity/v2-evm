@@ -1,4 +1,4 @@
-import { ethers, run } from "hardhat";
+import { ethers, run, tenderly } from "hardhat";
 import { getConfig, writeConfigFile } from "../../utils/config";
 
 const config = getConfig();
@@ -7,7 +7,7 @@ async function main() {
   const deployer = (await ethers.getSigners())[0];
 
   const Contract = await ethers.getContractFactory("LiquidationReader", deployer);
-  const contract = await Contract.deploy(config.storages.perp, config.calculator);
+  const contract = await Contract.deploy(config.storages.perp!, config.calculator!);
 
   await contract.deployed();
   console.log(`Deploying LiquidationReader Contract`);
@@ -17,8 +17,13 @@ async function main() {
   writeConfigFile(config);
 
   await run("verify:verify", {
-    address: contract.address,
+    address: config.reader.liquidation,
     constructorArguments: [config.storages.perp, config.calculator],
+  });
+
+  await tenderly.verify({
+    address: config.reader.liquidation,
+    name: "LiquidationReader",
   });
 }
 

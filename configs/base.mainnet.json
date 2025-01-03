@@ -4,64 +4,65 @@
   "timelock": "",
   "safe": "",
   "storages": {
-    "config": "",
-    "perp": "",
-    "vault": ""
+    "config": "0x1b92F5C0787bde0d2Aa21110f8f2a77595523598",
+    "perp": "0x734a1FB1fd54233f7Cad4345C8fc0135340c4b53",
+    "vault": "0x1375653D8a328154327e48A203F46Aa70B6C0b92"
   },
   "handlers": {
-    "bot": "",
-    "crossMargin": "",
-    "limitTrade": "",
-    "liquidity": "",
+    "bot": "0xD95A66901aE2532161d7E3D5E031767fc0ee380E",
+    "crossMargin": "0x8eBcF0b886188467B6ad9199535F2666E4e9d48F",
+    "limitTrade": "0x0d8294F7fa786dF50A15c94C93C28d85fb2A2116",
+    "liquidity": "0x5756f3Ad69c192d8DF6E8f9DaF754ddE2aEB4e47",
     "rebalanceHLP": "",
-    "ext01": "",
+    "ext01": "0xb7bf49329a2F5E8A47069CcC339FF53dD3872B45",
     "rebalanceHLPv2": "",
-    "intent": ""
+    "intent": "0x331f1b653706a57b7c061beC38421B120f99605C"
   },
   "helpers": {
-    "trade": "",
+    "trade": "0x92E4a331F76042f3e449002cF6960111C2f04815",
     "limitTrade": "",
-    "tradeOrder": "",
-    "intentBuilder": ""
+    "tradeOrder": "0x1a1567BcD9a14700f959B716d4b794B553ECE0f5",
+    "intentBuilder": "0x5EB59d7a602652eE2C13be4576AA39BBE57aA529"
   },
   "services": {
-    "crossMargin": "",
-    "liquidity": "",
-    "liquidation": "",
-    "trade": "",
+    "crossMargin": "0x26b5A99f219a2Bab150734CaB202973DB5f94ceF",
+    "liquidity": "0x40eE663Bba8d0D6B8b65EA71F5530A827CE38517",
+    "liquidation": "0xe178Af4b0Ad46Faf07f7d7f61ba732d26daEe915",
+    "trade": "0x358a810B11F8adAF54733aFa6EBD5B646E54c141",
     "rebalanceHLP": "",
     "rebalanceHLPv2": "",
-    "gas": ""
+    "gas": "0x9127832C830cC139E855348d26A93402D767c8ba"
   },
   "oracles": {
-    "ecoPyth2": "",
-    "pythAdapter": "",
-    "middleware": "",
-    "ecoPythCalldataBuilder3": "",
-    "unsafeEcoPythCalldataBuilder3": "",
-    "onChainPriceLens": "",
-    "calcPriceLens": "",
+    "ecoPyth2": "0xA2739CBCdd42f9255777B56Fb784Dfbc4628a274",
+    "pythAdapter": "0x57f7470507ADE14FB606526182CC9703617ecca1",
+    "middleware": "0xbaec875863d34D7AC9d2eEbE5c6E79523DF01ABf",
+    "ecoPythCalldataBuilder3": "0x5e8caa7a1FE802984A120beDB86497e22f97653e",
+    "unsafeEcoPythCalldataBuilder3": "0xB8ee4658Ec109441b974514B9a8C6D5C92155Eeb",
+    "onChainPriceLens": "0x061B43dbB9B4D189Cd0Ed142e2E808a2459DB947",
+    "calcPriceLens": "0x48b4cCD3f7ecAffFFb111b75483543E640D9F2C9",
     "priceAdapters": {
       "wstEth": "",
       "hlp": "",
-      "dix": ""
+      "dix": "0xf3959B67885aadF5343f2206AC0Fb0fcf5C19256"
     },
-    "orderbook": ""
+    "orderbook": "0x7c714c52B162Fb678B9930CD2Bc67e4B04CbcB96"
   },
   "tokens": {
-    "hlp": "",
+    "hlp": "0x6304CE3F4eF20EC0AaB3981d0B4428Beeb96c3aC",
     "weth": "0x4200000000000000000000000000000000000006",
     "usdc": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
-    "wbtc": "",
-    "dai": "0x50c5725949a6f0c72e6c4a641f24049a917db0cb",
+    "wbtc": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
+    "dai": "",
     "traderLoyaltyCredit": "",
-    "wstEth": "0xc1cba3fcea344f92d9239c08c0568f6f2f0ee452"
+    "wstEth": "0xc1cba3fcea344f92d9239c08c0568f6f2f0ee452",
+    "flp": "0x6304CE3F4eF20EC0AaB3981d0B4428Beeb96c3aC"
   },
   "vendors": {
     "aerodrome": {
       "router": "0xcF77a3Ba9A5CA399B7c97c74d54e5b1Beb874E43",
       "factory": "0x420DD381b31aEf6683db6B902084cB0FFECe40Da"
-    }    
+    }
   },
   "strategies": {
     "erc20Approve": ""
@@ -70,8 +71,8 @@
     "tradingStaking": "",
     "tlc": ""
   },
-  "calculator": "",
-  "adaptiveFeeCalculator": "",
+  "calculator": "0x651e03A1A9D1657C870Ee22165C331bebAeAEd97",
+  "adaptiveFeeCalculator": "0xc1875dcDf4b1fcCD82553315625836c4e8000CAf",
   "accountAbstraction": {
     "entryPoint": "",
     "factory": ""
@@ -83,9 +84,9 @@
   },
   "rewardDistributor": "",
   "reader": {
-    "order": "",
-    "position": "",
-    "liquidation": "",
+    "order": "0xbFBB40Ffe039dAb4370c99cAea3cf246C45f2132",
+    "position": "0x640933F45204D404d2f294D6428C623e01923352",
+    "liquidation": "0xA42d3b78f2397e92E8755ced720bE22f7E21140c",
     "collateral": ""
   },
   "extension": {

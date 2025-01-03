@@ -9,7 +9,7 @@ const liquidityConfig = {
   depositFeeRateBPS: 0, // 0%
   withdrawFeeRateBPS: 30, // 0.3%
   maxHLPUtilizationBPS: 8000, // 80%
-  hlpTotalTokenWeight: 0, // DEFAULT
+  hlpTotalTokenWeight: 0, // DEFAULT, auto calculated by assetHlpTokenConfigs
   hlpSafetyBufferBPS: 2000, // 20%
   taxFeeRateBPS: 50, // 0.5%
   flashLoanFeeRateBPS: 0,
@@ -19,7 +19,7 @@ const liquidityConfig = {
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
-  const deployer = signers.deployer(chainId);
+  const deployer = await signers.deployer(chainId);
   const ownerWrapper = new OwnerWrapper(chainId, deployer);
   const configStorage = ConfigStorage__factory.connect(config.storages.config, deployer);
 

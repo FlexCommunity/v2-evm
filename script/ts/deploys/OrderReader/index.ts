@@ -1,4 +1,4 @@
-import { ethers, run } from "hardhat";
+import { ethers, run, tenderly } from "hardhat";
 import { getConfig, writeConfigFile } from "../../utils/config";
 
 const BigNumber = ethers.BigNumber;
@@ -9,10 +9,10 @@ async function main() {
 
   const Contract = await ethers.getContractFactory("OrderReader", deployer);
   const contract = await Contract.deploy(
-    config.storages.config,
-    config.storages.perp,
-    config.oracles.middleware,
-    config.handlers.limitTrade
+    config.storages.config!,
+    config.storages.perp!,
+    config.oracles.middleware!,
+    config.handlers.limitTrade!,
   );
   await contract.deployed();
   console.log(`Deploying OrderReader Contract`);
@@ -29,6 +29,11 @@ async function main() {
       config.oracles.middleware,
       config.handlers.limitTrade,
     ],
+  });
+
+  await tenderly.verify({
+    address: config.reader.order,
+    name: "OrderReader",
   });
 }
 

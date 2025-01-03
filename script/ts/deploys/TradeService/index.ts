@@ -23,8 +23,13 @@ async function main() {
   writeConfigFile(config);
 
   await run("verify:verify", {
-    address: await getImplementationAddress(network.provider, contract.address),
+    address: await getImplementationAddress(network.provider, config.services.trade),
     constructorArguments: [],
+  });
+
+  await tenderly.verify({
+    address: await getImplementationAddress(network.provider, config.services.trade),
+    name: "TradeService",
   });
 }
 

@@ -10,7 +10,7 @@ const minter = config.services.liquidity;
 
 async function main() {
   const deployer = (await ethers.getSigners())[0];
-  const contract = FLP__factory.connect(config.tokens.hlp, deployer);
+  const contract = FLP__factory.connect(config.tokens.hlp!, deployer);
 
   console.log(`> FLP Set Minter... ${minter}`);
   await (await contract.setMinter(minter, true)).wait();

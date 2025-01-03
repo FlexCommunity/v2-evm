@@ -4,12 +4,13 @@ import { loadConfig } from "../../utils/config";
 import { Command } from "commander";
 import signers from "../../entities/signers";
 import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
+import { passChainArg } from "../../utils/main-fn-wrappers";
 
 const BPS = 10000;
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
-  const deployer = signers.deployer(chainId);
+  const deployer = await signers.deployer(chainId);
   const ownerWrapper = new OwnerWrapper(chainId, deployer);
   const configStorage = ConfigStorage__factory.connect(config.storages.config, deployer);
 
@@ -22,14 +23,14 @@ async function main(chainId: number) {
         settleStrategy: ethers.constants.AddressZero,
       },
     },
-    {
-      assetId: ethers.utils.formatBytes32String("DAI"),
-      collateralConfig: {
-        collateralFactorBPS: 1 * BPS,
-        accepted: true,
-        settleStrategy: ethers.constants.AddressZero,
-      },
-    },
+    // {
+    //   assetId: ethers.utils.formatBytes32String("DAI"),
+    //   collateralConfig: {
+    //     collateralFactorBPS: 1 * BPS,
+    //     accepted: true,
+    //     settleStrategy: ethers.constants.AddressZero,
+    //   },
+    // },
     {
       assetId: ethers.utils.formatBytes32String("ETH"),
       collateralConfig: {
@@ -59,19 +60,4 @@ async function main(chainId: number) {
   console.log("[configs/ConfigStorage] Set Collateral Configs success!");
 }
 
-const prog = new Command();
-
-prog.requiredOption("--chain-id <number>", "chain id", parseInt);
-
-prog.parse(process.argv);
-
-const opts = prog.opts();
-
-main(opts.chainId)
-  .then(() => {
-    process.exit(0);
-  })
-  .catch((error) => {
-    console.error(error);
-    process.exitCode = 1;
-  });
+passChainArg(main);

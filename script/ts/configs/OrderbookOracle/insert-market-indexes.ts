@@ -3,10 +3,11 @@ import { loadConfig } from "../../utils/config";
 import signers from "../../entities/signers";
 import { Command } from "commander";
 import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
+import { passChainArg } from "../../utils/main-fn-wrappers";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
-  const deployer = signers.deployer(chainId);
+  const deployer = await signers.deployer(chainId);
   const ownerWrapper = new OwnerWrapper(chainId, deployer);
 
   const inputs = [0, 1];
@@ -21,13 +22,4 @@ async function main(chainId: number) {
   console.log("[configs/OrderbookOracle] Insert Market Indexes success!");
 }
 
-const program = new Command();
-
-program.requiredOption("--chain-id <chainId>", "chain id", parseInt);
-
-const opts = program.parse(process.argv).opts();
-
-main(opts.chainId).catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+passChainArg(main);

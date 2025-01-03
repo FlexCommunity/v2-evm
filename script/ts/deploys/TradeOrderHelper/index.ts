@@ -1,4 +1,4 @@
-import { ethers, run } from "hardhat";
+import { ethers, run, tenderly } from "hardhat";
 import { getConfig, writeConfigFile } from "../../utils/config";
 
 const config = getConfig();
@@ -26,6 +26,11 @@ async function main() {
       config.oracles.middleware,
       config.services.trade,
     ],
+  });
+
+  await tenderly.verify({
+    address: config.helpers.tradeOrder,
+    name: "TradeOrderHelper",
   });
 }
 

@@ -6,19 +6,19 @@ const config = getConfig();
 
 const inputs = [
   {
-    executorAddress: config.services.crossMargin,
+    executorAddress: config.services.crossMargin!,
     isServiceExecutor: true,
   },
   {
-    executorAddress: config.services.trade,
+    executorAddress: config.services.trade!,
     isServiceExecutor: true,
   },
   {
-    executorAddress: config.helpers.trade,
+    executorAddress: config.helpers.trade!,
     isServiceExecutor: true,
   },
   {
-    executorAddress: config.services.liquidation,
+    executorAddress: config.services.liquidation!,
     isServiceExecutor: true,
   },
 ];

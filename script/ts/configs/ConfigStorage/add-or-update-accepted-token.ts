@@ -8,7 +8,7 @@ import { passChainArg } from "../../utils/main-fn-wrappers";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
-  const deployer = signers.deployer(chainId);
+  const deployer = await signers.deployer(chainId);
   const ownerWrapper = new OwnerWrapper(chainId, deployer);
   const configStorage = ConfigStorage__factory.connect(config.storages.config, deployer);
 
@@ -16,7 +16,7 @@ async function main(chainId: number) {
     {
       tokenAddress: config.tokens.usdc,
       config: {
-        targetWeight: ethers.utils.parseEther("0.55"), // 25%
+        targetWeight: ethers.utils.parseEther("0.40"), // 40%
         bufferLiquidity: 0,
         maxWeightDiff: ethers.utils.parseEther("1000"), // 100000 % (Don't check max weight diff at launch)
         accepted: true,
@@ -25,7 +25,7 @@ async function main(chainId: number) {
     {
       tokenAddress: config.tokens.weth,
       config: {
-        targetWeight: ethers.utils.parseEther("0.20"), // 50%
+        targetWeight: ethers.utils.parseEther("0.20"), // 20%
         bufferLiquidity: 0,
         maxWeightDiff: ethers.utils.parseEther("1000"), // 100000 % (Don't check max weight diff at launch)
         accepted: true,
@@ -34,7 +34,7 @@ async function main(chainId: number) {
     {
       tokenAddress: config.tokens.wbtc,
       config: {
-        targetWeight: ethers.utils.parseEther("0.25"), // 50%
+        targetWeight: ethers.utils.parseEther("0.40"), // 40%
         bufferLiquidity: 0,
         maxWeightDiff: ethers.utils.parseEther("1000"), // 100000 % (Don't check max weight diff at launch)
         accepted: true,

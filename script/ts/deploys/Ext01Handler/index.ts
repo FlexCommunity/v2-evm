@@ -1,4 +1,4 @@
-import { ethers, run, upgrades, network } from "hardhat";
+import { ethers, run, upgrades, network, tenderly } from "hardhat";
 import { getConfig, writeConfigFile } from "../../utils/config";
 import { getImplementationAddress } from "@openzeppelin/upgrades-core";
 
@@ -10,11 +10,11 @@ async function main() {
 
   const Contract = await ethers.getContractFactory("Ext01Handler", deployer);
   const contract = await upgrades.deployProxy(Contract, [
-    config.services.crossMargin,
-    config.services.liquidation,
-    config.services.liquidity,
-    config.services.trade,
-    config.oracles.ecoPyth2,
+    config.services.crossMargin!,
+    config.services.liquidation!,
+    config.services.liquidity!,
+    config.services.trade!,
+    config.oracles.ecoPyth2!,
   ]);
   await contract.deployed();
   console.log(`[deploy/Ext01Handler] Deploying Ext01Handler Contract`);
@@ -24,8 +24,13 @@ async function main() {
   writeConfigFile(config);
 
   await run("verify:verify", {
-    address: await getImplementationAddress(network.provider, contract.address),
+    address: await getImplementationAddress(network.provider, config.handlers.ext01),
     constructorArguments: [],
+  });
+  
+  await tenderly.verify({
+    address: await getImplementationAddress(network.provider, config.handlers.ext01),
+    name: "Ext01Handler",
   });
 }
 

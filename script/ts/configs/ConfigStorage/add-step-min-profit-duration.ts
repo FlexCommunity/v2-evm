@@ -27,7 +27,7 @@ async function main(chainId: number) {
     },
   ];
 
-  const deployer = signers.deployer(chainId);
+  const deployer = await signers.deployer(chainId);
   const ownerWrapper = new OwnerWrapper(chainId, deployer);
   const configStorage = ConfigStorage__factory.connect(config.storages.config, deployer);
 

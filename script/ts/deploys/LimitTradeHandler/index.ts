@@ -16,7 +16,7 @@ async function main() {
   const contract = await upgrades.deployProxy(
     Contract,
     [
-      config.tokens.weth, config.services.trade, config.oracles.ecoPyth2,
+      config.tokens.weth!, config.services.trade!, config.oracles.ecoPyth2!,
       minExecutionFee, minExecutionTimestamp
     ],
     {
@@ -30,14 +30,14 @@ async function main() {
   config.handlers.limitTrade = contract.address;
   writeConfigFile(config);
 
-  await tenderly.verify({
-    address: await getImplementationAddress(network.provider, config.handlers.limitTrade),
-    name: "LimitTradeHandler",
-  });
-
   await run("verify:verify", {
     address: await getImplementationAddress(network.provider, config.handlers.limitTrade),
     constructorArguments: [],
+  });
+
+  await tenderly.verify({
+    address: await getImplementationAddress(network.provider, config.handlers.limitTrade),
+    name: "LimitTradeHandler",
   });
 
 }

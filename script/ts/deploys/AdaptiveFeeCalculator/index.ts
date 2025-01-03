@@ -1,4 +1,4 @@
-import { ethers, run } from "hardhat";
+import { ethers, run, tenderly } from "hardhat";
 import { getConfig, writeConfigFile } from "../../utils/config";
 
 async function main() {
@@ -18,9 +18,15 @@ async function main() {
   writeConfigFile(config);
 
   await run("verify:verify", {
-    address: adaptiveFeeCalculator.address,
+    address: config.adaptiveFeeCalculator,
     constructorArguments: [k1, k2],
   });
+
+  await tenderly.verify({
+    address: config.adaptiveFeeCalculator,
+    name: "AdaptiveFeeCalculator",
+  });
+
 }
 
 main()

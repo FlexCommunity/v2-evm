@@ -1,11 +1,11 @@
-import { ethers, run } from "hardhat";
+import { ethers, run, tenderly } from "hardhat";
 import { getConfig, writeConfigFile } from "../../utils/config";
 
 const config = getConfig();
 
 async function main() {
   const deployer = (await ethers.getSigners())[0];
-  const contract = await ethers.deployContract("IntentBuilder", [config.storages.config], deployer);
+  const contract = await ethers.deployContract("IntentBuilder", [config.storages.config!], deployer);
 
   await contract.deployed();
   console.log(`[deploys/Dexter] Deploying IntentBuilder Contract`);
@@ -18,6 +18,12 @@ async function main() {
     address: config.helpers.intentBuilder,
     constructorArguments: [config.storages.config],
   });
+
+  await tenderly.verify({
+    address: config.helpers.intentBuilder,
+    name: "IntentBuilder",
+  });
+
 }
 
 main().catch((error) => {

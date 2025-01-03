@@ -10,68 +10,68 @@ async function main(chainId: number) {
 
   const inputs = [
     {
-      contractAddress: config.services.crossMargin,
-      executorAddress: config.handlers.crossMargin,
+      contractAddress: config.services.crossMargin!,
+      executorAddress: config.handlers.crossMargin!,
       isServiceExecutor: true,
     },
     {
-      contractAddress: config.services.liquidity,
-      executorAddress: config.handlers.liquidity,
+      contractAddress: config.services.liquidity!,
+      executorAddress: config.handlers.liquidity!,
       isServiceExecutor: true,
     },
     {
-      contractAddress: config.services.liquidation,
-      executorAddress: config.handlers.bot,
+      contractAddress: config.services.liquidation!,
+      executorAddress: config.handlers.bot!,
       isServiceExecutor: true,
     },
     {
-      contractAddress: config.services.trade,
-      executorAddress: config.handlers.bot,
+      contractAddress: config.services.trade!,
+      executorAddress: config.handlers.bot!,
       isServiceExecutor: true,
     },
     {
-      contractAddress: config.helpers.trade,
-      executorAddress: config.services.trade,
+      contractAddress: config.helpers.trade!,
+      executorAddress: config.services.trade!,
       isServiceExecutor: true,
     },
     {
-      contractAddress: config.helpers.trade,
-      executorAddress: config.services.liquidation,
+      contractAddress: config.helpers.trade!,
+      executorAddress: config.services.liquidation!,
       isServiceExecutor: true,
     },
     {
-      contractAddress: config.services.gas,
-      executorAddress: config.handlers.intent,
+      contractAddress: config.services.gas!,
+      executorAddress: config.handlers.intent!,
       isServiceExecutor: true,
     },
     {
-      contractAddress: config.services.trade,
-      executorAddress: config.helpers.tradeOrder,
+      contractAddress: config.services.trade!,
+      executorAddress: config.helpers.tradeOrder!,
       isServiceExecutor: true,
     },
     {
-      contractAddress: config.services.trade,
-      executorAddress: config.helpers.tradeOrder,
+      contractAddress: config.services.trade!,
+      executorAddress: config.helpers.tradeOrder!,
       isServiceExecutor: true,
     },
     {
-      contractAddress: config.services.trade,
-      executorAddress: config.handlers.limitTrade,
+      contractAddress: config.services.trade!,
+      executorAddress: config.handlers.limitTrade!,
       isServiceExecutor: true,
     },
     {
-      contractAddress: config.services.crossMargin,
-      executorAddress: config.handlers.ext01,
+      contractAddress: config.services.crossMargin!,
+      executorAddress: config.handlers.ext01!,
       isServiceExecutor: true,
     },
     {
-      contractAddress: config.services.gas,
-      executorAddress: config.rewardDistributor,
+      contractAddress: config.services.gas!,
+      executorAddress: config.rewardDistributor!,
       isServiceExecutor: true,
     },
   ];
 
-  const deployer = signers.deployer(chainId);
+  const deployer = await signers.deployer(chainId);
   const ownerWrapper = new OwnerWrapper(chainId, deployer);
   const configStorage = ConfigStorage__factory.connect(config.storages.config, deployer);
 

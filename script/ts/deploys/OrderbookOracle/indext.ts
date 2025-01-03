@@ -1,4 +1,4 @@
-import { ethers, run } from "hardhat";
+import { ethers, run, tenderly } from "hardhat";
 import { getConfig, writeConfigFile } from "../../utils/config";
 
 async function main() {
@@ -15,8 +15,13 @@ async function main() {
   writeConfigFile(config);
 
   await run("verify:verify", {
-    address: orderbookOracle.address,
+    address: config.oracles.orderbook,
     constructorArguments: [],
+  });
+
+  await tenderly.verify({
+    address: config.oracles.orderbook,
+    name: "OrderbookOracle",
   });
 }
 

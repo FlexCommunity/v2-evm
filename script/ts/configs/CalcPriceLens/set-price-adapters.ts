@@ -5,6 +5,7 @@ import signers from "../../entities/signers";
 import { Command } from "commander";
 import SafeWrapper from "../../wrappers/SafeWrapper";
 import { compareAddress } from "../../utils/address";
+import { passChainArg } from "../../utils/main-fn-wrappers";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
@@ -15,7 +16,7 @@ async function main(chainId: number) {
     },
   ];
 
-  const deployer = signers.deployer(chainId);
+  const deployer = await signers.deployer(chainId);
   const safeWrapper = new SafeWrapper(chainId, config.safe, deployer);
   const lens = CalcPriceLens__factory.connect(config.oracles.calcPriceLens, deployer);
   const owner = await lens.owner();
@@ -42,15 +43,4 @@ async function main(chainId: number) {
   console.log("[configs/CalcPriceLens] Finished");
 }
 
-const prog = new Command();
-
-prog.requiredOption("--chain-id <chainId>", "chain id", parseInt);
-
-prog.parse(process.argv);
-
-const opts = prog.opts();
-
-main(opts.chainId).catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+passChainArg(main);

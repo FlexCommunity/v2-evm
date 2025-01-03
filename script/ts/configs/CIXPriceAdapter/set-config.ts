@@ -5,10 +5,11 @@ import { CIXPriceAdapter__factory } from "../../../../typechain";
 import { ethers } from "ethers";
 import { compareAddress } from "../../utils/address";
 import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
+import { passChainArg } from "../../utils/main-fn-wrappers";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
-  const deployer = signers.deployer(chainId);
+  const deployer = await signers.deployer(chainId);
   const ownerWrapper = new OwnerWrapper(chainId, deployer);
   const cixPriceAdapter = CIXPriceAdapter__factory.connect(config.oracles.priceAdapters.dix, deployer);
 
@@ -46,17 +47,4 @@ async function main(chainId: number) {
   );
 }
 
-const program = new Command();
-
-program.requiredOption("--chain-id <number>", "chain id", parseInt);
-
-const opts = program.parse(process.argv).opts();
-
-main(opts.chainId)
-  .then(() => {
-    process.exit(0);
-  })
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  });
+passChainArg(main);

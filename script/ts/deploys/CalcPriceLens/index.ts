@@ -1,4 +1,4 @@
-import { ethers, run } from "hardhat";
+import { ethers, run, tenderly } from "hardhat";
 import { getConfig, writeConfigFile } from "../../utils/config";
 
 async function main() {
@@ -15,9 +15,15 @@ async function main() {
   writeConfigFile(config);
 
   await run("verify:verify", {
-    address: contract.address,
+    address: config.oracles.calcPriceLens,
     constructorArguments: [],
   });
+
+  await tenderly.verify({
+    address: config.oracles.calcPriceLens,
+    name: "CalcPriceLens",
+  });
+
 }
 
 main()

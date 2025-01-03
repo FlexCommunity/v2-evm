@@ -14,7 +14,8 @@ async function main(chainId: number) {
 
   const config = loadConfig(chainId);
   const marketConfig = loadMarketConfig(chainId);
-  const deployer = signers.deployer(chainId);
+  const deployer = await signers.deployer(chainId);
+  console.log("Deployer:", await deployer.getAddress());
   const ownerWrapper = new OwnerWrapper(chainId, deployer);
   const limitTradeHelper = TradeOrderHelper__factory.connect(config.helpers.tradeOrder!, deployer);
 
@@ -23,7 +24,7 @@ async function main(chainId: number) {
     inputs.map((i) => {
       return {
         marketIndex: i.marketIndex,
-        market: marketConfig.markets[i.marketIndex].name,
+        market: marketConfig.markets[i.marketIndex].name!,
         positionSizeLimit: i.positionSizeLimit,
         tradeSizeLimit: i.tradeSizeLimit,
       };

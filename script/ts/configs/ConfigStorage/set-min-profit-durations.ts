@@ -8,7 +8,7 @@ import { passChainArg, runMainAsAsync } from "../../utils/main-fn-wrappers";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
-  const deployer = signers.deployer(chainId);
+  const deployer = await signers.deployer(chainId);
 
   const inputs = [
     { marketIndex: 0, minProfitDuration: 180 },
@@ -35,7 +35,7 @@ async function main(chainId: number) {
       inputs.map((each) => each.marketIndex),
       inputs.map((each) => each.minProfitDuration)
     );
-    console.log(`[config/ConfigStorage] Tx: ${tx}`);
+    console.log(`[config/ConfigStorage] Tx: ${tx.hash}`);
     await tx.wait();
   }
 }

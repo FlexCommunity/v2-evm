@@ -8,7 +8,7 @@ async function main() {
   const deployer = (await ethers.getSigners())[0];
 
   const executionFeeInUsd = ethers.utils.parseUnits("0.2", 30);
-  const executionFeeTreasury = "0xfd1556DF7f07fD308d4809FBB34170F21E725C0E";
+  const executionFeeTreasury = "0xbbb09238D19eFDE23E7fB818451751505B9B900F";
 
   const Contract = await ethers.getContractFactory("GasService", deployer);
 
@@ -26,8 +26,13 @@ async function main() {
   writeConfigFile(config);
 
   await run("verify:verify", {
-    address: await getImplementationAddress(network.provider, contract.address),
+    address: await getImplementationAddress(network.provider, config.services.gas),
     constructorArguments: [],
+  });
+
+  await tenderly.verify({
+    address: await getImplementationAddress(network.provider, config.services.gas),
+    name: "GasService",
   });
 }
 

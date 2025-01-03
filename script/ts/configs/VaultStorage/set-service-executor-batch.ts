@@ -8,44 +8,40 @@ async function main(chainId: number) {
   const config = loadConfig(chainId);
   const inputs = [
     {
-      executorAddress: config.services.liquidity,
+      executorAddress: config.services.liquidity!,
       isServiceExecutor: true,
     },
     {
-      executorAddress: config.services.crossMargin,
+      executorAddress: config.services.crossMargin!,
       isServiceExecutor: true,
     },
     {
-      executorAddress: config.services.trade,
+      executorAddress: config.services.trade!,
       isServiceExecutor: true,
     },
     {
-      executorAddress: config.helpers.trade,
+      executorAddress: config.helpers.trade!,
       isServiceExecutor: true,
     },
     {
-      executorAddress: config.services.liquidation,
-      isServiceExecutor: true,
-    },
-    // {
-    //   executorAddress: config.strategies.stakedGlpStrategy,
-    //   isServiceExecutor: true,
-    // },
-    {
-      executorAddress: config.rewardDistributor,
+      executorAddress: config.services.liquidation!,
       isServiceExecutor: true,
     },
     {
-      executorAddress: config.handlers.bot,
+      executorAddress: config.rewardDistributor!,
       isServiceExecutor: true,
     },
     {
-      executorAddress: config.services.gas,
+      executorAddress: config.handlers.bot!,
+      isServiceExecutor: true,
+    },
+    {
+      executorAddress: config.services.gas!,
       isServiceExecutor: true,
     },
   ];
 
-  const deployer = signers.deployer(chainId);
+  const deployer = await signers.deployer(chainId);
   const ownerWrapper = new OwnerWrapper(chainId, deployer);
   const vaultStorage = VaultStorage__factory.connect(config.storages.vault, deployer);
 

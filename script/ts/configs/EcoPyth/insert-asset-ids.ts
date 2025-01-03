@@ -4,6 +4,7 @@ import signers from "../../entities/signers";
 import { loadConfig } from "../../utils/config";
 import { Command } from "commander";
 import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
+import { passChainArg } from "../../utils/main-fn-wrappers";
 
 const ASSET_IDS = [
   ethers.utils.formatBytes32String("ETH"),
@@ -57,7 +58,7 @@ const ASSET_IDS = [
 ];
 
 async function main(chainId: number) {
-  const deployer = signers.deployer(chainId);
+  const deployer = await signers.deployer(chainId);
   const config = loadConfig(chainId);
   const ownerWrapper = new OwnerWrapper(chainId, deployer);
 
@@ -66,13 +67,4 @@ async function main(chainId: number) {
   await ownerWrapper.authExec(ecoPyth.address, ecoPyth.interface.encodeFunctionData("insertAssetIds", [ASSET_IDS]));
 }
 
-const program = new Command();
-
-program.requiredOption("--chain-id <chainId>", "chain id", parseInt);
-
-const opts = program.parse(process.argv).opts();
-
-main(opts.chainId).catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+passChainArg(main);

@@ -6,18 +6,18 @@ import { passChainArg } from "../../utils/main-fn-wrappers";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
-  const ownerWrapper = new OwnerWrapper(chainId, signers.deployer(chainId));
+  const deployer = await signers.deployer(chainId);
+  const ownerWrapper = new OwnerWrapper(chainId, deployer);
 
   const inputs = [
-    { updater: "0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0", isUpdater: true },
-    { updater: "0xdb09967dCDC0086f7b5d798f71De664c068e92De", isUpdater: true },
-    { updater: "0xdb1c35fD123e2CeDa64F19f419dC4481177d77c7", isUpdater: true },
-    { updater: "0xdb2bD1c6498393B1072d1152a1FFF265D8D00665", isUpdater: true },
-    { updater: "0xdb3ea875d628496B6EC97691455b53b221FCd963", isUpdater: true },
-    { updater: "0xdb42bC3EFd76b82FC5023b11efc4b4eC60ed413c", isUpdater: true },
+    { updater: "0xbbbe424b47c0EE77E0fb0Bb593617636Ee54D001", isUpdater: true },
+    { updater: "0xbbb027210e4D34a71a735A66358b1E6b564AE002", isUpdater: true },
+    { updater: "0xbbb8b1aA2F2b75C111dFBCe1e8e944c3673C7003", isUpdater: true },
+    { updater: "0xbbbD2CA97D353820F6BB530556eD1786D6771004", isUpdater: true },
+    { updater: "0xbbb5B311BB5CfA375BfD9C14EDc297d8AAe27006", isUpdater: true },
+    { updater: "0xbbb805433305A837755BEA1681B134a4244c8007", isUpdater: true },
   ];
 
-  const deployer = signers.deployer(chainId);
   const orderbookOracle = OrderbookOracle__factory.connect(config.oracles.orderbook, deployer);
 
   console.log("[configs/OrderbookOracle] Proposing to set updaters...");

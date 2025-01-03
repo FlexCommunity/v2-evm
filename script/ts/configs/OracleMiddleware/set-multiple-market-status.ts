@@ -7,11 +7,11 @@ const config = getConfig();
 const inputs = [
   {
     assetId: ethers.utils.formatBytes32String("ETH"),
-    status: 2,
+    status: 2, // 2 - active
   },
   {
     assetId: ethers.utils.formatBytes32String("BTC"),
-    status: 2,
+    status: 2,  // 2 - active
   },
 ];
 
