@@ -16,6 +16,7 @@ export type ChainEntity = {
 // if (!process.env.ARBI_STAT_SUBGRAPH_URL) throw new Error("Missing ARBI_STAT_SUBGRAPH_URL env var");
 
 export const BASE_SEPOLIA_CHAIN_ID = 84532;
+export const BASE_MAINNET_CHAIN_ID = 8453;
 
 const CHAIN_BY_ID  = {
   8453: {
@@ -24,7 +25,7 @@ const CHAIN_BY_ID  = {
     rpc: process.env.BASE_MAINNET_RPC,
     jsonRpcProvider: new ethers.providers.JsonRpcProvider(process.env.BASE_MAINNET_RPC),
     safeTxServiceUrl: "https://safe-transaction-base.safe.global/",
-    statSubgraphUrl: process.env.ARBI_STAT_SUBGRAPH_URL,
+    statSubgraphUrl: "",
   },
   84532: {
     id: 84532,

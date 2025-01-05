@@ -55,6 +55,7 @@
     "wbtc": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
     "dai": "",
     "traderLoyaltyCredit": "",
+    "flexTradeCredits": "",
     "wstEth": "0xc1cba3fcea344f92d9239c08c0568f6f2f0ee452",
     "flp": "0x6304CE3F4eF20EC0AaB3981d0B4428Beeb96c3aC"
   },
@@ -62,6 +63,10 @@
     "aerodrome": {
       "router": "0xcF77a3Ba9A5CA399B7c97c74d54e5b1Beb874E43",
       "factory": "0x420DD381b31aEf6683db6B902084cB0FFECe40Da"
+    },
+    "uniswap": {
+      "permit2": "0x000000000022D473030F116dDEE9F6B43aC78BA3",
+      "universalRouter": "0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD"
     }
   },
   "strategies": {
@@ -82,7 +87,7 @@
     "tlc": "",
     "hlp": ""
   },
-  "rewardDistributor": "",
+  "rewardDistributor": "0xA1afe23b4C9c87493b6606E3a4557e59643B929d",
   "reader": {
     "order": "0xbFBB40Ffe039dAb4370c99cAea3cf246C45f2132",
     "position": "0x640933F45204D404d2f294D6428C623e01923352",
@@ -90,9 +95,9 @@
     "collateral": ""
   },
   "extension": {
-    "switchCollateralRouter": "",
+    "switchCollateralRouter": "0xFfdA60AF7301323cf29d435bcD50524a54997c01",
     "dexter": {
-      "uniswapV3": "",
+      "uniswapV3": "0x26b75DC40da43808CEc8263F962a9AAA8D0F0403",
       "curve": ""
     }
   }

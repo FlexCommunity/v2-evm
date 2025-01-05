@@ -1,4 +1,4 @@
-import { BASE_SEPOLIA_CHAIN_ID } from "../../entities/chains";
+import { BASE_MAINNET_CHAIN_ID, BASE_SEPOLIA_CHAIN_ID } from "../../entities/chains";
 import { loadConfig } from "../../utils/config";
 
 export function getDexterConfig(chainId: number) {
@@ -21,6 +21,29 @@ export function getDexterConfig(chainId: number) {
         //   tokenOut: config.tokens.sglp,
         //   dexter: config.extension.dexter.uniswapV3,
         // },
+      ]
+    case BASE_MAINNET_CHAIN_ID:
+      return [
+        {
+          tokenIn: config.tokens.weth,
+          tokenOut: config.tokens.usdc,
+          dexter: config.extension.dexter.uniswapV3,
+        },
+        {
+          tokenIn: config.tokens.usdc,
+          tokenOut: config.tokens.weth,
+          dexter: config.extension.dexter.uniswapV3,
+        },
+        {
+          tokenIn: config.tokens.wbtc,
+          tokenOut: config.tokens.usdc,
+          dexter: config.extension.dexter.uniswapV3,
+        },
+        {
+          tokenIn: config.tokens.usdc,
+          tokenOut: config.tokens.wbtc,
+          dexter: config.extension.dexter.uniswapV3,
+        },
       ]
     default:
       throw new Error(`Chain not supported: ${chainId}`)

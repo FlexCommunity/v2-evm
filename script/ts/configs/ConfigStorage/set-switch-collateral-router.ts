@@ -8,7 +8,7 @@ import { passChainArg } from "../../utils/main-fn-wrappers";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
-  const deployer = signers.deployer(chainId);
+  const deployer = await signers.deployer(chainId);
   const safeWrapper = new SafeWrapper(chainId, config.safe, deployer);
   const configStorage = ConfigStorage__factory.connect(config.storages.config, deployer);
 

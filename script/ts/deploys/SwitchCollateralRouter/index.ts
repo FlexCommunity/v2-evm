@@ -15,7 +15,7 @@ async function main() {
   writeConfigFile(config);
 
   await tenderly.verify({
-    address: contract.address,
+    address: config.extension.switchCollateralRouter,
     name: "SwitchCollateralRouter",
   });
 

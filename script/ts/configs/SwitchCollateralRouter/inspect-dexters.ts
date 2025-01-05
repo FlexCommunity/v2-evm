@@ -13,9 +13,9 @@ export type SetDexter = {
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
-  const deployer = signers.deployer(chainId);
+  const deployer = await signers.deployer(chainId);
   const swithCollateralRouter = SwitchCollateralRouter__factory.connect(
-    config.extension.switchCollateralRouter,
+    config.extension.switchCollateralRouter!,
     deployer
   );
 

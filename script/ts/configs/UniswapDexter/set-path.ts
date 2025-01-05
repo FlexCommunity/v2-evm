@@ -12,7 +12,7 @@ export type SetPathConfig = {
 
 async function main(chainId: number) {
   const config = loadConfig(chainId) as any;
-  const deployer = signers.deployer(chainId);
+  const deployer = await signers.deployer(chainId);
   const dexter = UniswapDexter__factory.connect(config.extension.dexter.uniswapV3!, deployer);
 
   console.log("[cmds/UniswapDexter]");
