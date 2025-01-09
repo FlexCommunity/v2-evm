@@ -7,10 +7,10 @@ import { runMainAsAsync } from "../../utils/main-fn-wrappers";
 async function main() {
   const chainId = Number(await getChainId());
   const config = loadConfig(chainId);
-  const deployer = signers.deployer(chainId);
+  const deployer = await signers.deployer(chainId);
 
   console.log("> LiquidityHandler: Set HLP Staking...");
-  const handler = LiquidityHandler__factory.connect(config.handlers.liquidity, deployer);
+  const handler = LiquidityHandler__factory.connect(config.handlers.liquidity!, deployer);
   await (await handler.setHlpStaking(config.staking.hlp)).wait();
   console.log("> LiquidityHandler: Set HLP Staking success!");
 }

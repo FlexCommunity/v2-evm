@@ -9,15 +9,15 @@ import { passChainArg } from "../../utils/main-fn-wrappers";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
-  const deployer = signers.deployer(chainId);
+  const deployer = await signers.deployer(chainId);
 
   const whitelistedCallers = [
     {
-      caller: config.services.trade,
+      caller: config.services.trade!,
       isWhitelisted: true,
     },
     {
-      caller: config.services.liquidation,
+      caller: config.services.liquidation!,
       isWhitelisted: true,
     },
   ];

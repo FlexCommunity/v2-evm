@@ -9,7 +9,7 @@ import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
 async function main(chainId: number) {
   console.group('[config/ConfigStorage]')
   const config = loadConfig(chainId);
-  const deployer = signers.deployer(chainId);
+  const deployer = await signers.deployer(chainId);
   // const safeWrapper = new SafeWrapper(chainId, deployer);
   const ownerWrapper = new OwnerWrapper(chainId, deployer);
   const configStorage = ConfigStorage__factory.connect(config.storages.config, deployer);
@@ -18,7 +18,7 @@ async function main(chainId: number) {
   await ownerWrapper.authExec(
     configStorage.address,
     configStorage.interface.encodeFunctionData("setTradeServiceHooks", [
-      [config.hooks.tlc, config.hooks.tradingStaking],
+      [config.hooks.tlc],
     ])
   );
 

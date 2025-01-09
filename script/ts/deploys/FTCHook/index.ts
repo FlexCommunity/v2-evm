@@ -5,9 +5,9 @@ import { getImplementationAddress } from "@openzeppelin/upgrades-core";
 const BigNumber = ethers.BigNumber;
 const config = getConfig();
 
-const tradeService = config.services.trade;
-const tlc = config.tokens.traderLoyaltyCredit;
-const tlcStaking = config.staking.tlc;
+const tradeService = config.services.trade!;
+const tlc = config.tokens.traderLoyaltyCredit!;
+const tlcStaking = config.staking.tlc!;
 
 async function main() {
   const deployer = (await ethers.getSigners())[0];

@@ -54,8 +54,8 @@
     "usdc": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
     "wbtc": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
     "dai": "",
-    "traderLoyaltyCredit": "",
-    "flexTradeCredits": "",
+    "traderLoyaltyCredit": "0x78e82092F2E8a251a1Db7D98b60f8EAee1B1E4Af",
+    "flexTradeCredits": "0x78e82092F2E8a251a1Db7D98b60f8EAee1B1E4Af",
     "wstEth": "0xc1cba3fcea344f92d9239c08c0568f6f2f0ee452",
     "flp": "0x6304CE3F4eF20EC0AaB3981d0B4428Beeb96c3aC"
   },
@@ -74,7 +74,7 @@
   },
   "hooks": {
     "tradingStaking": "",
-    "tlc": ""
+    "tlc": "0xE7d709c6E92485B62F0d64aD2B1b1f26920BC3f2"
   },
   "calculator": "0x651e03A1A9D1657C870Ee22165C331bebAeAEd97",
   "adaptiveFeeCalculator": "0xc1875dcDf4b1fcCD82553315625836c4e8000CAf",
@@ -84,8 +84,8 @@
   },
   "staking": {
     "trading": "",
-    "tlc": "",
-    "hlp": ""
+    "tlc": "0x5AB9334dC4C84313CC0386D4DcE4A107201e84e4",
+    "hlp": "0x053fa05d34c51afC5cb9f162Fab3fD675Ac06119"
   },
   "rewardDistributor": "0xA1afe23b4C9c87493b6606E3a4557e59643B929d",
   "reader": {
