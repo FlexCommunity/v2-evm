@@ -7,7 +7,7 @@ async function main() {
 
   console.log(`Deploying LimitTradeHelper Contract`);
   const Contract = await ethers.getContractFactory("LimitTradeHelper", deployer);
-  const contract = await Contract.deploy(config.storages.config, config.storages.perp);
+  const contract = await Contract.deploy(config.storages.config!, config.storages.perp!);
   await contract.deployed();
   console.log(`Deployed at: ${contract.address}`);
 

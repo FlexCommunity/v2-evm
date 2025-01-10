@@ -1,13 +1,13 @@
 import { ethers, run, tenderly } from "hardhat";
 import { getConfig, writeConfigFile } from "../../utils/config";
 
-const config = getConfig();
+const config = getConfig() as any;
 
 async function main() {
   const deployer = (await ethers.getSigners())[0];
   const contract = await ethers.deployContract(
     "AerodromeDexter",
-    [config.vendors.aerodrome.router!],
+    [config.vendors.aerodrome!.router!],
     deployer
   );
 

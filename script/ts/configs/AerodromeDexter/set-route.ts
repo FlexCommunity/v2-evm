@@ -1,4 +1,3 @@
-import { Command } from "commander";
 import { loadConfig } from "../../utils/config";
 import signers from "../../entities/signers";
 import { AerodromeDexter__factory } from "../../../../typechain";
@@ -19,8 +18,8 @@ type SetRouteConfig = {
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
-  const deployer = signers.deployer(chainId);
-  const dexter = AerodromeDexter__factory.connect(config.extension.dexter.aerodrome, deployer);
+  const deployer = await signers.deployer(chainId);
+  const dexter = AerodromeDexter__factory.connect(config.extension.dexter.aerodrome!, deployer);
 
   const params: Array<SetRouteConfig> = [
     {

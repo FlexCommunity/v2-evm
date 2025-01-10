@@ -20,7 +20,7 @@
   },
   "helpers": {
     "trade": "0x92E4a331F76042f3e449002cF6960111C2f04815",
-    "limitTrade": "",
+    "limitTrade": "0xfae7467905b16982bB7Ad34F39015aaD57F1f13E",
     "tradeOrder": "0x1a1567BcD9a14700f959B716d4b794B553ECE0f5",
     "intentBuilder": "0x5EB59d7a602652eE2C13be4576AA39BBE57aA529"
   },
@@ -50,23 +50,23 @@
   },
   "tokens": {
     "hlp": "0x6304CE3F4eF20EC0AaB3981d0B4428Beeb96c3aC",
+    "flp": "0x6304CE3F4eF20EC0AaB3981d0B4428Beeb96c3aC",
     "weth": "0x4200000000000000000000000000000000000006",
     "usdc": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
     "wbtc": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
     "dai": "",
     "traderLoyaltyCredit": "0x78e82092F2E8a251a1Db7D98b60f8EAee1B1E4Af",
     "flexTradeCredits": "0x78e82092F2E8a251a1Db7D98b60f8EAee1B1E4Af",
-    "wstEth": "0xc1cba3fcea344f92d9239c08c0568f6f2f0ee452",
-    "flp": "0x6304CE3F4eF20EC0AaB3981d0B4428Beeb96c3aC"
+    "wstEth": "0xc1cba3fcea344f92d9239c08c0568f6f2f0ee452"
   },
   "vendors": {
-    "aerodrome": {
-      "router": "0xcF77a3Ba9A5CA399B7c97c74d54e5b1Beb874E43",
-      "factory": "0x420DD381b31aEf6683db6B902084cB0FFECe40Da"
-    },
     "uniswap": {
       "permit2": "0x000000000022D473030F116dDEE9F6B43aC78BA3",
       "universalRouter": "0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD"
+    },
+    "aerodrome": {
+      "router": "0xcF77a3Ba9A5CA399B7c97c74d54e5b1Beb874E43",
+      "factory": "0x420DD381b31aEf6683db6B902084cB0FFECe40Da"
     }
   },
   "strategies": {
@@ -98,7 +98,8 @@
     "switchCollateralRouter": "0xFfdA60AF7301323cf29d435bcD50524a54997c01",
     "dexter": {
       "uniswapV3": "0x26b75DC40da43808CEc8263F962a9AAA8D0F0403",
-      "curve": ""
+      "curve": "",
+      "aerodrome": "0x2f61d6FC942D91284068ADcC5141B96595De25fc"
     }
   }
 }
