@@ -35,6 +35,7 @@ export async function getUpdatePriceData(
   const MAX_PRICE_DIFF = 1500_00;
   const connection = new EvmPriceServiceConnection("https://hermes.pyth.network/", {
     logger: console,
+    timeout: 15_000,
   });
 
   const prices = await connection.getLatestPriceFeeds(

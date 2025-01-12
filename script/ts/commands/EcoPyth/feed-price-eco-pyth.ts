@@ -1,19 +1,16 @@
 import { EcoPyth__factory } from "../../../../typechain";
 import { ecoPythPriceFeedIdsByIndex } from "../../constants/eco-pyth-index";
 import * as readlineSync from "readline-sync";
-import { Command } from "commander";
 import { loadConfig } from "../../utils/config";
 import { getUpdatePriceData } from "../../utils/price";
 import signers from "../../entities/signers";
 import chains from "../../entities/chains";
-import HmxApiWrapper from "../../wrappers/HMXAPIWrapper";
-import { ethers } from "ethers";
+import { passChainArg } from "../../utils/main-fn-wrappers";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
   const provider = chains[chainId].jsonRpcProvider;
-  const deployer = signers.deployer(chainId);
-  const hmxApi = new HmxApiWrapper(chainId);
+  const deployer = await signers.deployer(chainId);
 
   const pyth = EcoPyth__factory.connect(config.oracles.ecoPyth2, deployer);
 
@@ -46,19 +43,4 @@ async function main(chainId: number) {
   console.log("[cmds/EcoPyth] Success!");
 }
 
-const prog = new Command();
-
-prog.requiredOption("--chain-id <chainId>", "chain id", parseInt);
-
-prog.parse(process.argv);
-
-const opts = prog.opts();
-
-main(opts.chainId)
-  .then(() => {
-    process.exit(0);
-  })
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
+passChainArg(main);

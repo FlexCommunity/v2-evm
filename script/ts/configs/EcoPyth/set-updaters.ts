@@ -9,9 +9,11 @@ import { passChainArg } from "../../utils/main-fn-wrappers";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
+  const deployer = await signers.deployer(chainId);
 
   // const inputs = [{ updater: "0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0", isUpdater: true }];
   const inputs = [
+    { updater: await deployer.getAddress(), isUpdater: true },
     { updater: config.handlers.bot!, isUpdater: true },
     { updater: config.handlers.crossMargin!, isUpdater: true },
     { updater: config.handlers.liquidity!, isUpdater: true },
@@ -22,10 +24,10 @@ async function main(chainId: number) {
     // { updater: "0xf0d00E8435E71df33bdA19951B433B509A315aee", isUpdater: true }, // Testnet onl
   ];
 
-  const deployer = await signers.deployer(chainId);
   const ownerWrapper = new OwnerWrapper(chainId, deployer);
   const ecoPyth = EcoPyth__factory.connect(config.oracles.ecoPyth2, deployer);
   console.log("[configs/EcoPyth] Proposing to set updaters...");
+  console.log("[configs/EcoPyth] Inputs:", inputs);
   await ownerWrapper.authExec(
     ecoPyth.address,
     ecoPyth.interface.encodeFunctionData("setUpdaters", [
