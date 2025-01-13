@@ -32,9 +32,9 @@ contract OnChainPriceLens_ForkTest is DynamicForkBaseTest {
   OnChainPriceLens internal _onChainPriceLens;
   EcoPythCalldataBuilder2 internal ecoPythCalldataBuilder;
   UnsafeEcoPythCalldataBuilder2 internal unsafeEcoPythCalldataBuilder;
-  // TODO: need to update these feed addresses
-  address constant wstEthPriceFeed = 0xb523AE262D20A936BC152e6023996e46FDC2A95D;
-  address constant ethUsdPriceFeed = 0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612;
+  // TODO: These feeds  are for Base mainnet.
+  address constant wstEthPriceFeed = 0x43a5C292A453A3bF3606fa856197f09D7B74251a;
+  address constant ethUsdPriceFeed = 0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70;
 
   function setUp() public override {
     super.setUp();
