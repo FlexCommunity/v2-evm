@@ -25,6 +25,8 @@ import { IPerpStorage } from "@hmx/storages/interfaces/IPerpStorage.sol";
 import { IConfigStorage } from "@hmx/storages/interfaces/IConfigStorage.sol";
 import { IPythAdapter } from "@hmx/oracles/interfaces/IPythAdapter.sol";
 import { IOracleMiddleware } from "@hmx/oracles/interfaces/IOracleMiddleware.sol";
+import { PythStructs } from "pyth-sdk-solidity/IPyth.sol";
+import { IEcoPythCalldataBuilder3 } from "@hmx/oracles/interfaces/IEcoPythCalldataBuilder3.sol";
 import { IEcoPythCalldataBuilder } from "@hmx/oracles/interfaces/IEcoPythCalldataBuilder.sol";
 import { OnChainPriceLens } from "@hmx/oracles/OnChainPriceLens.sol";
 
@@ -62,6 +64,7 @@ import { IPermit2 } from "@hmx/interfaces/uniswap/IPermit2.sol";
 import { IUniversalRouter } from "@hmx/interfaces/uniswap/IUniversalRouter.sol";
 
 import { HMXLib } from "@hmx/libraries/HMXLib.sol";
+import { LimitTradeHelper } from "@hmx/helpers/LimitTradeHelper.sol";
 
 
 contract DynamicForkBaseTest is Test {
@@ -87,21 +90,22 @@ contract DynamicForkBaseTest is Test {
 
     ConfigEnv internal config;
 
-    /// Account
+    /// Account, These are for sepolia
     address internal constant liquidityOrderExecutor = 0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0;
     address internal constant crossMarginOrderExecutor = 0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0;
-    // address internal constant positionManager = 0xF1235511e36f2F4D578555218c41fe1B1B5dcc1E;
+    address internal constant positionManager = 0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0;
     address internal constant limitOrderExecutor = 0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0;
 
     bool internal isForkSupported = true;
 
     /// Oracles
     IEcoPyth internal ecoPyth2;
-    // IEcoPythCalldataBuilder internal ecoPythBuilder;
+    IEcoPythCalldataBuilder3 internal ecoPythBuilder;
     IPythAdapter internal pythAdapter;
     IOracleMiddleware internal oracleMiddleware;
     OnChainPriceLens internal onChainPriceLens;
     /// Helpers
+    LimitTradeHelper internal limitTradeHelper;
     ICalculator internal calculator;
     /// Services
     CrossMarginService internal crossMarginService;
@@ -139,7 +143,7 @@ contract DynamicForkBaseTest is Test {
     IERC20 internal usdc;
     IERC20 internal weth;
     IERC20 internal wbtc;
-    IERC20 internal usdt;
+    // IERC20 internal usdt;
     IERC20 internal dai;
     // IERC20 internal arb;
     IERC20 internal wstEth;
@@ -187,6 +191,7 @@ contract DynamicForkBaseTest is Test {
         perpStorage = PerpStorage(config.getAddress(".storages.perp"));
         vaultStorage = VaultStorage(config.getAddress(".storages.vault"));
 
+        limitTradeHelper = LimitTradeHelper(config.getAddress(".helpers.limitTrade"));
         calculator = ICalculator(config.getAddress(".calculator"));
 
         hlpStaking = IHLPStaking(config.getAddress(".staking.hlp"));
@@ -198,8 +203,8 @@ contract DynamicForkBaseTest is Test {
         rebalanceHLPHandler = RebalanceHLPHandler(config.getAddress(".handlers.rebalanceHLP"));
     
         ecoPyth2 = IEcoPyth(config.getAddress(".oracles.ecoPyth2"));
-        // ecoPythBuilder =
-        //     IEcoPythCalldataBuilder(config.getAddress(".oracles.unsafeEcoPythCalldataBuilder")); // UnsafeEcoPythCalldataBuilder
+        ecoPythBuilder =
+            IEcoPythCalldataBuilder3(config.getAddress(".oracles.unsafeEcoPythCalldataBuilder3")); // UnsafeEcoPythCalldataBuilder
         pythAdapter = IPythAdapter(config.getAddress(".oracles.pythAdapter"));
         oracleMiddleware = IOracleMiddleware(config.getAddress(".oracles.middleware"));
         onChainPriceLens = OnChainPriceLens(config.getAddress(".oracles.onChainPriceLens"));
@@ -227,7 +232,7 @@ contract DynamicForkBaseTest is Test {
         usdc = IERC20(config.getAddress(".tokens.usdc"));
         weth = IERC20(config.getAddress(".tokens.weth"));
         wbtc = IERC20(config.getAddress(".tokens.wbtc"));
-        usdt = IERC20(config.getAddress(".tokens.usdt"));
+        // usdt = IERC20(config.getAddress(".tokens.usdt"));
         dai = IERC20(config.getAddress(".tokens.dai"));
         wstEth = IERC20(config.getAddress(".tokens.wstEth"));
         hlp = IERC20(config.getAddress(".tokens.hlp"));
@@ -245,6 +250,22 @@ contract DynamicForkBaseTest is Test {
     function motherload(address token, address user, uint256 amount) internal {
         stdStore.target(token).sig(IERC20.balanceOf.selector).with_key(user).checked_write(amount);
     }
+
+    function _buildDataForPrice() public view returns (IEcoPythCalldataBuilder3.BuildData[] memory data) {
+        bytes32[] memory pythRes = ecoPyth2.getAssetIds();
+    
+        uint256 len = pythRes.length; // 35 - 1(index 0) = 34
+    
+        data = new IEcoPythCalldataBuilder3.BuildData[](len - 1);
+    
+        for (uint i = 1; i < len; i++) {
+          PythStructs.Price memory _ecoPythPrice = ecoPyth2.getPriceUnsafe(pythRes[i]);
+          data[i - 1].assetId = pythRes[i];
+          data[i - 1].priceE8 = _ecoPythPrice.price;
+          data[i - 1].publishTime = uint160(block.timestamp);
+          data[i - 1].maxDiffBps = 15_000;
+        }
+      }
 
     function _getSubAccount(address primary, uint8 subAccountId) public pure returns (address) {
         return address(uint160(primary) ^ uint160(subAccountId));
