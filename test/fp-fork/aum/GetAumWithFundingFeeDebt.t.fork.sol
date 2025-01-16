@@ -30,7 +30,7 @@ contract GetAumWithFundingFeeDebt_ForkTest is DynamicForkBaseTest {
   function testCorrectness_aumBeforeAfterUpgrade() external onlyFork {
     uint256 aumBefore = calculator.getAUME30(true);
 
-    vm.startPrank(multiSig);
+    vm.startPrank(proxyAdmin.owner());
     Deployer.upgrade("Calculator", address(proxyAdmin), address(calculator));
     Deployer.upgrade("VaultStorage", address(proxyAdmin), address(vaultStorage));
     vm.stopPrank();
