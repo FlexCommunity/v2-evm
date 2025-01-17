@@ -73,7 +73,7 @@ contract DynamicForkBaseTest is Test {
 
     StdStorage stdStore;
 
-    address internal constant REWARD_DISTRIBUTOR_FEEDER = 0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0; // Bot address, hardcoded to check that it's not changed
+    address internal REWARD_DISTRIBUTOR_FEEDER; // Bot address, hardcoded to check that it's not changed
 
     address internal ALICE;
     address internal BOB;
@@ -91,10 +91,10 @@ contract DynamicForkBaseTest is Test {
     ConfigEnv internal config;
 
     /// Account, These are for sepolia
-    address internal constant liquidityOrderExecutor = 0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0;
-    address internal constant crossMarginOrderExecutor = 0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0;
-    address internal constant positionManager = 0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0;
-    address internal constant limitOrderExecutor = 0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0;
+    address internal liquidityOrderExecutor;
+    address internal crossMarginOrderExecutor;
+    address internal positionManager;
+    address internal limitOrderExecutor;
 
     bool internal isForkSupported = true;
 
@@ -247,10 +247,22 @@ contract DynamicForkBaseTest is Test {
     function _setUpBaseSepoliaChain() private {
         deployer = 0xf0d00E8435E71df33bdA19951B433B509A315aee;
         testUser1 = 0xddf12401Eeb58b76b9158429132183B1ed21A602;
+
+        REWARD_DISTRIBUTOR_FEEDER = 0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0;
+        liquidityOrderExecutor = 0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0;
+        crossMarginOrderExecutor = 0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0;
+        positionManager = 0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0;
+        limitOrderExecutor = 0xddfb5a5D0eF7311E1D706912C38C809Ac1e469d0;
     }
 
     function _setUpBaseMainnetChain() private {
+        deployer = 0x0000C5b439c9B902A21eF1F5365cbdF7e696A000;
 
+        REWARD_DISTRIBUTOR_FEEDER = 0xbbbe424b47c0EE77E0fb0Bb593617636Ee54D001;
+        liquidityOrderExecutor = 0xbbbe424b47c0EE77E0fb0Bb593617636Ee54D001;
+        crossMarginOrderExecutor = 0xbbbe424b47c0EE77E0fb0Bb593617636Ee54D001;
+        positionManager = 0xbbbe424b47c0EE77E0fb0Bb593617636Ee54D001;
+        limitOrderExecutor = 0xbbbe424b47c0EE77E0fb0Bb593617636Ee54D001;
     }
 
     function motherload(address token, address user, uint256 amount) internal {
