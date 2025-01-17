@@ -133,6 +133,9 @@ contract DynamicForkBaseTest is Test {
     /// Uniswap
     IUniversalRouter internal uniswapUniversalRouter;
     IPermit2 internal uniswapPermit2;
+    /// Aerodrome
+    address internal aerodromeRouter;
+    address internal aerodromePoolFactory;
     /// OneInch
     address internal oneInchRouter;
 
@@ -227,6 +230,9 @@ contract DynamicForkBaseTest is Test {
 
         uniswapUniversalRouter = IUniversalRouter(config.getAddress(".vendors.uniswap.universalRouter"));
         uniswapPermit2 = IPermit2(config.getAddress(".vendors.uniswap.permit2"));
+
+        aerodromeRouter = config.getAddress(".vendors.aerodrome.router");
+        aerodromePoolFactory = config.getAddress(".vendors.aerodrome.factory");
 
         usdc_e = IERC20(config.getAddress(".tokens.usdc"));
         usdc = IERC20(config.getAddress(".tokens.usdc"));
