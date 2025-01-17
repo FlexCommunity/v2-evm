@@ -579,12 +579,13 @@ contract Smoke_Base is DynamicForkBaseTest {
     vm.revertTo(snapshot);
     new Smoke_Liquidate().liquidate();
     vm.revertTo(snapshot);
-    new Smoke_Liquidity().addLiquidity();
-    vm.revertTo(snapshot);
-    new Smoke_Liquidity().removeLiquidity();
+    new Smoke_Liquidity().addLiquidity(100 * 1e6);
+    // Keep the Liquidity for the next test    vm.revertTo(snapshot);
+    new Smoke_Liquidity().removeLiquidity(10 * 1e18);
     // vm.revertTo(snapshot);
     // new Smoke_MaxProfit().forceCloseMaxProfit();  // Skipped, GLP Related part
-    vm.revertTo(snapshot);
+    // Keep the Liquidity for the next test   vm.revertTo(snapshot);
+    new Smoke_Collateral().depositCollateral();
     new Smoke_Trade().openClosePosition();
     // vm.revertTo(snapshot);
     // new Smoke_TriggerOrder().executeTriggerOrder(); // Failing due to the bad active orders

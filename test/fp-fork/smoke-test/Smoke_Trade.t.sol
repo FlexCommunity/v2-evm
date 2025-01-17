@@ -16,8 +16,6 @@ import { IPerpStorage } from "@hmx/storages/interfaces/IPerpStorage.sol";
 import { IConfigStorage } from "@hmx/storages/interfaces/IConfigStorage.sol";
 import { PythStructs } from "pyth-sdk-solidity/PythStructs.sol";
 import { SafeCastUpgradeable } from "@openzeppelin-upgradeable/contracts/utils/math/SafeCastUpgradeable.sol";
-import { console } from "forge-std/console.sol";
-import { console2 } from "forge-std/console2.sol";
 
 contract Smoke_Trade is DynamicForkBaseTest {
   using SafeCastUpgradeable for int64;

@@ -7,7 +7,6 @@ pragma solidity 0.8.18;
 import { Smoke_Base } from "./Smoke_Base.t.sol";
 import { DynamicForkBaseTest } from "@hmx-test/fp-fork/bases/DynamicForkBaseTest.sol";
 
-import "forge-std/console.sol";
 import { ILiquidityHandler } from "@hmx/handlers/interfaces/ILiquidityHandler.sol";
 import { LiquidityHandler } from "@hmx/handlers/LiquidityHandler.sol";
 import { IEcoPythCalldataBuilder3 } from "@hmx/oracles/interfaces/IEcoPythCalldataBuilder3.sol";
@@ -18,16 +17,32 @@ contract Smoke_Liquidity is DynamicForkBaseTest {
     super.setUp();
   }
 
+  function addLiquidity(uint256 amountIn)  external onlyFork {
+    vm.pauseGasMetering();
+    _createAndExecuteAddLiquidityOrder(amountIn);
+    vm.resumeGasMetering();
+  }
+
   function addLiquidity()  external onlyFork {
-    _createAndExecuteAddLiquidityOrder();
+    vm.pauseGasMetering();
+    _createAndExecuteAddLiquidityOrder(10 * 1e6);
+    vm.resumeGasMetering();
   }
 
   function removeLiquidity()  external onlyFork {
-    _createAndExecuteRemoveLiquidityOrder();
+    vm.pauseGasMetering();
+    _createAndExecuteRemoveLiquidityOrder(10 * 1e18);
+    vm.resumeGasMetering();
   }
 
-  function _createAndExecuteAddLiquidityOrder() internal {
-    deal(address(usdc_e), ALICE, 10 * 1e6);
+  function removeLiquidity(uint256 amountOut)  external onlyFork {
+    vm.pauseGasMetering();
+    _createAndExecuteRemoveLiquidityOrder(amountOut);
+    vm.resumeGasMetering();
+  }
+
+  function _createAndExecuteAddLiquidityOrder(uint256 amountIn) internal {
+    deal(address(usdc_e), ALICE, amountIn);
     deal(ALICE, 10 ether);
     deal(address(liquidityHandler), 100 ether);
 
@@ -39,7 +54,7 @@ contract Smoke_Liquidity is DynamicForkBaseTest {
 
     uint256 _latestOrderIndex = liquidityHandler.createAddLiquidityOrder{ value: minExecutionFee }(
       address(usdc_e),
-      10 * 1e6,
+      amountIn,
       0 ether,
       minExecutionFee,
       false
@@ -54,8 +69,11 @@ contract Smoke_Liquidity is DynamicForkBaseTest {
     ) = ecoPythBuilder.build(data);
 
     // hlp price = aum / total supply
-    uint256 _hlpPriceE30 = (calculator.getAUME30(false) * 1e18) / hlp.totalSupply();
-    uint256 _estimatedHlpReceived = (10 * 1e18 * 1e30) / _hlpPriceE30;
+    uint256 _hlpPriceE30 = 1 * 1e30;
+    if (hlp.totalSupply() > 0) {
+      _hlpPriceE30 = (calculator.getAUME30(false) * 1e18) / hlp.totalSupply();
+    }
+    uint256 _estimatedHlpReceived = (amountIn / 1e6 * 1e18 * 1e30) / _hlpPriceE30;
 
     vm.prank(positionManager);
     botHandler.updateLiquidityEnabled(true);
@@ -82,20 +100,19 @@ contract Smoke_Liquidity is DynamicForkBaseTest {
     assertEq(usdc_e.balanceOf(ALICE), 0, "User USDC.e Balance");
   }
 
-  function _createAndExecuteRemoveLiquidityOrder() internal {
-    deal(address(hlp), ALICE, 10 * 1e18);
+  function _createAndExecuteRemoveLiquidityOrder(uint256 amountOut) internal {
+    deal(address(hlp), ALICE, amountOut);
     deal(ALICE, 10 ether);
     deal(address(liquidityHandler), 100 ether);
 
     vm.startPrank(ALICE);
-
     hlp.approve(address(liquidityHandler), type(uint256).max);
 
     uint256 minExecutionFee = liquidityHandler.minExecutionOrderFee();
 
     uint256 _latestOrderIndex = liquidityHandler.createRemoveLiquidityOrder{ value: minExecutionFee }(
       address(usdc_e),
-      10 * 1e18,
+      amountOut,
       0 ether,
       minExecutionFee,
       false
@@ -112,7 +129,7 @@ contract Smoke_Liquidity is DynamicForkBaseTest {
     // hlpPrice = aumE30 / totalSupply
     uint256 _hlpPriceE30 = (calculator.getAUME30(false) * 1e18) / hlp.totalSupply();
     // convert hlp e30 to usdc e6
-    uint256 _estimatedUsdcReceivedE6 = (10 * 1e6 * _hlpPriceE30) / 1e30;
+    uint256 _estimatedUsdcReceivedE6 = (amountOut / 1e18 * 1e6 * _hlpPriceE30) / 1e30;
 
     vm.prank(positionManager);
     botHandler.updateLiquidityEnabled(true);
