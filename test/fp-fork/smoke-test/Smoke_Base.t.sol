@@ -118,456 +118,456 @@ contract Smoke_Base is DynamicForkBaseTest {
       }),
       false
     );
-    configStorage.setMarketConfig(
-      3,
-      IConfigStorage.MarketConfig({
-        assetId: "JPY",
-        maxLongPositionSize: 3000000 * 1e30,
-        maxShortPositionSize: 3000000 * 1e30,
-        increasePositionFeeRateBPS: 1, // 0.01%
-        decreasePositionFeeRateBPS: 1, // 0.01%
-        initialMarginFractionBPS: 10, // IMF = 0.1%, Max leverage = 1000
-        maintenanceMarginFractionBPS: 5, // MMF = 0.05%
-        maxProfitRateBPS: 250000, // 2500%
-        assetClass: ASSET_CLASS_FOREX,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({
-          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
-          maxFundingRate: 1e18 // 100% per day
-        })
-      }),
-      false
-    );
-    configStorage.setMarketConfig(
-      4,
-      IConfigStorage.MarketConfig({
-        assetId: "XAU",
-        maxLongPositionSize: 2500000 * 1e30,
-        maxShortPositionSize: 2500000 * 1e30,
-        increasePositionFeeRateBPS: 5, // 0.05%
-        decreasePositionFeeRateBPS: 5, // 0.05%
-        initialMarginFractionBPS: 200, // IMF = 2%, Max leverage = 50
-        maintenanceMarginFractionBPS: 100, // MMF = 1%
-        maxProfitRateBPS: 75000, // 750%
-        assetClass: ASSET_CLASS_COMMODITIES,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({
-          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
-          maxFundingRate: 1e18 // 100% per day
-        })
-      }),
-      false
-    );
-    configStorage.setMarketConfig(
-      8,
-      IConfigStorage.MarketConfig({
-        assetId: "EUR",
-        maxLongPositionSize: 2500000 * 1e30,
-        maxShortPositionSize: 2500000 * 1e30,
-        increasePositionFeeRateBPS: 1, // 0.01%
-        decreasePositionFeeRateBPS: 1, // 0.01%
-        initialMarginFractionBPS: 10, // IMF = 0.1%, Max leverage = 1000
-        maintenanceMarginFractionBPS: 5, // MMF = 0.05%
-        maxProfitRateBPS: 250000, // 2500%
-        assetClass: ASSET_CLASS_FOREX,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({
-          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
-          maxFundingRate: 1e18 // 100% per day
-        })
-      }),
-      false
-    );
-    configStorage.setMarketConfig(
-      9,
-      IConfigStorage.MarketConfig({
-        assetId: "XAG",
-        maxLongPositionSize: 2500000 * 1e30,
-        maxShortPositionSize: 2500000 * 1e30,
-        increasePositionFeeRateBPS: 5, // 0.05%
-        decreasePositionFeeRateBPS: 5, // 0.05%
-        initialMarginFractionBPS: 200, // IMF = 2%, Max leverage = 50
-        maintenanceMarginFractionBPS: 100, // MMF = 1%
-        maxProfitRateBPS: 75000, // 750%
-        assetClass: ASSET_CLASS_COMMODITIES,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({
-          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
-          maxFundingRate: 1e18 // 100% per day
-        })
-      }),
-      false
-    );
-    configStorage.setMarketConfig(
-      10,
-      IConfigStorage.MarketConfig({
-        assetId: "AUD",
-        maxLongPositionSize: 3000000 * 1e30,
-        maxShortPositionSize: 3000000 * 1e30,
-        increasePositionFeeRateBPS: 1, // 0.01%
-        decreasePositionFeeRateBPS: 1, // 0.01%
-        initialMarginFractionBPS: 10, // IMF = 0.1%, Max leverage = 1000
-        maintenanceMarginFractionBPS: 5, // MMF = 0.05%
-        maxProfitRateBPS: 250000, // 2500%
-        assetClass: ASSET_CLASS_FOREX,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({
-          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
-          maxFundingRate: 1e18 // 100% per day
-        })
-      }),
-      false
-    );
-    configStorage.setMarketConfig(
-      11,
-      IConfigStorage.MarketConfig({
-        assetId: "GBP",
-        maxLongPositionSize: 3000000 * 1e30,
-        maxShortPositionSize: 3000000 * 1e30,
-        increasePositionFeeRateBPS: 1, // 0.01%
-        decreasePositionFeeRateBPS: 1, // 0.01%
-        initialMarginFractionBPS: 10, // IMF = 0.1%, Max leverage = 1000
-        maintenanceMarginFractionBPS: 5, // MMF = 0.05%
-        maxProfitRateBPS: 250000, // 2500%
-        assetClass: ASSET_CLASS_FOREX,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({
-          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
-          maxFundingRate: 1e18 // 100% per day
-        })
-      }),
-      false
-    );
-    configStorage.setMarketConfig(
-      12,
-      IConfigStorage.MarketConfig({
-        assetId: "ADA",
-        maxLongPositionSize: 2500000 * 1e30,
-        maxShortPositionSize: 2500000 * 1e30,
-        increasePositionFeeRateBPS: 7, // 0.07%
-        decreasePositionFeeRateBPS: 7, // 0.07%
-        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
-        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
-        maxProfitRateBPS: 300000, // 3000%
-        assetClass: ASSET_CLASS_CRYPTO,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 200000000 * 1e30, maxFundingRate: 8 * 1e18 })
-      }),
-      true
-    );
-    configStorage.setMarketConfig(
-      13,
-      IConfigStorage.MarketConfig({
-        assetId: "MATIC",
-        maxLongPositionSize: 2500000 * 1e30,
-        maxShortPositionSize: 2500000 * 1e30,
-        increasePositionFeeRateBPS: 7, // 0.07%
-        decreasePositionFeeRateBPS: 7, // 0.07%
-        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
-        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
-        maxProfitRateBPS: 300000, // 3000%
-        assetClass: ASSET_CLASS_CRYPTO,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 200000000 * 1e30, maxFundingRate: 8 * 1e18 })
-      }),
-      true
-    );
-    configStorage.setMarketConfig(
-      14,
-      IConfigStorage.MarketConfig({
-        assetId: "SUI",
-        maxLongPositionSize: 1000000 * 1e30,
-        maxShortPositionSize: 1000000 * 1e30,
-        increasePositionFeeRateBPS: 7, // 0.07%
-        decreasePositionFeeRateBPS: 7, // 0.07%
-        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
-        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
-        maxProfitRateBPS: 300000, // 3000%
-        assetClass: ASSET_CLASS_CRYPTO,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 100000000 * 1e30, maxFundingRate: 8 * 1e18 })
-      }),
-      true
-    );
-    configStorage.setMarketConfig(
-      15,
-      IConfigStorage.MarketConfig({
-        assetId: "ARB",
-        maxLongPositionSize: 2500000 * 1e30,
-        maxShortPositionSize: 2500000 * 1e30,
-        increasePositionFeeRateBPS: 7, // 0.07%
-        decreasePositionFeeRateBPS: 7, // 0.07%
-        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
-        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
-        maxProfitRateBPS: 300000, // 3000%
-        assetClass: ASSET_CLASS_CRYPTO,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 100000000 * 1e30, maxFundingRate: 8 * 1e18 })
-      }),
-      true
-    );
-    configStorage.setMarketConfig(
-      16,
-      IConfigStorage.MarketConfig({
-        assetId: "OP",
-        maxLongPositionSize: 1000000 * 1e30,
-        maxShortPositionSize: 1000000 * 1e30,
-        increasePositionFeeRateBPS: 7, // 0.07%
-        decreasePositionFeeRateBPS: 7, // 0.07%
-        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
-        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
-        maxProfitRateBPS: 300000, // 3000%
-        assetClass: ASSET_CLASS_CRYPTO,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 100000000 * 1e30, maxFundingRate: 8 * 1e18 })
-      }),
-      true
-    );
-    configStorage.setMarketConfig(
-      17,
-      IConfigStorage.MarketConfig({
-        assetId: "LTC",
-        maxLongPositionSize: 2500000 * 1e30,
-        maxShortPositionSize: 2500000 * 1e30,
-        increasePositionFeeRateBPS: 7, // 0.07%
-        decreasePositionFeeRateBPS: 7, // 0.07%
-        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
-        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
-        maxProfitRateBPS: 300000, // 3000%
-        assetClass: ASSET_CLASS_CRYPTO,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 100000000 * 1e30, maxFundingRate: 8 * 1e18 })
-      }),
-      true
-    );
-    configStorage.setMarketConfig(
-      20,
-      IConfigStorage.MarketConfig({
-        assetId: "BNB",
-        maxLongPositionSize: 1000000 * 1e30,
-        maxShortPositionSize: 1000000 * 1e30,
-        increasePositionFeeRateBPS: 7, // 0.07%
-        decreasePositionFeeRateBPS: 7, // 0.07%
-        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
-        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
-        maxProfitRateBPS: 300000, // 3000%
-        assetClass: ASSET_CLASS_CRYPTO,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 100000000 * 1e30, maxFundingRate: 8 * 1e18 })
-      }),
-      true
-    );
-    configStorage.setMarketConfig(
-      21,
-      IConfigStorage.MarketConfig({
-        assetId: "SOL",
-        maxLongPositionSize: 1000000 * 1e30,
-        maxShortPositionSize: 1000000 * 1e30,
-        increasePositionFeeRateBPS: 7, // 0.07%
-        decreasePositionFeeRateBPS: 7, // 0.07%
-        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
-        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
-        maxProfitRateBPS: 300000, // 3000%
-        assetClass: ASSET_CLASS_CRYPTO,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 100000000 * 1e30, maxFundingRate: 8 * 1e18 })
-      }),
-      true
-    );
-    configStorage.setMarketConfig(
-      23,
-      IConfigStorage.MarketConfig({
-        assetId: "XRP",
-        maxLongPositionSize: 1000000 * 1e30,
-        maxShortPositionSize: 1000000 * 1e30,
-        increasePositionFeeRateBPS: 7, // 0.07%
-        decreasePositionFeeRateBPS: 7, // 0.07%
-        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
-        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
-        maxProfitRateBPS: 300000, // 3000%
-        assetClass: ASSET_CLASS_CRYPTO,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 100000000 * 1e30, maxFundingRate: 8 * 1e18 })
-      }),
-      true
-    );
-    configStorage.setMarketConfig(
-      25,
-      IConfigStorage.MarketConfig({
-        assetId: "LINK",
-        maxLongPositionSize: 2500000 * 1e30,
-        maxShortPositionSize: 2500000 * 1e30,
-        increasePositionFeeRateBPS: 7, // 0.07%
-        decreasePositionFeeRateBPS: 7, // 0.07%
-        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
-        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
-        maxProfitRateBPS: 300000, // 3000%
-        assetClass: ASSET_CLASS_CRYPTO,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 100000000 * 1e30, maxFundingRate: 8 * 1e18 })
-      }),
-      true
-    );
-    configStorage.setMarketConfig(
-      26,
-      IConfigStorage.MarketConfig({
-        assetId: "CHF",
-        maxLongPositionSize: 3000000 * 1e30,
-        maxShortPositionSize: 3000000 * 1e30,
-        increasePositionFeeRateBPS: 1, // 0.01%
-        decreasePositionFeeRateBPS: 1, // 0.01%
-        initialMarginFractionBPS: 10, // IMF = 0.1%, Max leverage = 1000
-        maintenanceMarginFractionBPS: 5, // MMF = 0.05%
-        maxProfitRateBPS: 250000, // 2500%
-        assetClass: ASSET_CLASS_FOREX,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({
-          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
-          maxFundingRate: 1e18 // 100% per day
-        })
-      }),
-      false
-    );
-    configStorage.setMarketConfig(
-      27,
-      IConfigStorage.MarketConfig({
-        assetId: "DOGE",
-        maxLongPositionSize: 2500000 * 1e30,
-        maxShortPositionSize: 2500000 * 1e30,
-        increasePositionFeeRateBPS: 7, // 0.07%
-        decreasePositionFeeRateBPS: 7, // 0.07%
-        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
-        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
-        maxProfitRateBPS: 300000, // 3000%
-        assetClass: ASSET_CLASS_CRYPTO,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 200000000 * 1e30, maxFundingRate: 8 * 1e18 })
-      }),
-      true
-    );
-    configStorage.setMarketConfig(
-      28,
-      IConfigStorage.MarketConfig({
-        assetId: "CAD",
-        maxLongPositionSize: 3000000 * 1e30,
-        maxShortPositionSize: 3000000 * 1e30,
-        increasePositionFeeRateBPS: 1, // 0.01%
-        decreasePositionFeeRateBPS: 1, // 0.01%
-        initialMarginFractionBPS: 10, // IMF = 0.1%, Max leverage = 1000
-        maintenanceMarginFractionBPS: 5, // MMF = 0.05%
-        maxProfitRateBPS: 250000, // 2500%
-        assetClass: ASSET_CLASS_FOREX,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({
-          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
-          maxFundingRate: 1e18 // 100% per day
-        })
-      }),
-      false
-    );
-    configStorage.setMarketConfig(
-      29,
-      IConfigStorage.MarketConfig({
-        assetId: "SGD",
-        maxLongPositionSize: 3000000 * 1e30,
-        maxShortPositionSize: 3000000 * 1e30,
-        increasePositionFeeRateBPS: 1, // 0.01%
-        decreasePositionFeeRateBPS: 1, // 0.01%
-        initialMarginFractionBPS: 10, // IMF = 0.1%, Max leverage = 1000
-        maintenanceMarginFractionBPS: 5, // MMF = 0.05%
-        maxProfitRateBPS: 250000, // 2500%
-        assetClass: ASSET_CLASS_FOREX,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({
-          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
-          maxFundingRate: 1e18 // 100% per day
-        })
-      }),
-      false
-    );
-    configStorage.setMarketConfig(
-      30,
-      IConfigStorage.MarketConfig({
-        assetId: "CNH",
-        maxLongPositionSize: 3000000 * 1e30,
-        maxShortPositionSize: 3000000 * 1e30,
-        increasePositionFeeRateBPS: 1, // 0.01%
-        decreasePositionFeeRateBPS: 1, // 0.01%
-        initialMarginFractionBPS: 10, // IMF = 0.1%, Max leverage = 1000
-        maintenanceMarginFractionBPS: 5, // MMF = 0.05%
-        maxProfitRateBPS: 250000, // 2500%
-        assetClass: ASSET_CLASS_FOREX,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({
-          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
-          maxFundingRate: 1e18 // 100% per day
-        })
-      }),
-      false
-    );
-    configStorage.setMarketConfig(
-      31,
-      IConfigStorage.MarketConfig({
-        assetId: "HKD",
-        maxLongPositionSize: 3000000 * 1e30,
-        maxShortPositionSize: 3000000 * 1e30,
-        increasePositionFeeRateBPS: 1, // 0.01%
-        decreasePositionFeeRateBPS: 1, // 0.01%
-        initialMarginFractionBPS: 10, // IMF = 0.1%, Max leverage = 1000
-        maintenanceMarginFractionBPS: 5, // MMF = 0.05%
-        maxProfitRateBPS: 250000, // 2500%
-        assetClass: ASSET_CLASS_FOREX,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({
-          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
-          maxFundingRate: 1e18 // 100% per day
-        })
-      }),
-      false
-    );
-    configStorage.setMarketConfig(
-      32,
-      IConfigStorage.MarketConfig({
-        assetId: "BCH",
-        maxLongPositionSize: 2500000 * 1e30,
-        maxShortPositionSize: 2500000 * 1e30,
-        increasePositionFeeRateBPS: 7, // 0.07%
-        decreasePositionFeeRateBPS: 7, // 0.07%
-        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
-        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
-        maxProfitRateBPS: 250000, // 2500%
-        assetClass: ASSET_CLASS_CRYPTO,
-        allowIncreasePosition: true,
-        active: true,
-        fundingRate: IConfigStorage.FundingRate({
-          maxSkewScaleUSD: 200000000 * 1e30, // 10B
-          maxFundingRate: 8e18 // 800% per day
-        })
-      }),
-      false
-    );
+//    configStorage.setMarketConfig(
+//      3,
+//      IConfigStorage.MarketConfig({
+//        assetId: "JPY",
+//        maxLongPositionSize: 3000000 * 1e30,
+//        maxShortPositionSize: 3000000 * 1e30,
+//        increasePositionFeeRateBPS: 1, // 0.01%
+//        decreasePositionFeeRateBPS: 1, // 0.01%
+//        initialMarginFractionBPS: 10, // IMF = 0.1%, Max leverage = 1000
+//        maintenanceMarginFractionBPS: 5, // MMF = 0.05%
+//        maxProfitRateBPS: 250000, // 2500%
+//        assetClass: ASSET_CLASS_FOREX,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({
+//          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
+//          maxFundingRate: 1e18 // 100% per day
+//        })
+//      }),
+//      false
+//    );
+//    configStorage.setMarketConfig(
+//      4,
+//      IConfigStorage.MarketConfig({
+//        assetId: "XAU",
+//        maxLongPositionSize: 2500000 * 1e30,
+//        maxShortPositionSize: 2500000 * 1e30,
+//        increasePositionFeeRateBPS: 5, // 0.05%
+//        decreasePositionFeeRateBPS: 5, // 0.05%
+//        initialMarginFractionBPS: 200, // IMF = 2%, Max leverage = 50
+//        maintenanceMarginFractionBPS: 100, // MMF = 1%
+//        maxProfitRateBPS: 75000, // 750%
+//        assetClass: ASSET_CLASS_COMMODITIES,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({
+//          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
+//          maxFundingRate: 1e18 // 100% per day
+//        })
+//      }),
+//      false
+//    );
+//    configStorage.setMarketConfig(
+//      8,
+//      IConfigStorage.MarketConfig({
+//        assetId: "EUR",
+//        maxLongPositionSize: 2500000 * 1e30,
+//        maxShortPositionSize: 2500000 * 1e30,
+//        increasePositionFeeRateBPS: 1, // 0.01%
+//        decreasePositionFeeRateBPS: 1, // 0.01%
+//        initialMarginFractionBPS: 10, // IMF = 0.1%, Max leverage = 1000
+//        maintenanceMarginFractionBPS: 5, // MMF = 0.05%
+//        maxProfitRateBPS: 250000, // 2500%
+//        assetClass: ASSET_CLASS_FOREX,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({
+//          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
+//          maxFundingRate: 1e18 // 100% per day
+//        })
+//      }),
+//      false
+//    );
+//    configStorage.setMarketConfig(
+//      9,
+//      IConfigStorage.MarketConfig({
+//        assetId: "XAG",
+//        maxLongPositionSize: 2500000 * 1e30,
+//        maxShortPositionSize: 2500000 * 1e30,
+//        increasePositionFeeRateBPS: 5, // 0.05%
+//        decreasePositionFeeRateBPS: 5, // 0.05%
+//        initialMarginFractionBPS: 200, // IMF = 2%, Max leverage = 50
+//        maintenanceMarginFractionBPS: 100, // MMF = 1%
+//        maxProfitRateBPS: 75000, // 750%
+//        assetClass: ASSET_CLASS_COMMODITIES,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({
+//          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
+//          maxFundingRate: 1e18 // 100% per day
+//        })
+//      }),
+//      false
+//    );
+//    configStorage.setMarketConfig(
+//      10,
+//      IConfigStorage.MarketConfig({
+//        assetId: "AUD",
+//        maxLongPositionSize: 3000000 * 1e30,
+//        maxShortPositionSize: 3000000 * 1e30,
+//        increasePositionFeeRateBPS: 1, // 0.01%
+//        decreasePositionFeeRateBPS: 1, // 0.01%
+//        initialMarginFractionBPS: 10, // IMF = 0.1%, Max leverage = 1000
+//        maintenanceMarginFractionBPS: 5, // MMF = 0.05%
+//        maxProfitRateBPS: 250000, // 2500%
+//        assetClass: ASSET_CLASS_FOREX,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({
+//          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
+//          maxFundingRate: 1e18 // 100% per day
+//        })
+//      }),
+//      false
+//    );
+//    configStorage.setMarketConfig(
+//      11,
+//      IConfigStorage.MarketConfig({
+//        assetId: "GBP",
+//        maxLongPositionSize: 3000000 * 1e30,
+//        maxShortPositionSize: 3000000 * 1e30,
+//        increasePositionFeeRateBPS: 1, // 0.01%
+//        decreasePositionFeeRateBPS: 1, // 0.01%
+//        initialMarginFractionBPS: 10, // IMF = 0.1%, Max leverage = 1000
+//        maintenanceMarginFractionBPS: 5, // MMF = 0.05%
+//        maxProfitRateBPS: 250000, // 2500%
+//        assetClass: ASSET_CLASS_FOREX,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({
+//          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
+//          maxFundingRate: 1e18 // 100% per day
+//        })
+//      }),
+//      false
+//    );
+//    configStorage.setMarketConfig(
+//      12,
+//      IConfigStorage.MarketConfig({
+//        assetId: "ADA",
+//        maxLongPositionSize: 2500000 * 1e30,
+//        maxShortPositionSize: 2500000 * 1e30,
+//        increasePositionFeeRateBPS: 7, // 0.07%
+//        decreasePositionFeeRateBPS: 7, // 0.07%
+//        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
+//        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
+//        maxProfitRateBPS: 300000, // 3000%
+//        assetClass: ASSET_CLASS_CRYPTO,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 200000000 * 1e30, maxFundingRate: 8 * 1e18 })
+//      }),
+//      true
+//    );
+//    configStorage.setMarketConfig(
+//      13,
+//      IConfigStorage.MarketConfig({
+//        assetId: "MATIC",
+//        maxLongPositionSize: 2500000 * 1e30,
+//        maxShortPositionSize: 2500000 * 1e30,
+//        increasePositionFeeRateBPS: 7, // 0.07%
+//        decreasePositionFeeRateBPS: 7, // 0.07%
+//        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
+//        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
+//        maxProfitRateBPS: 300000, // 3000%
+//        assetClass: ASSET_CLASS_CRYPTO,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 200000000 * 1e30, maxFundingRate: 8 * 1e18 })
+//      }),
+//      true
+//    );
+//    configStorage.setMarketConfig(
+//      14,
+//      IConfigStorage.MarketConfig({
+//        assetId: "SUI",
+//        maxLongPositionSize: 1000000 * 1e30,
+//        maxShortPositionSize: 1000000 * 1e30,
+//        increasePositionFeeRateBPS: 7, // 0.07%
+//        decreasePositionFeeRateBPS: 7, // 0.07%
+//        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
+//        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
+//        maxProfitRateBPS: 300000, // 3000%
+//        assetClass: ASSET_CLASS_CRYPTO,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 100000000 * 1e30, maxFundingRate: 8 * 1e18 })
+//      }),
+//      true
+//    );
+//    configStorage.setMarketConfig(
+//      15,
+//      IConfigStorage.MarketConfig({
+//        assetId: "ARB",
+//        maxLongPositionSize: 2500000 * 1e30,
+//        maxShortPositionSize: 2500000 * 1e30,
+//        increasePositionFeeRateBPS: 7, // 0.07%
+//        decreasePositionFeeRateBPS: 7, // 0.07%
+//        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
+//        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
+//        maxProfitRateBPS: 300000, // 3000%
+//        assetClass: ASSET_CLASS_CRYPTO,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 100000000 * 1e30, maxFundingRate: 8 * 1e18 })
+//      }),
+//      true
+//    );
+//    configStorage.setMarketConfig(
+//      16,
+//      IConfigStorage.MarketConfig({
+//        assetId: "OP",
+//        maxLongPositionSize: 1000000 * 1e30,
+//        maxShortPositionSize: 1000000 * 1e30,
+//        increasePositionFeeRateBPS: 7, // 0.07%
+//        decreasePositionFeeRateBPS: 7, // 0.07%
+//        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
+//        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
+//        maxProfitRateBPS: 300000, // 3000%
+//        assetClass: ASSET_CLASS_CRYPTO,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 100000000 * 1e30, maxFundingRate: 8 * 1e18 })
+//      }),
+//      true
+//    );
+//    configStorage.setMarketConfig(
+//      17,
+//      IConfigStorage.MarketConfig({
+//        assetId: "LTC",
+//        maxLongPositionSize: 2500000 * 1e30,
+//        maxShortPositionSize: 2500000 * 1e30,
+//        increasePositionFeeRateBPS: 7, // 0.07%
+//        decreasePositionFeeRateBPS: 7, // 0.07%
+//        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
+//        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
+//        maxProfitRateBPS: 300000, // 3000%
+//        assetClass: ASSET_CLASS_CRYPTO,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 100000000 * 1e30, maxFundingRate: 8 * 1e18 })
+//      }),
+//      true
+//    );
+//    configStorage.setMarketConfig(
+//      20,
+//      IConfigStorage.MarketConfig({
+//        assetId: "BNB",
+//        maxLongPositionSize: 1000000 * 1e30,
+//        maxShortPositionSize: 1000000 * 1e30,
+//        increasePositionFeeRateBPS: 7, // 0.07%
+//        decreasePositionFeeRateBPS: 7, // 0.07%
+//        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
+//        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
+//        maxProfitRateBPS: 300000, // 3000%
+//        assetClass: ASSET_CLASS_CRYPTO,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 100000000 * 1e30, maxFundingRate: 8 * 1e18 })
+//      }),
+//      true
+//    );
+//    configStorage.setMarketConfig(
+//      21,
+//      IConfigStorage.MarketConfig({
+//        assetId: "SOL",
+//        maxLongPositionSize: 1000000 * 1e30,
+//        maxShortPositionSize: 1000000 * 1e30,
+//        increasePositionFeeRateBPS: 7, // 0.07%
+//        decreasePositionFeeRateBPS: 7, // 0.07%
+//        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
+//        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
+//        maxProfitRateBPS: 300000, // 3000%
+//        assetClass: ASSET_CLASS_CRYPTO,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 100000000 * 1e30, maxFundingRate: 8 * 1e18 })
+//      }),
+//      true
+//    );
+//    configStorage.setMarketConfig(
+//      23,
+//      IConfigStorage.MarketConfig({
+//        assetId: "XRP",
+//        maxLongPositionSize: 1000000 * 1e30,
+//        maxShortPositionSize: 1000000 * 1e30,
+//        increasePositionFeeRateBPS: 7, // 0.07%
+//        decreasePositionFeeRateBPS: 7, // 0.07%
+//        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
+//        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
+//        maxProfitRateBPS: 300000, // 3000%
+//        assetClass: ASSET_CLASS_CRYPTO,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 100000000 * 1e30, maxFundingRate: 8 * 1e18 })
+//      }),
+//      true
+//    );
+//    configStorage.setMarketConfig(
+//      25,
+//      IConfigStorage.MarketConfig({
+//        assetId: "LINK",
+//        maxLongPositionSize: 2500000 * 1e30,
+//        maxShortPositionSize: 2500000 * 1e30,
+//        increasePositionFeeRateBPS: 7, // 0.07%
+//        decreasePositionFeeRateBPS: 7, // 0.07%
+//        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
+//        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
+//        maxProfitRateBPS: 300000, // 3000%
+//        assetClass: ASSET_CLASS_CRYPTO,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 100000000 * 1e30, maxFundingRate: 8 * 1e18 })
+//      }),
+//      true
+//    );
+//    configStorage.setMarketConfig(
+//      26,
+//      IConfigStorage.MarketConfig({
+//        assetId: "CHF",
+//        maxLongPositionSize: 3000000 * 1e30,
+//        maxShortPositionSize: 3000000 * 1e30,
+//        increasePositionFeeRateBPS: 1, // 0.01%
+//        decreasePositionFeeRateBPS: 1, // 0.01%
+//        initialMarginFractionBPS: 10, // IMF = 0.1%, Max leverage = 1000
+//        maintenanceMarginFractionBPS: 5, // MMF = 0.05%
+//        maxProfitRateBPS: 250000, // 2500%
+//        assetClass: ASSET_CLASS_FOREX,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({
+//          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
+//          maxFundingRate: 1e18 // 100% per day
+//        })
+//      }),
+//      false
+//    );
+//    configStorage.setMarketConfig(
+//      27,
+//      IConfigStorage.MarketConfig({
+//        assetId: "DOGE",
+//        maxLongPositionSize: 2500000 * 1e30,
+//        maxShortPositionSize: 2500000 * 1e30,
+//        increasePositionFeeRateBPS: 7, // 0.07%
+//        decreasePositionFeeRateBPS: 7, // 0.07%
+//        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
+//        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
+//        maxProfitRateBPS: 300000, // 3000%
+//        assetClass: ASSET_CLASS_CRYPTO,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({ maxSkewScaleUSD: 200000000 * 1e30, maxFundingRate: 8 * 1e18 })
+//      }),
+//      true
+//    );
+//    configStorage.setMarketConfig(
+//      28,
+//      IConfigStorage.MarketConfig({
+//        assetId: "CAD",
+//        maxLongPositionSize: 3000000 * 1e30,
+//        maxShortPositionSize: 3000000 * 1e30,
+//        increasePositionFeeRateBPS: 1, // 0.01%
+//        decreasePositionFeeRateBPS: 1, // 0.01%
+//        initialMarginFractionBPS: 10, // IMF = 0.1%, Max leverage = 1000
+//        maintenanceMarginFractionBPS: 5, // MMF = 0.05%
+//        maxProfitRateBPS: 250000, // 2500%
+//        assetClass: ASSET_CLASS_FOREX,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({
+//          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
+//          maxFundingRate: 1e18 // 100% per day
+//        })
+//      }),
+//      false
+//    );
+//    configStorage.setMarketConfig(
+//      29,
+//      IConfigStorage.MarketConfig({
+//        assetId: "SGD",
+//        maxLongPositionSize: 3000000 * 1e30,
+//        maxShortPositionSize: 3000000 * 1e30,
+//        increasePositionFeeRateBPS: 1, // 0.01%
+//        decreasePositionFeeRateBPS: 1, // 0.01%
+//        initialMarginFractionBPS: 10, // IMF = 0.1%, Max leverage = 1000
+//        maintenanceMarginFractionBPS: 5, // MMF = 0.05%
+//        maxProfitRateBPS: 250000, // 2500%
+//        assetClass: ASSET_CLASS_FOREX,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({
+//          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
+//          maxFundingRate: 1e18 // 100% per day
+//        })
+//      }),
+//      false
+//    );
+//    configStorage.setMarketConfig(
+//      30,
+//      IConfigStorage.MarketConfig({
+//        assetId: "CNH",
+//        maxLongPositionSize: 3000000 * 1e30,
+//        maxShortPositionSize: 3000000 * 1e30,
+//        increasePositionFeeRateBPS: 1, // 0.01%
+//        decreasePositionFeeRateBPS: 1, // 0.01%
+//        initialMarginFractionBPS: 10, // IMF = 0.1%, Max leverage = 1000
+//        maintenanceMarginFractionBPS: 5, // MMF = 0.05%
+//        maxProfitRateBPS: 250000, // 2500%
+//        assetClass: ASSET_CLASS_FOREX,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({
+//          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
+//          maxFundingRate: 1e18 // 100% per day
+//        })
+//      }),
+//      false
+//    );
+//    configStorage.setMarketConfig(
+//      31,
+//      IConfigStorage.MarketConfig({
+//        assetId: "HKD",
+//        maxLongPositionSize: 3000000 * 1e30,
+//        maxShortPositionSize: 3000000 * 1e30,
+//        increasePositionFeeRateBPS: 1, // 0.01%
+//        decreasePositionFeeRateBPS: 1, // 0.01%
+//        initialMarginFractionBPS: 10, // IMF = 0.1%, Max leverage = 1000
+//        maintenanceMarginFractionBPS: 5, // MMF = 0.05%
+//        maxProfitRateBPS: 250000, // 2500%
+//        assetClass: ASSET_CLASS_FOREX,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({
+//          maxSkewScaleUSD: 10000000000 * 1e30, // 10B
+//          maxFundingRate: 1e18 // 100% per day
+//        })
+//      }),
+//      false
+//    );
+//    configStorage.setMarketConfig(
+//      32,
+//      IConfigStorage.MarketConfig({
+//        assetId: "BCH",
+//        maxLongPositionSize: 2500000 * 1e30,
+//        maxShortPositionSize: 2500000 * 1e30,
+//        increasePositionFeeRateBPS: 7, // 0.07%
+//        decreasePositionFeeRateBPS: 7, // 0.07%
+//        initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
+//        maintenanceMarginFractionBPS: 50, // MMF = 0.5%
+//        maxProfitRateBPS: 250000, // 2500%
+//        assetClass: ASSET_CLASS_CRYPTO,
+//        allowIncreasePosition: true,
+//        active: true,
+//        fundingRate: IConfigStorage.FundingRate({
+//          maxSkewScaleUSD: 200000000 * 1e30, // 10B
+//          maxFundingRate: 8e18 // 800% per day
+//        })
+//      }),
+//      false
+//    );
     vm.stopPrank();
   }
 
