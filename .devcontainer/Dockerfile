@@ -37,6 +37,8 @@ RUN /home/vscode/.foundry/bin/foundryup
 RUN npm install --global yarn
 
 WORKDIR /workspaces/${WORKSPACE_FOLDER_BASENAME}
+RUN mkdir -p /workspaces/${WORKSPACE_FOLDER_BASENAME}/node_modules
+RUN chown -R vscode:vscode /workspaces/${WORKSPACE_FOLDER_BASENAME}/node_modules
 COPY --chown=vscode ../package.json ../yarn.lock /workspaces/${WORKSPACE_FOLDER_BASENAME}/
 RUN yarn
 
