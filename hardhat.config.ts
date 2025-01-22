@@ -1,5 +1,5 @@
 import { config as dotEnvConfig } from "dotenv";
-import { HardhatUserConfig } from "hardhat/config";
+import { HardhatUserConfig, task } from "hardhat/config";
 import fs from "fs";
 dotEnvConfig();
 
