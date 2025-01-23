@@ -9,12 +9,19 @@ import { CIXPriceAdapter } from "@hmx/oracles/CIXPriceAdapter.sol";
 import { Deployer } from "@hmx-test/libs/Deployer.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { IWethWithdrawProxy } from "@hmx/extensions/IWethWithdrawProxy.sol";
+import { WethWithdrawProxy } from "@hmx/extensions/WethWithdrawProxy.sol";
 
 contract WethWithdrawProxy_BaseTest is BaseTest {
+
+  WethWithdrawProxy internal wethWithdrawProxy;
 
   address internal EXECUTOR;
 
   function setUp() public virtual {
+
+    wethWithdrawProxy = new WethWithdrawProxy();
+    wethWithdrawProxy.setWeth(address(weth));
+
     EXECUTOR = makeAddr("Executor");
 
     address[] memory executors = new address[](1);

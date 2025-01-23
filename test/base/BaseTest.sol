@@ -50,6 +50,7 @@ import { EcoPyth } from "@hmx/oracles/EcoPyth.sol";
 
 import { IConvertedGlpStrategy } from "@hmx/strategies/interfaces/IConvertedGlpStrategy.sol";
 import { IGmxRewardRouterV2 } from "@hmx/interfaces/gmx/IGmxRewardRouterV2.sol";
+import { WethWithdrawProxy } from "@hmx/extensions/WethWithdrawProxy.sol";
 import { StdStorage , stdStorage} from "forge-std/StdStorage.sol";
 
 abstract contract BaseTest is Test {
