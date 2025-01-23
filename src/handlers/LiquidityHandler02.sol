@@ -168,8 +168,10 @@ contract LiquidityHandler02 is OwnableUpgradeable, ReentrancyGuardUpgradeable, I
   }
 
   receive() external payable {
-    if (msg.sender != ConfigStorage(LiquidityService(liquidityService).configStorage()).weth())
-      revert ILiquidityHandler02_InvalidSender();
+    // @dev Cannot enable this check due to Solidity Fallback Function Gas Limit introduced in 0.8.17.
+    // ref - https://stackoverflow.com/questions/74930609/solidity-fallback-function-gas-limit
+    // if (msg.sender != address(wethWithdrawProxy) && msg.sender != ConfigStorage(LiquidityService(liquidityService).configStorage()).weth())
+    //  revert ILiquidityHandler02_InvalidSender();
   }
 
   /**
