@@ -50,7 +50,8 @@ contract BulkSendErc20_LeggoForkTest is DynamicForkBaseTest {
     assertEq(weth.balanceOf(BOB), 10_000 * 1e18);
 
     vm.startPrank(ALICE);
-    vm.expectRevert("ERC20: insufficient allowance");
+    // vm.expectRevert("ERC20: insufficient allowance"); // Testnet
+    vm.expectRevert("ERC20: transfer amount exceeds allowance");
     bulkSendErc20.leggo(tokens, recipients, amounts);
   }
 }
