@@ -3,6 +3,7 @@ cache/
 cache_hardhat/
 out/
 .vscode
+.idea/
 node_modules
 typechain
 broadcast/
