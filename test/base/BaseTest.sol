@@ -4,7 +4,7 @@
 
 pragma solidity 0.8.18;
 
-import { TestBase } from "forge-std/Base.sol";
+import { Test } from "forge-std/Test.sol";
 import { console2 } from "forge-std/console2.sol";
 import { StdCheatsSafe } from "forge-std/StdCheats.sol";
 import { StdAssertions } from "forge-std/StdAssertions.sol";
@@ -50,8 +50,14 @@ import { EcoPyth } from "@hmx/oracles/EcoPyth.sol";
 
 import { IConvertedGlpStrategy } from "@hmx/strategies/interfaces/IConvertedGlpStrategy.sol";
 import { IGmxRewardRouterV2 } from "@hmx/interfaces/gmx/IGmxRewardRouterV2.sol";
+import { WethWithdrawProxy } from "@hmx/extensions/WethWithdrawProxy.sol";
+import { StdStorage , stdStorage} from "forge-std/StdStorage.sol";
 
-abstract contract BaseTest is TestBase, StdAssertions, StdCheatsSafe {
+abstract contract BaseTest is Test {
+  using stdStorage for StdStorage;
+
+  StdStorage stdStore;
+
   address internal ALICE;
   address internal BOB;
   address internal CAROL;

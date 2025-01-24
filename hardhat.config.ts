@@ -1,5 +1,5 @@
 import { config as dotEnvConfig } from "dotenv";
-import { HardhatUserConfig } from "hardhat/config";
+import { HardhatUserConfig, task } from "hardhat/config";
 import fs from "fs";
 dotEnvConfig();
 
@@ -12,6 +12,32 @@ import "@typechain/hardhat";
 import "@nomiclabs/hardhat-ethers";
 import "hardhat-deploy";
 import "@nomicfoundation/hardhat-verify";
+
+// import { task } from "hardhat";
+import { getImplementationAddress } from "@openzeppelin/upgrades-core";
+
+task("tenderly-verify-proxy", "")
+  .addParam("address", "The contract address")
+  .addParam("contract", "The contract name")
+  .setAction(async (args:any, hre:any) => {
+    console.log("Implementation at ", await getImplementationAddress(hre.network.provider, args.address));
+    await hre.tenderly.verify({
+      address: await getImplementationAddress(hre.network.provider, args.address),
+      name: args.contract,
+    });
+
+  });
+
+task("tenderly-verify", "")
+  .addParam("address", "The contract address")
+  .addParam("contract", "The contract name")
+  .setAction(async (args:any, hre:any) => {
+    await hre.tenderly.verify({
+      address: args.address,
+      name: args.contract,
+    });
+
+  });
 
 function getRemappings() {
   return fs

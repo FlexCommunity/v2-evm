@@ -217,7 +217,9 @@ contract LimitTradeHandler is OwnableUpgradeable, ReentrancyGuardUpgradeable, IL
   }
 
   receive() external payable {
-    if (msg.sender != weth) revert ILimitTradeHandler_InvalidSender();
+    // @dev Cannot enable this check due to Solidity Fallback Function Gas Limit introduced in 0.8.17.
+    // ref - https://stackoverflow.com/questions/74930609/solidity-fallback-function-gas-limit
+    // if (msg.sender != weth) revert ILimitTradeHandler_InvalidSender();
   }
 
   /**

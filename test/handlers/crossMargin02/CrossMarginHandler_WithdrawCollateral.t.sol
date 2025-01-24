@@ -58,6 +58,7 @@ contract CrossMarginHandler_WithdrawCollateral is CrossMarginHandler_Base02 {
     assertEq(vaultStorage.traderBalances(subAccount, address(weth)), 7 ether);
     assertEq(weth.balanceOf(address(vaultStorage)), 7 ether);
     assertEq(weth.balanceOf(ALICE), 3 ether);
+    assertEq(ALICE.balance, 0);
 
     // Try withdraw WETH, but with unwrap option
     simulateAliceWithdrawToken(address(weth), 1.5 ether, tickPrices, publishTimeDiffs, block.timestamp, true);

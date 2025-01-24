@@ -3,6 +3,7 @@ cache/
 cache_hardhat/
 out/
 .vscode
+.idea/
 node_modules
 typechain
 broadcast/
@@ -13,3 +14,4 @@ script/ts/inputs/
 .env
 .DS_Store
 hardhat.config.local.ts
+tenderly.yaml
