@@ -2,7 +2,7 @@
   "proxyAdmin": "0x415DC1E7B6DF1fB63fb1fFabf21AFB1776898E0C",
   "multicall": "",
   "timelock": "",
-  "safe": "",
+  "safe": "0xf0d00E8435E71df33bdA19951B433B509A315aee",
   "storages": {
     "config": "0x4D4f976b16cb16bad32Fa5dcF74Db1c2261d6993",
     "perp": "0x2cEDAD0049b1aab530e38f7C2704620e75735df4",
