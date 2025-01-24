@@ -43,9 +43,10 @@ contract EcoPythCalldataBuilder3_ForkTest is DynamicForkBaseTest {
 
   function setUp() public override {
     // mainnet roll fork
-    vm.rollFork(25383400);
     super.setUp();
     if (!isForkSupported) return;
+
+    vm.rollFork(25383400);
 
     cix1PriceAdapter = new CIXPriceAdapter();
     _setupCIX1PriceAdapter();

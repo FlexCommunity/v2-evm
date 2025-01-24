@@ -38,11 +38,10 @@ contract OnChainPriceLens_ForkTest is DynamicForkBaseTest {
 
   function setUp() public override {
     // mainnet roll fork
-    vm.rollFork(25383400);
     super.setUp();
-    if (!isForkSupported) {
-      return;
-    }
+    if (!isForkSupported) return;
+    
+    vm.rollFork(25383400);
 
     wstEthUsdPriceAdapter = new WstEthUsdPriceAdapter(
       AggregatorV3Interface(wstEthPriceFeed),
