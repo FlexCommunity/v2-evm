@@ -16,6 +16,9 @@ contract LiquidityHandler_Base02 is BaseTest {
   uint8 internal constant SUB_ID = 0;
 
   function setUp() public virtual {
+    // Force to use timestamp 1 as fork tests make
+    vm.warp(1);
+
     liquidityHandler = Deployer.deployLiquidityHandler02(
       address(proxyAdmin),
       address(mockLiquidityService),

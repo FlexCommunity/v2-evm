@@ -26,6 +26,9 @@ abstract contract TradeService_Base is BaseTest {
   MarketTester globalMarketTester;
 
   function setUp() public virtual {
+    // Force to use timestamp 1 as fork tests make
+    vm.warp(1);
+
     configStorage.setCalculator(address(mockCalculator));
     positionTester = new PositionTester(perpStorage, vaultStorage, mockOracle);
     positionTester02 = new PositionTester02(perpStorage);

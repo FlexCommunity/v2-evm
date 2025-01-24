@@ -24,6 +24,9 @@ contract CrossMarginHandler_Base02 is BaseTest {
   uint24[] internal publishTimeDiffs;
 
   function setUp() public virtual {
+    // Force to use timestamp 1 as fork tests make
+    vm.warp(1);
+
     tickPrices = new int24[](3);
     tickPrices[0] = 99039;
     tickPrices[1] = 73135;

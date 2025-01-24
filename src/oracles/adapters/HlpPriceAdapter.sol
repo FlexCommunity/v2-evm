@@ -19,6 +19,10 @@ contract HlpPriceAdapter is IPriceAdapter {
 
   /// @notice Return the price of HLP in 18 decimals
   function getPrice() external view returns (uint256 price) {
-    price = (calculator.getAUME30(false) * 1e18) / hlp.totalSupply() / 1e12;
+    uint256 hlpTotalSupply = hlp.totalSupply();
+    if (hlpTotalSupply == 0) {
+      return 1;
+    }
+    price = (calculator.getAUME30(false) * 1e18) / hlpTotalSupply / 1e12;
   }
 }

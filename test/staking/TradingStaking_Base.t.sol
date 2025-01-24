@@ -22,6 +22,9 @@ abstract contract TradingStaking_Base is BaseTest {
   IRewarder internal ethMarketRewarder4;
 
   function setUp() public virtual {
+    // Force to use timestamp 1 as fork tests make
+    vm.warp(1);
+
     rewardToken1 = new MockErc20("Reward Token 1", "RWD1", 18);
     rewardToken2 = new MockErc20("Reward Token 2", "RWD2", 18);
     rewardToken3 = new MockErc20("Reward Token 3", "RWD3", 18);
