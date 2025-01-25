@@ -1,8 +1,7 @@
 import { ethers, tenderly, upgrades, network } from "hardhat";
 import { getConfig, writeConfigFile } from "../../utils/config";
-import { RebalanceHLPHandler__factory } from "../../../../typechain";
-import signers from "../../entities/signers";
 import { getImplementationAddress } from "@openzeppelin/upgrades-core";
+import { runMainAsAsync } from "../../utils/main-fn-wrappers";
 
 const config = getConfig();
 
@@ -10,7 +9,10 @@ async function main() {
   const deployer = (await ethers.getSigners())[0];
 
   const Contract = await ethers.getContractFactory("RebalanceHLPHandler", deployer);
-  const contract = await upgrades.deployProxy(Contract, [config.services.rebalanceHLP, config.oracles.ecoPyth2]);
+  const contract = await upgrades.deployProxy(Contract, [
+    config.services.rebalanceHLP!,
+    config.oracles.ecoPyth2!,
+  ]);
   await contract.deployed();
 
   console.log(`Deploying RebalanceHLPHandler Contract`);
@@ -25,7 +27,4 @@ async function main() {
   });
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+runMainAsAsync(main)

@@ -1,4 +1,4 @@
-import { ethers, tenderly, upgrades, network } from "hardhat";
+import { ethers, tenderly, upgrades, network, run } from "hardhat";
 import { getConfig, writeConfigFile } from "../../utils/config";
 import { getImplementationAddress } from "@openzeppelin/upgrades-core";
 
@@ -10,14 +10,14 @@ async function main() {
 
   const Contract = await ethers.getContractFactory("RebalanceHLPService", deployer);
   const contract = await upgrades.deployProxy(Contract, [
-    config.tokens.sglp,
-    config.vendors.gmx.rewardRouterV2,
-    config.vendors.gmx.glpManager,
-    config.storages.vault,
-    config.storages.config,
-    config.calculator,
-    config.extension.switchCollateralRouter,
-    minHLPValueLossBPS,
+    ethers.constants.AddressZero,// config.tokens.sglp,
+    ethers.constants.AddressZero, // config.vendors.gmx.rewardRouterV2,
+    ethers.constants.AddressZero, //config.vendors.gmx.glpManager,
+    config.storages.vault!,
+    config.storages.config!,
+    config.calculator!,
+    config.extension.switchCollateralRouter!,
+    minHLPValueLossBPS!,
   ]);
 
   await contract.deployed();
@@ -26,6 +26,11 @@ async function main() {
 
   config.services.rebalanceHLP = contract.address;
   writeConfigFile(config);
+
+  await run("verify:verify", {
+    address: await getImplementationAddress(network.provider, config.tokens.flp),
+    constructorArguments: [],
+  });
 
   await tenderly.verify({
     address: await getImplementationAddress(network.provider, contract.address),
