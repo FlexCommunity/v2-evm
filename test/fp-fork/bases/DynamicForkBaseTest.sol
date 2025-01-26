@@ -8,6 +8,7 @@ import { console2 } from "forge-std/console2.sol";
 import { Deployer } from "@hmx-test/libs/Deployer.sol";
 import { ProxyAdmin } from "@openzeppelin/contracts/proxy/transparent/ProxyAdmin.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import { StdStorage , stdStorage} from "forge-std/StdStorage.sol";
 import { Test } from "forge-std/Test.sol";
 import { Uint2str } from "@hmx-test/libs/Uint2str.sol";
@@ -65,6 +66,7 @@ import { IUniversalRouter } from "@hmx/interfaces/uniswap/IUniversalRouter.sol";
 
 import { HMXLib } from "@hmx/libraries/HMXLib.sol";
 import { LimitTradeHelper } from "@hmx/helpers/LimitTradeHelper.sol";
+import { ISwitchCollateralRouter } from "@hmx/extensions/switch-collateral/interfaces/ISwitchCollateralRouter.sol";
 
 
 contract DynamicForkBaseTest is Test {
@@ -144,8 +146,10 @@ contract DynamicForkBaseTest is Test {
     /// Tokens
     IERC20 internal usdc_e;
     IERC20 internal usdc;
+    uint8 internal usdcDec;
     IERC20 internal weth;
     IERC20 internal wbtc;
+    uint8 internal wbtcDec;
     // IERC20 internal usdt;
     IERC20 internal dai;
     // IERC20 internal arb;
@@ -153,6 +157,7 @@ contract DynamicForkBaseTest is Test {
     IERC20 internal hlp;
 
     OrderbookOracle orderbookOracle;
+    ISwitchCollateralRouter internal switchCollateralRouter;
 
     modifier onlyBaseMainnetChain() {
         vm.skip(block.chainid != Chains.BASE_MAINNET_CHAIN_ID);
@@ -191,11 +196,15 @@ contract DynamicForkBaseTest is Test {
         proxyAdmin = ProxyAdmin(config.getAddress(".proxyAdmin"));
 
         configStorage = ConfigStorage(config.getAddress(".storages.config"));
+        vm.label(address(configStorage), "ConfigStorage");
+
         perpStorage = PerpStorage(config.getAddress(".storages.perp"));
         vaultStorage = VaultStorage(config.getAddress(".storages.vault"));
+        vm.label(address(vaultStorage), "VaultStorage");
 
         limitTradeHelper = LimitTradeHelper(config.getAddress(".helpers.limitTrade"));
         calculator = ICalculator(config.getAddress(".calculator"));
+        vm.label(address(calculator), "Calculator");
 
         hlpStaking = IHLPStaking(config.getAddress(".staking.hlp"));
 
@@ -204,7 +213,8 @@ contract DynamicForkBaseTest is Test {
         liquidityHandler = LiquidityHandler(payable(config.getAddress(".handlers.liquidity")));
         botHandler = IBotHandler(config.getAddress(".handlers.bot"));
         rebalanceHLPHandler = RebalanceHLPHandler(config.getAddress(".handlers.rebalanceHLP"));
-    
+        vm.label(address(rebalanceHLPHandler), "RebalanceHLPHandler");
+
         ecoPyth2 = IEcoPyth(config.getAddress(".oracles.ecoPyth2"));
         ecoPythBuilder =
             IEcoPythCalldataBuilder3(config.getAddress(".oracles.unsafeEcoPythCalldataBuilder3")); // UnsafeEcoPythCalldataBuilder
@@ -217,6 +227,7 @@ contract DynamicForkBaseTest is Test {
         liquidityService = LiquidityService(config.getAddress(".services.liquidity"));
         tradeService = TradeService(config.getAddress(".services.trade"));
         rebalanceHLPService = RebalanceHLPService(config.getAddress(".services.rebalanceHLP"));
+        vm.label(address(rebalanceHLPService), "RebalanceHLPService");
     
         // oneInchRouter = config.getAddress(".vendors.oneInch.router");
 
@@ -236,12 +247,17 @@ contract DynamicForkBaseTest is Test {
 
         usdc_e = IERC20(config.getAddress(".tokens.usdc"));
         usdc = IERC20(config.getAddress(".tokens.usdc"));
+        usdcDec = ERC20(address(usdc)).decimals();
         weth = IERC20(config.getAddress(".tokens.weth"));
         wbtc = IERC20(config.getAddress(".tokens.wbtc"));
+        wbtcDec = ERC20(address(wbtc)).decimals();
         // usdt = IERC20(config.getAddress(".tokens.usdt"));
         dai = IERC20(config.getAddress(".tokens.dai"));
         wstEth = IERC20(config.getAddress(".tokens.wstEth"));
         hlp = IERC20(config.getAddress(".tokens.hlp"));
+
+        switchCollateralRouter = ISwitchCollateralRouter(config.getAddress(".extension.switchCollateralRouter"));
+        vm.label(address(switchCollateralRouter), "SwitchCollateralRouter");
     }
 
     function _setUpBaseSepoliaChain() private {
