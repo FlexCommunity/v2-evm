@@ -69,6 +69,11 @@ async function main(chainId: number) {
       executorAddress: config.rewardDistributor!,
       isServiceExecutor: true,
     },
+    {
+      contractAddress: config.services.rebalanceHLP!,
+      executorAddress: config.handlers.rebalanceHLP!,
+      isServiceExecutor: true,
+    },
   ];
 
   const deployer = await signers.deployer(chainId);
