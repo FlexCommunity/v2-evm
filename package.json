@@ -7,6 +7,7 @@
   "scripts": {
     "compile": "hardhat compile",
     "compile-all": "sh -c 'npm run | grep compile:src | awk \"{print $1}\" | xargs -n1 npm run'",
+    "rm-cache": "rm -rf ./artifacts && rm -rf -rf ./cache && rm -rf ./cache_hardhat && rm -rf ./typechain",
     "compile:src:contracts": "HH_PATH_SOURCES=./src/contracts hardhat compile",
     "compile:src:extensions": "HH_PATH_SOURCES=./src/extensions hardhat compile",
     "compile:src:handlers": "HH_PATH_SOURCES=./src/handlers hardhat compile",
