@@ -49,7 +49,7 @@ contract IntentHandler is OwnableUpgradeable, ReentrancyGuardUpgradeable, EIP712
   ) external initializer {
     OwnableUpgradeable.__Ownable_init();
     ReentrancyGuardUpgradeable.__ReentrancyGuard_init();
-    EIP712Upgradeable.__EIP712_init("IntentHander", "1.0.0");
+    EIP712Upgradeable.__EIP712_init("IntentHandler", "1.0.0");
 
     pyth = IEcoPyth(_pyth);
     configStorage = ConfigStorage(_configStorage);
