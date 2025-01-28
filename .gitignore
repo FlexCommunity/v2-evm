@@ -14,4 +14,6 @@ script/ts/inputs/
 .env
 .DS_Store
 hardhat.config.local.ts
+/.tenderly/
 tenderly.yaml
+/dev/
