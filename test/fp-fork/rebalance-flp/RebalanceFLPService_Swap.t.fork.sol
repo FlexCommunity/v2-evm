@@ -15,7 +15,7 @@ import { Uint2str } from "@hmx-test/libs/Uint2str.sol";
 
 import { console } from "forge-std/console.sol";
 
-contract RebalanceFLPService_OneInchSwapForkTest is DynamicForkBaseTestWithActions {
+contract RebalanceFLPService_SwapForkTest is DynamicForkBaseTestWithActions {
   using Uint2str for uint256;
 
   address sglp = address(0);
@@ -24,8 +24,33 @@ contract RebalanceFLPService_OneInchSwapForkTest is DynamicForkBaseTestWithActio
     super.setUp();
     if (!isFork()) return;
 
+//    vm.startPrank(proxyAdmin.owner());
+//    Deployer.upgrade("RebalanceHLPHandler", address(proxyAdmin), address(rebalanceHLPHandler));
+//    Deployer.upgrade("RebalanceHLPService", address(proxyAdmin), address(rebalanceHLPService));
+//    Deployer.upgrade("LiquidityHandler", address(proxyAdmin), address(liquidityHandler));
+//    Deployer.upgrade("LiquidityService", address(proxyAdmin), address(liquidityService));
+//    Deployer.upgrade("OracleMiddleware", address(proxyAdmin), address(oracleMiddleware));
+//    vm.stopPrank();
+
     // Mock EcoPyth
     makeEcoPythMockable();
+
+    // Create FLP if FLP is empty
+  if (vaultStorage.hlpLiquidity(address(wbtc)) == 0 || vaultStorage.hlpLiquidity(address(usdc)) == 0) {
+      deal(ALICE, 1 ether);
+      deal(address(usdc), ALICE, 500_000 * 40 / 100 * 10**usdcDec);
+      deal(address(wbtc), ALICE, 500_000 * 40 / 100 * 10**wbtcDec / 105_000);
+      deal(address(weth), ALICE, (500_000 * 20 / 100 * (10**wethDec)) / 3500);
+
+      MockEcoPyth(address(ecoPyth2)).overridePrice(bytes32("USDC"), 1 * 1e8);
+      MockEcoPyth(address(ecoPyth2)).overridePrice(bytes32("BTC"), 1.11967292 * 1e8);
+      MockEcoPyth(address(ecoPyth2)).overridePrice(bytes32("ETH"), 0.98014296 * 1e8);
+
+      addLiquidity(ALICE, usdc, usdc.balanceOf(ALICE), true);
+      addLiquidity(ALICE, wbtc, wbtc.balanceOf(ALICE), true);
+      addLiquidity(ALICE, weth, (500_000 * 20 / 100 * (10**wethDec)) / 3500, true);
+    }
+
   }
 
   function testCorrectness_WhenSwap() external onlyFork {
@@ -67,8 +92,8 @@ contract RebalanceFLPService_OneInchSwapForkTest is DynamicForkBaseTestWithActio
     uint256 wbtcFlp0 = vaultStorage.hlpLiquidity(address(wbtc));
     uint256 usdcFlp0 = vaultStorage.hlpLiquidity(address(usdc));
 
-    console.log("wbtcFlp0: ", wbtcFlp0.uint2str(wbtcDec));
-    console.log("usdcFlp0: ", usdcFlp0.uint2str(usdcDec));
+//    console.log("wbtcFlp0: ", wbtcFlp0.uint2str(wbtcDec));
+//    console.log("usdcFlp0: ", usdcFlp0.uint2str(usdcDec));
 
     rebalanceHLPHandler.swap(
       IRebalanceHLPService.SwapParams({ amountIn: 100 * 10**usdcDec, minAmountOut: 1, path: path }),

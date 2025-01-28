@@ -148,6 +148,7 @@ contract DynamicForkBaseTest is Test {
     IERC20 internal usdc;
     uint8 internal usdcDec;
     IERC20 internal weth;
+    uint8 internal wethDec;
     IERC20 internal wbtc;
     uint8 internal wbtcDec;
     // IERC20 internal usdt;
@@ -249,6 +250,7 @@ contract DynamicForkBaseTest is Test {
         usdc = IERC20(config.getAddress(".tokens.usdc"));
         usdcDec = ERC20(address(usdc)).decimals();
         weth = IERC20(config.getAddress(".tokens.weth"));
+        wethDec = ERC20(address(weth)).decimals();
         wbtc = IERC20(config.getAddress(".tokens.wbtc"));
         wbtcDec = ERC20(address(wbtc)).decimals();
         // usdt = IERC20(config.getAddress(".tokens.usdt"));

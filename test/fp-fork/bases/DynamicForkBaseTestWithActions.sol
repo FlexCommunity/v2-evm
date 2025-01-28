@@ -10,6 +10,9 @@ import { MockEcoPyth } from "@hmx-test/mocks/MockEcoPyth.sol";
 
 /// HMX
 import { HMXLib } from "@hmx/libraries/HMXLib.sol";
+import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
+
+import { console } from "forge-std/console.sol";
 
 abstract contract DynamicForkBaseTestWithActions is DynamicForkBaseTest {
 
@@ -63,6 +66,30 @@ abstract contract DynamicForkBaseTestWithActions is DynamicForkBaseTest {
     if (executeNow) {
       executeHLPOrder(_orderIndex);
     }
+  }
+
+  function updatePriceTime() internal {
+    int24[] memory tickPrices;
+    uint24[] memory publishTimeDiffs;
+
+    tickPrices = new int24[](3);
+    tickPrices[0] = 99039;
+    tickPrices[1] = 73135;
+    tickPrices[2] = 73135;
+
+    publishTimeDiffs = new uint24[](3);
+    publishTimeDiffs[0] = 0;
+    publishTimeDiffs[1] = 0;
+    publishTimeDiffs[2] = 0;
+
+    vm.prank(Ownable(address(ecoPyth2)).owner());
+    ecoPyth2.setUpdater(address(this), true);
+
+    // have to updatePriceFeed first, before oracleMiddleware.setAssetPriceConfig sanity check price
+    bytes32[] memory priceUpdateDatas = ecoPyth2.buildPriceUpdateData(tickPrices);
+    bytes32[] memory publishTimeUpdateDatas = ecoPyth2.buildPublishTimeUpdateData(publishTimeDiffs);
+
+    ecoPyth2.updatePriceFeeds(priceUpdateDatas, publishTimeUpdateDatas, 1600, keccak256("pyth"));
   }
 
   function executeHLPOrder(uint256 _endIndex) internal {
