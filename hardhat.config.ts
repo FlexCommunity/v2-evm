@@ -70,7 +70,7 @@ const config: HardhatUserConfig = {
     },
     tenderly_base_sepolia: {
       url: process.env.TENDERLY_BASE_SEPOLIA_RPC || "",
-      chainId: 184532,
+      chainId: 8453,
       accounts: process.env.MAINNET_PRIVATE_KEY !== undefined ? [process.env.MAINNET_PRIVATE_KEY] : [],
     },
   },
